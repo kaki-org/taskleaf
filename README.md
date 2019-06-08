@@ -21,4 +21,9 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* その他
+
+erbではなくslimを使う為にhtml2slimを使用。デフォルトのerbファイルは以下のコマンドで変換済み
+```
+bundle exec erb2slim app/views/layouts/ --delete
+```
