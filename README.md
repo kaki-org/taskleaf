@@ -27,3 +27,10 @@ erbではなくslimを使う為にhtml2slimを使用。デフォルトのerbフ�
 ```
 bundle exec erb2slim app/views/layouts/ --delete
 ```
+
+* 管理者ユーザを作る
+
+rails consoleから
+```
+User.create!(name: 'admin', email: 'admin@example.com', password: 'password', password_confirmation: 'password', admin: true)
+```
