@@ -42,3 +42,8 @@ User.create!(name: 'admin', email: 'admin@example.com', password: 'password', pa
 bundle
 bin/rails g rspec:install
 ```
+
+テストを実行するサンプル
+```
+bundle exec rspec --dry-run spec/system/tasks_spec.rb -f d
+```
