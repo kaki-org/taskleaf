@@ -50,6 +50,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rspec-rails', '~> 3.7'
+  gem 'factory_bot_rails', '~> 4.11'
 end
 
 group :test do
