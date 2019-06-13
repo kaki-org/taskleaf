@@ -40,6 +40,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-byebug'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'factory_bot_rails', '~> 5.0'
 end
 
 group :development do
@@ -49,8 +51,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rspec-rails', '~> 3.7'
-  gem 'factory_bot_rails', '~> 4.11'
 end
 
 group :test do
@@ -58,7 +58,8 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  # gem 'chromedriver-helper' # 2019/03/31?あたりからこいつは非推奨(Capybaraとかでコケまくる。webdriversを利用する)
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
