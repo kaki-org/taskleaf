@@ -47,3 +47,25 @@ bin/rails g rspec:install
 ```
 bundle exec rspec --dry-run spec/system/tasks_spec.rb -f d
 ```
+
+# sandboxモード
+
+
+`-s`をつけるとsandboxモードで起動出来る。DBの変更はすべてロールバックされる
+```
+kakikubo@kair ~/Documents/learning-rails/taskleaf % bin/rails c -s
+Running via Spring preloader in process 2985
+Loading development environment in sandbox (Rails 5.2.3)
+Any modifications you make will be rolled back on exit
+irb(main):001:0> user = User.first
+  User Load (0.5ms)  SELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1  [["LIMIT", 1]]
+=> #<User id: 1, name: "匿名", email: "user@examle.com", password_digest: "digest", created_at: "2019-06-09 11:17:56", updated_at: "2019-06-09 11:17:56", admin: false>
+irb(main):002:0> task = user.tasks.new(name:'')
+=> #<Task id: nil, name: "", description: nil, created_at: nil, updated_at: nil, user_id: 1>
+irb(main):003:0> task.valid?
+=> true
+irb(main):004:0> #ここでCtrl-Dを押してexitする
+   (0.5ms)  ROLLBACK
+kakikubo@kair ~/Documents/learning-rails/taskleaf %
+
+```
