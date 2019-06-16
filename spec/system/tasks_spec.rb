@@ -53,6 +53,7 @@ describe 'タスク管理機能', type: :system do
 
   describe '新規作成機能' do
     let(:login_user) { user_a }
+    let(:task_name){'新規作成のテストを書く'} # デフォルトとして設定
 
     before do
       visit new_task_path
@@ -61,8 +62,7 @@ describe 'タスク管理機能', type: :system do
     end
 
     context '新規作成画面で名称を入力したとき' do
-      let(:task_name) { '新規作成のテストを書く'}
-
+      let(:task_name){'新規作成のテストを書く'} # デフォルトで設定されているので本来不要な行
       it '正常に登録される' do
         expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
       end
