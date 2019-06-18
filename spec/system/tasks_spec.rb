@@ -8,7 +8,7 @@ describe 'タスク管理機能', type: :system do
   before do
     # ユーザAを作成
     # 作成者がユーザAであるタスクを作成
-    FactoryBot.create(:task, name: '最初のタスク', user: user_a)
+    @task = FactoryBot.create(:task, name: '最初のタスク', user: user_a)
     # ユーザAでログインする
     # 1. ログイン画面にアクセス
     visit login_path
@@ -79,6 +79,20 @@ describe 'タスク管理機能', type: :system do
   end
   # TODO
   # 更新機能
+  describe '更新機能' do
+    let(:login_user) { user_a }
+
+    before do
+      visit edit_task_path id: @task.id
+    end
+    context '更新画面で名称と詳しい説明を入力したとき' do
+      it '正常に更新される' do
+        fill_in '名称', with: '最初のタスク(更新後)'
+        click_button '更新する'
+        expect(page).to have_selector '.alert-success', text: '最初のタスク(更新後)'
+      end
+    end
+  end
   # 削除機能
   # のテストを書く
 end
