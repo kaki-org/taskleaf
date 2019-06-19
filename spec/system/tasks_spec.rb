@@ -8,7 +8,7 @@ describe 'タスク管理機能', type: :system do
   before do
     # ユーザAを作成
     # 作成者がユーザAであるタスクを作成
-    @task = FactoryBot.create(:task, name: '最初のタスク', user: user_a)
+    @task = FactoryBot.create(:task, name: '次のタスク', description: '詳細な説明', user: user_a)
     # ユーザAでログインする
     # 1. ログイン画面にアクセス
     visit login_path
@@ -85,7 +85,6 @@ describe 'タスク管理機能', type: :system do
       end
     end
   end
-  # TODO
   # 更新機能
   describe '更新機能' do
     let(:login_user) { user_a }
@@ -101,6 +100,30 @@ describe 'タスク管理機能', type: :system do
       end
     end
   end
+
+  # 検索機能(ransack)
+  describe '検索機能' do
+    let(:login_user) { user_a }
+
+    before do
+      visit tasks_path q: {name_cont: '最初'}
+    end
+    context '検索結果を確認したとき' do
+      it_behaves_like 'ユーザAが作成したタスクが表示される'
+      # it '登録したタスクが確認できる' do
+      #   expect(page).to have_content '最初のタスク'
+      # end
+    end
+    before do
+      visit tasks_path q: {description_cont: '詳細な説明'}
+    end
+    context '不正な検索結果を確認したとき' do
+      it '登録したタスク以外も出力されている' do
+        expect(page).to have_content '最初のタスク'
+      end
+    end
+  end
+  # TODO
   # 削除機能
   # のテストを書く
 end
