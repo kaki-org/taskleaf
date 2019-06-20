@@ -123,7 +123,21 @@ describe 'タスク管理機能', type: :system do
       end
     end
   end
+
   # TODO
   # 削除機能
+  describe '削除機能' do
+    let(:login_user) { user_a }
+
+    before do
+      visit task_path id: @task.id
+    end
+    context '削除ボタンを押す' do
+      it "確認ダイアログが表示される" do
+        click_button '削除'
+        expect(page.driver.browser.switch_to.alert.text).to eq "タスク「ビール飲む」を削除します。よろしいですか？"
+      end
+    end
+  end
   # のテストを書く
 end
