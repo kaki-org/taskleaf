@@ -7,7 +7,8 @@ h1 タスクの新規登録
   ul#error_explanation
     - @task.errors.full_messages.each do |message|
       li= message
-= form_with model: @task, local: true, url: confirm_new_task_path do |f|
+= render partial: 'form', locals: { task: @task }
+/= form_with model: @task, local: true, url: confirm_new_task_path do |f|
   .form-group
     = f.label :name
     = f.text_field :name, class: 'form-control', id: 'task_name'
