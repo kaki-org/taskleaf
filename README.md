@@ -83,3 +83,11 @@ mailcatcher
 
 面倒なので、そのうちDocker化してみる(TODO)
 ※ [参考リンク](https://qiita.com/pocari/items/de0436c39ffc65647cf0)
+
+
+# kaminari
+
+paginationでkaminariを使用している。スタイルを適用するために以下を実行してます。
+```
+bin/rails g kaminari:views bootstrap4
+```

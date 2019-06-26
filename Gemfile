@@ -70,4 +70,6 @@ gem 'html2slim'
 gem 'bootstrap'
 gem 'rails_autolink' # TODO rinkuに置き換えたい
 gem 'ransack'
+gem 'kaminari'
+gem 'sidekiq'
 gem 'webpacker'
