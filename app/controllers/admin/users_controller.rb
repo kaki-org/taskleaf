@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < ApplicationController
   before_action :require_admin
 
@@ -42,6 +44,7 @@ class Admin::UsersController < ApplicationController
     @user.destroy
     redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました"
   end
+
   private
 
   def user_params

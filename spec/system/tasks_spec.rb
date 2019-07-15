@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'タスク管理機能', type: :system do
-  let(:user_a){ FactoryBot.create(:user, name: 'ユーザA', email: 'a@example.com')}
-  let(:user_b){ FactoryBot.create(:user, name: 'ユーザB', email: 'b@example.com')}
-  let!(:task_a){ FactoryBot.create(:task, name: '最初のタスク', user: user_a)}
+  let(:user_a) { FactoryBot.create(:user, name: 'ユーザA', email: 'a@example.com') }
+  let(:user_b) { FactoryBot.create(:user, name: 'ユーザB', email: 'b@example.com') }
+  let!(:task_a) { FactoryBot.create(:task, name: '最初のタスク', user: user_a) }
 
   before do
     # ユーザAを作成
@@ -53,7 +55,7 @@ describe 'タスク管理機能', type: :system do
 
   describe '新規作成機能' do
     let(:login_user) { user_a }
-    let(:task_name){'新規作成のテストを書く'} # デフォルトとして設定
+    let(:task_name) { '新規作成のテストを書く' } # デフォルトとして設定
 
     before do
       visit new_task_path
@@ -62,7 +64,7 @@ describe 'タスク管理機能', type: :system do
     end
 
     context '新規作成画面で名称を入力したとき' do
-      let(:task_name){'新規作成のテストを書く'} # デフォルトで設定されているので本来不要な行
+      let(:task_name) { '新規作成のテストを書く' } # デフォルトで設定されているので本来不要な行
 
       it '確認画面が表示される' do
         expect(page).to have_content task_name
@@ -106,7 +108,7 @@ describe 'タスク管理機能', type: :system do
     let(:login_user) { user_a }
 
     before do
-      visit tasks_path q: {name_cont: '最初'}
+      visit tasks_path q: { name_cont: '最初' }
     end
     context '検索結果を確認したとき' do
       it_behaves_like 'ユーザAが作成したタスクが表示される'
@@ -115,7 +117,7 @@ describe 'タスク管理機能', type: :system do
       # end
     end
     before do
-      visit tasks_path q: {description_cont: '詳細な説明'}
+      visit tasks_path q: { description_cont: '詳細な説明' }
     end
     context '不正な検索結果を確認したとき' do
       it '登録したタスク以外も出力されている' do
@@ -133,9 +135,9 @@ describe 'タスク管理機能', type: :system do
       visit task_path id: @task.id
     end
     context '削除ボタンを押す' do
-      it "確認ダイアログが表示される" do
+      it '確認ダイアログが表示される' do
         click_link '削除'
-        expect(page.driver.browser.switch_to.alert.text).to eq "タスク「次のタスク」を削除します。よろしいですか？"
+        expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
       end
     end
   end

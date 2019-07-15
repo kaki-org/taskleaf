@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaskMailer < ApplicationMailer
   default from: 'taskleaf@example.com'
 
@@ -5,7 +7,7 @@ class TaskMailer < ApplicationMailer
     @task = task
     mail(
       subject: 'タスク作成完了メール',
-      to: 'user@example.com',
+      to: 'user@example.com'
     )
   end
 end

@@ -1,15 +1,17 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe TaskMailer, type: :mailer do
   # pending "add some examples to (or delete) #{__FILE__}"
   let(:task) { FactoryBot.create(:task, name: 'メイラーSpecを書く', description: '送信したメールの内容を確認します') }
 
   let(:text_body) do
-    part = mail.body.parts.detect { |part| part.content_type == 'text/plain; charset=UTF-8'}
+    part = mail.body.parts.detect { |part| part.content_type == 'text/plain; charset=UTF-8' }
     part.body.raw_source
   end
   let(:html_body) do
-    part = mail.body.parts.detect { |part| part.content_type == 'text/html; charset=UTF-8'}
+    part = mail.body.parts.detect { |part| part.content_type == 'text/html; charset=UTF-8' }
     part.body.raw_source
   end
 
@@ -31,6 +33,5 @@ RSpec.describe TaskMailer, type: :mailer do
       expect(html_body).to match('メイラーSpecを書く')
       expect(html_body).to match('送信したメールの内容を確認します')
     end
-
   end
 end
