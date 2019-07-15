@@ -24,6 +24,10 @@ default: &default
 development:
   <<: *default
   database: taskleaf_development
+  host: localhost
+  port: 15432
+  username: postgres
+  password: secret
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,6 +62,10 @@ development:
 test:
   <<: *default
   database: taskleaf_test
+  host: localhost
+  port: 15432
+  username: postgres
+  password: secret
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
