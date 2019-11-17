@@ -1,0 +1,27 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./devenv/web/Dockerfile
+    command: foreman start
+    environment:
+      PGSQL_HOST: pgsql
+    volumes:
+      - .:/myapp
+      - bundler:/usr/local/bundle
+    ports:
+      - "3000:3000"
+      - "3035:3035"
+    depends_on:
+      - pgsql
+  pgsql:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./pgsql-data:/var/lib/postgresql/data
+    ports:
+      - "15432:5432"
+volumes:
+  bundler: {}

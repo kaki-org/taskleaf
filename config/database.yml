@@ -24,7 +24,7 @@ default: &default
 development:
   <<: *default
   database: taskleaf_development
-  host: localhost
+  host: <%= ENV['PGSQL_HOST'] || 'localhost' %>
   port: 15432
   username: postgres
   password: secret
@@ -62,7 +62,7 @@ development:
 test:
   <<: *default
   database: taskleaf_test
-  host: localhost
+  host: <%= ENV['PGSQL_HOST'] || 'localhost' %>
   port: 15432
   username: postgres
   password: secret
