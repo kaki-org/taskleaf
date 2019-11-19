@@ -30,8 +30,8 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       # Yarn Setup
       - restore_cache:
-          - keys:
-              - taskleaf-yarn-{{ checksum "yarn.lock" }}
+        keys:
+          - taskleaf-yarn-{{ checksum "yarn.lock" }}
       - run: yarn install
       # Database setup
       - run: mv config/database.yml.ci config/database.yml
