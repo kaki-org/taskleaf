@@ -13,7 +13,8 @@ c:
 	docker-compose run --rm web rails c
 
 reset:
-	docker-compose run --rm web rails db:migrate:reset db:seed_fu db:seed
+	docker-compose run --rm web rails db:migrate:reset db:seed
+#	docker-compose run --rm web rails db:migrate:reset db:seed_fu db:seed
 
 rspec:
 	docker-compose run -e TZ="/usr/share/zoneinfo/Asia/Tokyo" -e LANG=ja_JP.UTF-8 -e LC_ALL=C.UTF-8 -e LANGUAGE=ja_JP.UTF-8 --rm web bundle exec rspec ${ARG}

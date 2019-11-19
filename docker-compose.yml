@@ -7,6 +7,8 @@ services:
     command: foreman start
     environment:
       PGSQL_HOST: pgsql
+      DATABASE_USER: postgres"
+      POSTGRES_PASSWORD: secret
     volumes:
       - .:/myapp
       - bundler:/usr/local/bundle
@@ -22,6 +24,6 @@ services:
     volumes:
       - ./pgsql-data:/var/lib/postgresql/data
     ports:
-      - "15432:5432"
+      - "5432:5432"
 volumes:
   bundler: {}

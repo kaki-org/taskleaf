@@ -35,7 +35,7 @@ COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
 RUN rails webpacker:install
-RUN yarn cache clean && yarn install --check-files
+RUN yarn cache clean && yarn install
 COPY . /myapp
 
 
