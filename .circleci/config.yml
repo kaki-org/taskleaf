@@ -32,7 +32,6 @@ jobs:
       - restore_cache:
           - keys:
               - taskleaf-yarn-{{ checksum "yarn.lock" }}
-              - taskleaf-yarn-
       - run: yarn install
       # Database setup
       - run: mv config/database.yml.ci config/database.yml
