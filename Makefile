@@ -2,7 +2,7 @@ default: up
 
 init:
 	docker-compose build
-	docker-compose run --rm web bin/setup
+	docker-compose run -e DISABLE_SPRING=1 --rm web bin/setup
 
 up:
 	mkdir -p tmp/pids
