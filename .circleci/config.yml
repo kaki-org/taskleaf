@@ -6,6 +6,11 @@ jobs:
         environment:
           RAILS_ENV: test
           POSTGRES_HOST: 127.0.0.1
+          TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+          LANG: ja_JP.UTF-8
+          LC_ALL: C.UTF-8
+          LANGUAGE: ja_JP.UTF-8
+          CIRCLE_ARTIFACTS: /tmp/artifacts
       - image: circleci/postgres:11.4
         environment:
           POSTGRES_USER: postgres
@@ -19,11 +24,23 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run: yarn install
       - save_cache:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      # Yarn Setup
+      - restore_cache:
+          - keys:
+              - taskleaf-yarn-{{ checksum "yarn.lock" }}
+              - taskleaf-yarn-
+      - run: yarn install
+      # Database setup
+      - run: mv config/database.yml.ci config/database.yml
+      - run: bin/rails db:create
+      - run: bin/rails db:schema:load
+      # Run rspec
+      - type: shell
+        command: bundle exec rspec
       # Rubocop
       - run:
           name: Rubocop

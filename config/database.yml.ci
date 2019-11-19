@@ -1,0 +1,7 @@
+test:
+  database: taskleaf_test
+  pool: 5
+  username: postgres
+  password: secret
+  host: 127.0.0.1
+
