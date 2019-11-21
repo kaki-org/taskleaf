@@ -60,6 +60,10 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+
+  client = Selenium::WebDriver::Remote::Http::Default.new
+  client.read_timeout = 120 # instead of the default 60
+
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   Capybara.register_driver :chrome_headless do |app|

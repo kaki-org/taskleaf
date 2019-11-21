@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'support/download_helper'
 
 describe 'タスク管理機能', type: :system do
   let(:user_a) { FactoryBot.create(:user, name: 'ユーザA', email: 'a@example.com') }
