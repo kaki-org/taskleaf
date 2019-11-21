@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DownloadHelper
   TIMEOUT = 20
   PATH    = Rails.root.join('tmp', 'downloads')
@@ -14,7 +16,7 @@ module DownloadHelper
 
   def download_content
     wait_for_download
-    File.read(download, encoding: "CP932:UTF-8")
+    File.read(download, encoding: 'CP932:UTF-8')
   end
 
   def wait_for_download
