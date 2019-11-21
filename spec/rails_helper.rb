@@ -7,6 +7,8 @@ require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/rails'
+require 'selenium-webdriver'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -58,6 +60,33 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+
+  client = Selenium::WebDriver::Remote::Http::Default.new
+  client.read_timeout = 120 # instead of the default 60
+
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  Capybara.register_driver :chrome_headless do |app|
+    options = ::Selenium::WebDriver::Chrome::Options.new
+
+    options.add_argument('--no-sandbox')
+    options.add_argument('--lang=ja-JP')
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--window-size=1680,1050')
+    # NOTE: chromedriver(v77)では、Linuxのヘッドレスモードで、下記設定が必要
+    options.add_preference(:download, default_directory: DownloadHelper::PATH.to_s)
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options, http_client: client).tap do |driver|
+      # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
+      driver.browser.download_path = DownloadHelper::PATH.to_s
+    end
+  end
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :chrome_headless
+  end
 end

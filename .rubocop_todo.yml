@@ -42,12 +42,7 @@ Metrics/MethodLength:
 # Offense count: 25
 # Configuration parameters: AllowedChars.
 Style/AsciiComments:
-  Exclude:
-    - 'Gemfile'
-    - 'app/controllers/tasks_controller.rb'
-    - 'app/models/task.rb'
-    - 'spec/mailers/task_mailer_spec.rb'
-    - 'spec/system/tasks_spec.rb'
+    Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.
