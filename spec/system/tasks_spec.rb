@@ -128,7 +128,7 @@ describe 'タスク管理機能', type: :system do
 
   # TODO
   # 削除機能
-  describe '削除機能', js: false do
+  describe '削除機能', js: true do
     let(:login_user) { user_a }
 
     before do
