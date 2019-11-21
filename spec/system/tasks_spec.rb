@@ -128,7 +128,7 @@ describe 'タスク管理機能', type: :system do
 
   # TODO
   # 削除機能
-  describe '削除機能' do
+  describe '削除機能', js: true do
     let(:login_user) { user_a }
 
     before do
@@ -138,6 +138,7 @@ describe 'タスク管理機能', type: :system do
       it '確認ダイアログが表示される' do
         click_link '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
+        # expect(page.driver.browser.accept_js_confirms.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
       end
     end
   end
