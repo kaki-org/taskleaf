@@ -97,7 +97,7 @@ jobs:
       - checkout
       - run: yarn global add actions-package-update
       - run: yarn install
-      - run: UPDATE_COMMAND=yarn actions-package-update upgrade --latest
+      - run: UPDATE_COMMAND=yarn EXECUTE=true actions-package-update upgrade --latest
 workflows:
   version: 2
   nightly:
