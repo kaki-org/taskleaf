@@ -7,8 +7,9 @@ services:
     command: foreman start
     environment:
       PGSQL_HOST: pgsql
-      DATABASE_USER: postgres"
+      DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
+      REDIS_URL: redis://redis:6379
     volumes:
       - .:/myapp
       - bundler:/usr/local/bundle
@@ -17,6 +18,15 @@ services:
       - "3035:3035"
     depends_on:
       - pgsql
+      - redis
+  redis:
+    image: redis:5-alpine
+    ports:
+      - "6379:6379"
+#    command: redis-server --appendonly yes --requirepass foobared
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
   pgsql:
     image: postgres:11.4-alpine
     environment:
@@ -27,3 +37,5 @@ services:
       - "5432:5432"
 volumes:
   bundler: {}
+  redis-data:
+    driver: local
