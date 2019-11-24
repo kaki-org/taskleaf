@@ -45,6 +45,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.8'
   gem 'rubocop'
+  gem 'debase'
+  gem 'ruby-debug-ide'
 end
 
 group :development do
