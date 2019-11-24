@@ -27,6 +27,10 @@ services:
     command: redis-server --appendonly yes
     volumes:
       - redis-data:/data
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - 50080:1080
   pgsql:
     image: postgres:11.4-alpine
     environment:
