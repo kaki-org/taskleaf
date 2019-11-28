@@ -45,19 +45,23 @@ describe 'User' do
     user.valid?
     expect(user.errors[:email]).to include('はすでに存在します')
   end
-  # 連絡先のフルネームを文字列として返すこと
-  it "return a users's name as a string"
-  # before do
-  #   # Do nothing
-  # end
-  #
-  # after do
-  #   # Do nothing
-  # end
-  #
-  # context 'when condition' do
-  #   it 'succeeds' do
-  #     pending 'Not implemented'
-  #   end
-  # end
+  # マッチした結果をソート済みの配列として返すこと
+  it "returns a sorted array of results that match" do
+    smith = User.create(
+                    name: 'Smith',
+                    email: 'jsmith@example.com',
+                    password: 'password'
+    )
+    jones = User.create(
+                    name: 'Jones',
+                    email: 'tjones@example.com',
+                    password: 'password'
+    )
+    johnson = User.create(
+                      name: 'Johnson',
+                      email: 'jjohnson@example.com',
+                      password: 'password'
+    )
+    expect(User.by_letter("J")).to eq [johnson, jones]
+  end
 end
