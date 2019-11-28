@@ -37,7 +37,6 @@ User.create!(name: 'admin', email: 'admin@example.com', password: 'password', pa
 
 # rspecのインストール
 
-
 ```
 bundle
 bin/rails g rspec:install
