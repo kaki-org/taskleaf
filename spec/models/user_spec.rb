@@ -45,43 +45,49 @@ describe 'User' do
     user.valid?
     expect(user.errors[:email]).to include('はすでに存在します')
   end
-  # マッチした結果をソート済みの配列として返すこと
-  it "returns a sorted array of results that match" do
-    smith = User.create(
-                    name: 'Smith',
-                    email: 'jsmith@example.com',
-                    password: 'password'
-    )
-    jones = User.create(
-                    name: 'Jones',
-                    email: 'tjones@example.com',
-                    password: 'password'
-    )
-    johnson = User.create(
-                      name: 'Johnson',
-                      email: 'jjohnson@example.com',
-                      password: 'password'
-    )
-    expect(User.by_letter("J")).to eq [johnson, jones]
+  # 文字列で名前をフィルタする
+  describe "filter name by letter" do
+    # マッチした結果をソート済みの配列として返すこと
+    context "matching letters" do
+      it "returns a sorted array of results that match" do
+        smith = User.create(
+            name: 'Smith',
+            email: 'jsmith@example.com',
+            password: 'password'
+        )
+        jones = User.create(
+            name: 'Jones',
+            email: 'tjones@example.com',
+            password: 'password'
+        )
+        johnson = User.create(
+            name: 'Johnson',
+            email: 'jjohnson@example.com',
+            password: 'password'
+        )
+        expect(User.by_letter("J")).to eq [johnson, jones]
+      end
+    end
+    # マッチしなかったものは結果に含まれないこと
+    context "non-matching letters" do
+      it "returns a sorted array of results that match" do
+        smith = User.create(
+            name: 'Smith',
+            email: 'jsmith@example.com',
+            password: 'password'
+        )
+        jones = User.create(
+            name: 'Jones',
+            email: 'tjones@example.com',
+            password: 'password'
+        )
+        johnson = User.create(
+            name: 'Johnson',
+            email: 'jjohnson@example.com',
+            password: 'password'
+        )
+        expect(User.by_letter("J")).not_to include smith
+      end
+    end
   end
-  # マッチしなかったものは結果に含まれないこと
-  it "returns a sorted array of results that match" do
-    smith = User.create(
-        name: 'Smith',
-        email: 'jsmith@example.com',
-        password: 'password'
-    )
-    jones = User.create(
-        name: 'Jones',
-        email: 'tjones@example.com',
-        password: 'password'
-    )
-    johnson = User.create(
-        name: 'Johnson',
-        email: 'jjohnson@example.com',
-        password: 'password'
-    )
-    expect(User.by_letter("J")).not_to include smith
-  end
-
 end
