@@ -45,6 +45,11 @@ describe 'User' do
     user.valid?
     expect(user.errors[:email]).to include('はすでに存在します')
   end
+  # 有効なファクトリを持つこと
+  it "has a valid factory" do
+    expect(FactoryBot.build(:user)).to be_valid
+  end
+
   # 文字列で名前をフィルタする
   describe 'filter name by letter' do
     before :each do
