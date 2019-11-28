@@ -64,4 +64,24 @@ describe 'User' do
     )
     expect(User.by_letter("J")).to eq [johnson, jones]
   end
+  # マッチしなかったものは結果に含まれないこと
+  it "returns a sorted array of results that match" do
+    smith = User.create(
+        name: 'Smith',
+        email: 'jsmith@example.com',
+        password: 'password'
+    )
+    jones = User.create(
+        name: 'Jones',
+        email: 'tjones@example.com',
+        password: 'password'
+    )
+    johnson = User.create(
+        name: 'Johnson',
+        email: 'jjohnson@example.com',
+        password: 'password'
+    )
+    expect(User.by_letter("J")).not_to include smith
+  end
+
 end
