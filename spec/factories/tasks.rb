@@ -12,7 +12,7 @@ FactoryBot.define do
       description { '数学のFactoryBotを準備する' }
     end
     factory :society_task do
-      description { '社会科のFactoryBotを準備する'}
+      description { '社会科のFactoryBotを準備する' }
     end
   end
 end
