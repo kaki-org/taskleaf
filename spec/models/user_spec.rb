@@ -15,39 +15,26 @@ describe 'User' do
   end
   # 名がなければ無効な状態であること
   it 'is invalid without a name' do
-    user = User.new(
-      name: nil
-    )
+    user = build(:user, name: nil)
     user.valid?
     expect(user.errors[:name]).to include('を入力してください')
   end
   # メールアドレスがなければ無効な状態であること
   it 'is invalid without a email' do
-    user = User.new(
-      name: 'kakikubo',
-      password: 'password'
-    )
+    user = build(:user, email: nil)
     user.valid?
     expect(user.errors[:email]).to include('を入力してください')
   end
   # 重複したメールアドレスなら無効な状態であること
   it 'is invalid with a duplicate email address' do
-    User.create(
-      name: 'kakikubo',
-      password: 'password',
-      email: 'kakikubo@gmail.com'
-    )
-    user = User.new(
-      name: 'teruo',
-      password: 'password',
-      email: 'kakikubo@gmail.com'
-    )
+    create(:user, name: 'kakikubo', email: 'kakikubo@gmail.com')
+    user = build(:user, name: 'teruo', email: 'kakikubo@gmail.com')
     user.valid?
     expect(user.errors[:email]).to include('はすでに存在します')
   end
   # 有効なファクトリを持つこと
   it 'has a valid factory' do
-    expect(FactoryBot.build(:user)).to be_valid
+    expect(build(:user)).to be_valid
   end
 
   # 文字列で名前をフィルタする
