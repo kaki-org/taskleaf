@@ -6,13 +6,13 @@ FactoryBot.define do
     name { 'テストを書く' }
 
     factory :default_task do
-      description { 'RSpec&Capybara&FactoryBotを準備する' }
+      description { Faker::Lorem.sentence }
     end
     factory :mass_task do
-      description { '数学のFactoryBotを準備する' }
+      description { Faker::Lorem.sentence }
     end
     factory :society_task do
-      description { '社会科のFactoryBotを準備する' }
+      description { Faker::Lorem.sentence }
     end
   end
 end
