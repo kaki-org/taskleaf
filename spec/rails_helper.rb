@@ -35,6 +35,8 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  # RSpec 3.8.0から
+  config.render_views
   # ファクトリを簡単に呼び出せるよう、FactoryBot の構文をインクルードする
   config.include FactoryBot::Syntax::Methods
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

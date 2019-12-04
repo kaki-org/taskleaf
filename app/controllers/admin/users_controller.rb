@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
-  before_action :require_admin
+  # before_action :require_admin # FIXME: あとでコメントはずす
 
   def index
-    @users = User.all
+    if params[:limit].blank?
+      @users = User.all
+    else
+      @users = User.all.limit(params[:limit])
+    end
   end
 
   def show
@@ -48,7 +52,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation, :limit)
   end
 
   def require_admin
