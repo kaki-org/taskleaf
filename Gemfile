@@ -42,10 +42,12 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'debase'
   gem 'factory_bot_rails', '~> 5.0'
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.8'
   gem 'rubocop'
+  gem 'ruby-debug-ide'
 end
 
 group :development do
@@ -61,7 +63,9 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
+  gem 'faker'
   gem 'selenium-webdriver'
+  gem 'launchy'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper' # 2019/03/31?あたりからこいつは非推奨(Capybaraとかでコケまくる。webdriversを利用する)
   gem 'webdrivers'
