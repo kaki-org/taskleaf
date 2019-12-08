@@ -6,24 +6,14 @@ RUN curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add 
 RUN echo "deb https://deb.nodesource.com/node_6.x xenial main" | tee /etc/apt/sources.list.d/nodesource.list
 RUN apt-get update -qq && apt-get install -y nodejs
 
-
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update -qq && apt-get install -y yarn
 
-
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 
-
 RUN apt-get update -y && apt-get install -y google-chrome-stable
-
-RUN curl -O http://download.redis.io/releases/redis-2.8.19.tar.gz
-RUN tar zxvf redis-2.8.19.tar.gz
-RUN cd redis-2.8.19; make
-RUN cp redis-2.8.19/src/redis-* /usr/local/bin/
-
-
 RUN apt-get install -y graphviz
 
 RUN cd /tmp && \

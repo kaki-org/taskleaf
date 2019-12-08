@@ -27,3 +27,6 @@ erd:
 
 bundle:
 	docker-compose run --rm web bundle install
+
+yarn:
+	docker-compose run --rm web yarn install

@@ -59,13 +59,13 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.0)
-    autoprefixer-rails (9.7.2)
+    autoprefixer-rails (9.7.3)
       execjs
     bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
-    bootstrap (4.3.1)
+    bootstrap (4.4.1)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
@@ -91,6 +91,9 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.5)
+    debase (0.2.4.1)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.7)
     diff-lcs (1.3)
     erubi (1.9.0)
     execjs (2.7.0)
@@ -99,7 +102,9 @@ GEM
     factory_bot_rails (5.1.1)
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
-    ffi (1.11.2)
+    faker (2.8.0)
+      i18n (>= 1.6, < 1.8)
+    ffi (1.11.3)
     foreman (0.86.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -123,10 +128,12 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
-    listen (3.2.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.3.1)
+    loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -140,7 +147,7 @@ GEM
     minitest (5.13.0)
     msgpack (1.3.1)
     nio4r (2.5.2)
-    nokogiri (1.10.5)
+    nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
     parallel (1.19.1)
     parser (2.6.5.0)
@@ -156,7 +163,7 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.10)
     public_suffix (4.0.1)
-    puma (4.3.0)
+    puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-protection (2.0.7)
@@ -223,13 +230,15 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
-    rubocop (0.76.0)
+    rubocop (0.77.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
+    ruby-debug-ide (0.7.0)
+      rake (>= 0.8.1)
     ruby-progressbar (1.10.1)
     rubyzip (2.0.0)
     sass-rails (6.0.0)
@@ -298,7 +307,7 @@ GEM
     websocket-extensions (0.1.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.2.1)
+    zeitwerk (2.2.2)
 
 PLATFORMS
   ruby
@@ -310,11 +319,14 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 5.0)
+  debase
   factory_bot_rails (~> 5.0)
+  faker
   foreman
   html2slim
   jbuilder (~> 2.5)
   kaminari
+  launchy
   listen (>= 3.0.5, < 3.3)
   pg (>= 0.18, < 2.0)
   pry-byebug
@@ -324,6 +336,7 @@ DEPENDENCIES
   ransack
   rspec-rails (~> 3.8)
   rubocop
+  ruby-debug-ide
   sass-rails (~> 6.0)
   selenium-webdriver
   sidekiq
