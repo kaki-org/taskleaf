@@ -37,6 +37,8 @@ jobs:
       - run: mv config/database.yml.ci config/database.yml
       - run: bin/rails db:create
       - run: bin/rails db:schema:load
+      - type: shell
+        command: bundle exec brakeman
       # Run rspec
       - type: shell
         command: bundle exec rspec
