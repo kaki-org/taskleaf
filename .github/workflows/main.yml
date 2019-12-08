@@ -1,8 +1,9 @@
 name: actions-package-update
 
-on: [push]
-#  schedule:
-#  - cron: 0 0 * * 3
+#on: [push]
+on:
+  schedule:
+  - cron: 0 0 * * *
 jobs:
   package-update:
     runs-on: ubuntu-latest
