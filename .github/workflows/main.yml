@@ -1,0 +1,33 @@
+name: actions-package-update
+
+on: [push]
+#  schedule:
+#  - cron: 0 0 * * 3
+jobs:
+  package-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: set remote url
+        run: git remote set-url --push origin https://
+    
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: git remote set-url --push origin https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+    - name: package-update
+      uses: taichi/actions-package-update@master
+      env:
+        AUTHOR_EMAIL: kakikubo@gmail.com
+        AUTHOR_NAME: kakikubo
+        EXECUTE: "true"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        LOG_LEVEL: debug
+      with:
+        args: -u --packageFile package.json --loglevel verbose
