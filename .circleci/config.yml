@@ -84,7 +84,7 @@ jobs:
       - checkout
       - restore_cache:
           name: Restore bundler cache
-          key: dietplus-server-{{ checksum "Gemfile.lock" }}
+          key: taskleaf-{{ checksum "Gemfile.lock" }}
       - run:
           name: Setup requirements for continuous bundle update
           command: gem install -N circleci-bundle-update-pr
