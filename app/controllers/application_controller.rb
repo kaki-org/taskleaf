@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   helper_method :current_user
-  # before_action :login_required # FIXME: Controller Specをテストする間は一時的にコメントアウト
+  before_action :login_required # FIXME: Controller Specをテストする間は一時的にコメントアウト
 
   private
 
