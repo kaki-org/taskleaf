@@ -1,9 +1,9 @@
-FROM ruby:2.6.5-slim
+FROM ruby:2.7.0-slim
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev curl apt-transport-https git libssl-dev imagemagick libmagickwand-dev zlib1g-dev unzip
 
 
 RUN curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo "deb https://deb.nodesource.com/node_6.x xenial main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN echo "deb https://deb.nodesource.com/node_10.x xenial main" | tee /etc/apt/sources.list.d/nodesource.list
 RUN apt-get update -qq && apt-get install -y nodejs
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -23,9 +23,7 @@ RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
-RUN bundle install
-RUN rails webpacker:install
-RUN yarn cache clean && yarn install
+RUN BUNDLER_VERSION=2.1.2 bundle install
 COPY . /myapp
 
 
