@@ -68,7 +68,7 @@ describe Admin::UsersController do
   describe 'PATCH #update' do
     # 有効な属性の場合
     context "valid attributes" do
-      # 羊宮された @user を取得すること
+      # 要求された @user を取得すること
       xit "locates the requested @user"
       # @userの属性を変更する事
       xit "changes @user's attributes"
