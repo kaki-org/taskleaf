@@ -2,7 +2,7 @@ version: 2
 jobs:
   rubocop:
     docker:
-      - image: circleci/ruby:2.7.0-node-browsers-legacy
+      - image: circleci/ruby:2.6.5-node-browsers-legacy
         environment:
           RAILS_ENV: test
           POSTGRES_HOST: 127.0.0.1
@@ -49,7 +49,7 @@ jobs:
 
   rspec:
     docker:
-      - image: circleci/ruby:2.7.0-node-browsers-legacy
+      - image: circleci/ruby:2.6.5-node-browsers-legacy
         environment:
           RAILS_ENV: test
           POSTGRES_HOST: 127.0.0.1
@@ -79,7 +79,7 @@ jobs:
           command: bundle exec rspec
   continuous_bundle_update:
     docker:
-      - image: circleci/ruby:2.7.0-node
+      - image: circleci/ruby:2.6.5-node
     steps:
       - checkout
       - restore_cache:
