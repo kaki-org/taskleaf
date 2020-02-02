@@ -64,4 +64,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.active_job.queue_adapter = :sidekiq
+  config.web_console.whitelisted_ips = '0.0.0.0/0'
 end

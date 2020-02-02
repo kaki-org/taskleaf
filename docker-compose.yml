@@ -10,6 +10,7 @@ services:
       DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
       REDIS_URL: redis://redis:6379
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
     volumes:
       - .:/myapp
       - bundler:/usr/local/bundle
