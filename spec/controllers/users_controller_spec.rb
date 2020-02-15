@@ -7,7 +7,7 @@ describe Admin::UsersController do
       # 与えられた件数のみ表示する事
       xit "Show less than given number"
       # :indexテンプレートを表示する事
-      xit "renders the :index template"
+      it "renders the :index template"
     end
 
     # params[:limit]がない場合
@@ -19,11 +19,11 @@ describe Admin::UsersController do
     end
   end
 
-  describe 'GET #show' do
+  describe 'GET #show', type: :ctr do
     # @user に要求された連絡先を割り当てる事
     it "assigns the requested user to @user" do
       user = create(:user)
-      get :show,  params: { id: user.id }
+      get :show, params: { id: user.id }
       expect(assigns(:user)).to eq user
     end
     # :show テンプレートを表示すること
