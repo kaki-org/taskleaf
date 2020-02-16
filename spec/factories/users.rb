@@ -7,9 +7,9 @@ FactoryBot.define do
     email { Faker::Internet.email }
 
     after(:build) do |user|
-      [:default_task, :mass_task, :society_task].each do |task|
+      %i[default_task mass_task society_task].each do |task|
         user.tasks << FactoryBot.build(:task,
-                                       name: "test task name",
+                                       name: 'test task name',
                                        description: task,
                                        user: user)
       end
