@@ -117,7 +117,15 @@ describe Admin::UsersController do
       session[:user_id] = user.id
     end
 
-    describe "スペックは管理者用と同じものを用意する(割愛)" do
+    # スペックは管理者用と同じものを用意する
+    describe 'GET #index' do
+      let(:users) { FactoryBot.create_list :user, 2 }
+      context 'ユーザ一覧画面へ遷移しようとする' do
+        it 'ルートURLへ飛ばされる' do
+          get :index
+          expect(response).to redirect_to root_url
+        end
+      end
     end
   end
   describe "ゲストアクセスで" do
