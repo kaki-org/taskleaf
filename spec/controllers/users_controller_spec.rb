@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Admin::UsersController do
-  describe "administrator access" do
+  describe 'administrator access' do
     before :each do
       user = create(:admin)
       session[:user_id] = user.id
@@ -111,7 +111,7 @@ describe Admin::UsersController do
       end
     end
   end
-  describe "一般ユーザでのアクセス" do
+  describe '一般ユーザでのアクセス' do
     before :each do
       user = create(:user)
       session[:user_id] = user.id
@@ -128,7 +128,7 @@ describe Admin::UsersController do
       end
     end
   end
-  describe "ゲストアクセスで" do
+  describe 'ゲストアクセスで' do
     describe 'GET #new 新規作成しようとして' do
       it 'ログインを要求すること' do
         get :new
@@ -145,22 +145,20 @@ describe Admin::UsersController do
     describe 'POST #create パラメータつきで新規作成しようとして' do
       it 'ログインを要求すること' do
         post :create, params: { id: create(:user),
-                                user: attributes_for(:user)
-        }
+                                user: attributes_for(:user) }
         expect(response).to redirect_to login_url
       end
     end
     describe 'PATCH #update パラメータ付きで編集しようとして' do
       it 'ログインを要求すること' do
         put :update, params: { id: create(:user),
-                               user: attributes_for(:user)
-        }
+                               user: attributes_for(:user) }
         expect(response).to redirect_to login_url
       end
     end
     describe 'DELETE #destroy 削除しようとして' do
       it 'ログインを要求すること' do
-        delete :destroy, params: { id: create(:user)}
+        delete :destroy, params: { id: create(:user) }
         expect(response).to redirect_to login_url
       end
     end
