@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < ApplicationController
-  # before_action :require_admin # FIXME: あとでコメントはずす
+  before_action :require_admin
 
   def index
     if params[:limit].blank?
