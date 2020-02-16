@@ -117,7 +117,7 @@ describe Admin::UsersController do
       session[:user_id] = user.id
     end
 
-    # スペックは管理者用と同じものを用意する
+    # スペックは管理者用と同じものを用意するつもりだった
     describe 'GET #index' do
       let(:users) { FactoryBot.create_list :user, 2 }
       context 'ユーザ一覧画面へ遷移しようとする' do
