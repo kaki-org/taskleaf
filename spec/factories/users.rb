@@ -15,9 +15,8 @@ FactoryBot.define do
       end
     end
 
-    factory :invalid_user do
-      name nil
+    trait :invalid_user do
+      name { nil }
     end
   end
-
 end

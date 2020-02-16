@@ -2,66 +2,114 @@ require 'rails_helper'
 
 describe Admin::UsersController do
   describe 'GET #index' do
+    let(:users) { FactoryBot.create_list :user, 2 }
     # params[:limitがある場合]
     context 'with params[:limit]' do
       # 与えられた件数のみ表示する事
-      xit "Show less than given number"
+      it "Show less than given number" do
+        get :index, params: {limit: 1}
+        expect(assigns(:users)).not_to match_array(:user2)
+      end
       # :indexテンプレートを表示する事
-      it "renders the :index template"
+      it "renders the :index template" do
+        get :index, params: {limit: 1}
+        expect(response).to render_template :index
+      end
     end
 
     # params[:limit]がない場合
     context 'without params[:limit]' do
-      # すべてのユーザを配列にまとめる事
-      xit "populates an array of all users"
+      # すべてのユーザが表示される事
+      it "displays all users" do
+        get :index
+        expect(users.size).to eq(2)
+      end
       # :index テンプレートを表示する事
-      xit "renders the :index template"
+      it "renders the :index template" do
+        get :index
+        expect(response).to render_template :index
+      end
     end
   end
 
-  describe 'GET #show', type: :ctr do
+  describe 'GET #show' do
     # @user に要求された連絡先を割り当てる事
     it "assigns the requested user to @user" do
       user = create(:user)
-      get :show, params: { id: user.id }
+      get :show, params: {id: user.id}
       expect(assigns(:user)).to eq user
     end
     # :show テンプレートを表示すること
     it "renders the :show template" do
       user = create(:user)
-      get :show,  params: { id: user.id }
+      get :show, params: {id: user.id}
       expect(response).to render_template :show
     end
   end
 
   describe 'GET #new' do
     # @user に新しいユーザを割り当てる事
-    xit "assigns a new User to @user"
+    it "assigns a new User to @user" do
+      get :new
+      expect(assigns(:user)).to be_a_new(User)
+    end
     # :show テンプレートを表示すること
-    xit "renders the :new template"
+    it "renders the :new template" do
+      get :new
+      expect(response).to render_template :new
+    end
   end
 
   describe 'GET #edit' do
-    # @user に要求された連絡先を割り当てる事
-    xit "assigns the requested user to @user"
+    # @user に要求されたユーザを割り当てる事
+    it "assigns the requested user to @user" do
+      user = create(:user)
+      get :edit, params: {id: user}
+      expect(assigns(:user)).to eq user
+    end
     # :show テンプレートを表示すること
-    xit "renders the :edit template"
+    it "renders the :edit template" do
+      user = create(:user)
+      get :edit, params: {id: user}
+      expect(response).to render_template :edit
+    end
   end
 
   describe 'POST #create' do
+    before :each do
+      @tasks = [
+          attributes_for(:task),
+          attributes_for(:task),
+          attributes_for(:task)
+      ]
+    end
     # 有効な属性の場合
     context "with valid attributes" do
       # データベースに新しいユーザを保存する事
-      xit "saves the new user in the database"
-      # contacts#show にリダイレクトする事
-      xit "redirects to contacts#show"
+      it "saves the new user in the database" do
+        expect {
+          post :create, params: {user: attributes_for(:user, tasks_attributes: @tasks)}
+        }.to change(User, :count).by(1)
+      end
+      # users#show にリダイレクトする事
+      it "redirects to users#show" do
+        post :create, params: {user: attributes_for(:user, tasks_attributes: @tasks)}
+        expect(response).to redirect_to admin_user_url(assigns[:user])
+      end
     end
 
     context "with invalid attributes" do
-      # データベースに新しい連絡先を保存しないこと
-      xit "does not save the new user in the database"
+      # データベースに新しいユーザを保存しないこと
+      it "does not save the new user in the database" do
+        expect {
+          post :create, params: {user: attributes_for(:user, :invalid_user)}
+        }.not_to change(User, :count)
+      end
       # :new テンプレートを再表示すること
-      xit "re-renders the :new template"
+      it "re-renders the :new template" do
+        post :create, params: {user: attributes_for(:user, :invalid_user)}
+        expect(response).to render_template :new
+      end
     end
   end
 
