@@ -114,14 +114,27 @@ describe Admin::UsersController do
   end
 
   describe 'PATCH #update' do
+    before :each do
+      @user = create(:user, name: 'kakikubo', email: 'kakikubo@example.com', password: 'password')
+    end
     # 有効な属性の場合
     context "valid attributes" do
       # 要求された @user を取得すること
-      xit "locates the requested @user"
+      it "locates the requested @user" do
+        patch :update, params: { id: @user, user: attributes_for(:user) }
+        expect(assigns(:user)).to eq(@user)
+      end
       # @userの属性を変更する事
-      xit "changes @user's attributes"
+      it "changes @user's attributes" do
+        patch :update, params: { id: @user, user: attributes_for(:user, name: 'teruo') }
+        @user.reload
+        expect(@user.name).to eq('teruo')
+      end
       # 更新した連絡先のページへリダイレクトすること
-      xit "redirects to the updated contact"
+      it "redirects to the updated contact" do
+        patch :update, params: { id: @user, user: attributes_for(:user) }
+        expect(response).to redirect_to admin_user_url(@user)
+      end
     end
 
     # 無効な属性の場合
