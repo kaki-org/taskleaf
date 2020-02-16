@@ -23,7 +23,6 @@ RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
-RUN BUNDLER_VERSION=2.1.2 bundle install
 COPY . /myapp
 
 

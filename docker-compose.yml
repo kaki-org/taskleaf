@@ -11,7 +11,8 @@ services:
       POSTGRES_PASSWORD: secret
       REDIS_URL: redis://redis:6379
     volumes:
-      - .:/myapp
+      - .:/myapp:cached
+      - rails_cache:/myapp/tmp/cache
       - bundler:/usr/local/bundle
     ports:
       - "3000:3000"
@@ -40,6 +41,7 @@ services:
     ports:
       - "5432:5432"
 volumes:
-  bundler: {}
+  bundler:
+  rails_cache:
   redis-data:
     driver: local
