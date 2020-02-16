@@ -4,11 +4,11 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin
 
   def index
-    if params[:limit].blank?
-      @users = User.all
-    else
-      @users = User.all.limit(params[:limit])
-    end
+    @users = if params[:limit].blank?
+               User.all
+             else
+               User.all.limit(params[:limit])
+             end
   end
 
   def show
