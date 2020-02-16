@@ -140,16 +140,33 @@ describe Admin::UsersController do
     # 無効な属性の場合
     context "with invalid attributes" do
       # ユーザーの属性を変更しないこと
-      xit "does not change the user's attributes"
+      it "does not change the user's attributes" do
+        patch :update, params: { id: @user, user: attributes_for(:user, name: nil) }
+        @user.reload
+        expect(@user.name).to eq('kakikubo')
+      end
       # edit テンプレートを再表示する事
-      xit "re-renders the edit template"
+      xit "re-renders the edit template" do # FIXME: ここだけうまくいってない
+        post :update, params: { id: @user, user: attributes_for(:user, :invalid_user)}
+        expect(response).to render_template edit_admin_user_path(@user)
+      end
     end
   end
 
   describe 'DELETE #destroy' do
+    before :each do
+      @user = create(:user)
+    end
     # ユーザを削除する事
-    xit "deletes the user"
+    it "deletes the user" do
+      expect{
+        delete :destroy, params: { id: @user }
+      }.to change(User, :count).by(-1)
+    end
     # user#index にリダイレクトすること
-    xit "redirects to user#index"
+    it "redirects to user#index" do
+      delete :destroy, params: { id: @user }
+      expect(response).to redirect_to admin_users_url
+    end
   end
 end
