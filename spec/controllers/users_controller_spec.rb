@@ -153,14 +153,14 @@ describe Admin::UsersController do
   describe 'administrator access' do
     before :each do
       user = create(:admin)
-      session[:user_id] = user.id
+      set_user_session(user)
     end
     it_behaves_like 'full access to users'
   end
   describe '一般ユーザでのアクセス' do
     before :each do
       user = create(:user)
-      session[:user_id] = user.id
+      set_user_session(user)
     end
     it_behaves_like 'public access to users'
   end
