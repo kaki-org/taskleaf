@@ -5,6 +5,52 @@ require 'rails_helper'
 describe Admin::UsersController do
   shared_examples 'public access to users' do
     describe 'GET #index' do
+      context '参照しようとする' do
+        # :indexテンプレートを表示する事
+        it 'ルートへリダイレクト' do
+          get :index
+          expect(response).to redirect_to root_path
+        end
+      end
+    end
+  end
+  shared_examples 'public access to guests' do
+    describe 'GET #new 新規作成しようとして' do
+      it 'ログインを要求すること' do
+        get :new
+        expect(response).to redirect_to login_url
+      end
+    end
+    describe 'GET #edit 編集しようとして' do
+      it 'ログインを要求すること' do
+        user = create(:user)
+        get :edit, params: { id: user }
+        expect(response).to redirect_to login_url
+      end
+    end
+    describe 'POST #create パラメータつきで新規作成しようとして' do
+      it 'ログインを要求すること' do
+        post :create, params: { id: create(:user),
+                                user: attributes_for(:user) }
+        expect(response).to redirect_to login_url
+      end
+    end
+    describe 'PATCH #update パラメータ付きで編集しようとして' do
+      it 'ログインを要求すること' do
+        put :update, params: { id: create(:user),
+                               user: attributes_for(:user) }
+        expect(response).to redirect_to login_url
+      end
+    end
+    describe 'DELETE #destroy 削除しようとして' do
+      it 'ログインを要求すること' do
+        delete :destroy, params: { id: create(:user) }
+        expect(response).to redirect_to login_url
+      end
+    end
+  end
+  shared_examples 'full access to users' do
+    describe 'GET #index' do
       let(:users) { FactoryBot.create_list :user, 2 }
       # params[:limitがある場合]
       context 'with params[:limit]' do
@@ -33,9 +79,6 @@ describe Admin::UsersController do
         end
       end
     end
-
-  end
-  shared_examples 'full access to users' do
     describe 'GET #show' do
       # @user に要求された連絡先を割り当てる事
       it 'assigns the requested user to @user' do
@@ -96,7 +139,7 @@ describe Admin::UsersController do
       end
       # ユーザを削除する事
       it 'deletes the user' do
-        expect  do
+        expect do
           delete :destroy, params: { id: @user }
         end.to change(User, :count).by(-1)
       end
@@ -112,7 +155,6 @@ describe Admin::UsersController do
       user = create(:admin)
       session[:user_id] = user.id
     end
-    it_behaves_like 'public access to users'
     it_behaves_like 'full access to users'
   end
   describe '一般ユーザでのアクセス' do
@@ -123,39 +165,6 @@ describe Admin::UsersController do
     it_behaves_like 'public access to users'
   end
   describe 'ゲストユーザでのアクセス' do
-    it_behaves_like 'public access to users'
-    describe 'GET #new 新規作成しようとして' do
-      it 'ログインを要求すること' do
-        get :new
-        expect(response).to redirect_to login_url
-      end
-    end
-    describe 'GET #edit 編集しようとして' do
-      it 'ログインを要求すること' do
-        user = create(:user)
-        get :edit, params: { id: user }
-        expect(response).to redirect_to login_url
-      end
-    end
-    describe 'POST #create パラメータつきで新規作成しようとして' do
-      it 'ログインを要求すること' do
-        post :create, params: { id: create(:user),
-                                user: attributes_for(:user) }
-        expect(response).to redirect_to login_url
-      end
-    end
-    describe 'PATCH #update パラメータ付きで編集しようとして' do
-      it 'ログインを要求すること' do
-        put :update, params: { id: create(:user),
-                               user: attributes_for(:user) }
-        expect(response).to redirect_to login_url
-      end
-    end
-    describe 'DELETE #destroy 削除しようとして' do
-      it 'ログインを要求すること' do
-        delete :destroy, params: { id: create(:user) }
-        expect(response).to redirect_to login_url
-      end
-    end
+    it_behaves_like 'public access to guests'
   end
 end
