@@ -6,7 +6,6 @@ describe Admin::UsersController do
   shared_examples 'public access to users' do
     describe 'GET #index' do
       context '参照しようとする' do
-        # :indexテンプレートを表示する事
         it 'ルートへリダイレクト' do
           get :index
           expect(response).to redirect_to root_path
@@ -52,21 +51,17 @@ describe Admin::UsersController do
   shared_examples 'full access to users' do
     describe 'GET #index' do
       let(:users) { FactoryBot.create_list :user, 2 }
-      # params[:limitがある場合]
-      context 'with params[:limit]' do
-        # 与えられた件数のみ表示する事
-        it 'Show less than given number' do
+      context 'params[:limit]がある場合' do
+        it '与えられた件数のみ表示する事' do
           get :index, params: { limit: 1 }
           expect(assigns(:users)).not_to match_array(:user2)
         end
-        # :indexテンプレートを表示する事
-        it 'renders the :index template' do
+        it ':indexテンプレートを表示する事' do
           get :index, params: { limit: 1 }
           expect(response).to render_template :index
         end
       end
-      # params[:limit]がない場合
-      context 'without params[:limit]' do
+      context 'params[:limit]がない場合' do
         # すべてのユーザが表示される事
         it 'displays all users' do
           get :index
@@ -152,7 +147,7 @@ describe Admin::UsersController do
   end
   describe 'administrator access' do
     before :each do
-      save_user_session create(:user)
+      save_user_session create(:admin)
     end
     it_behaves_like 'full access to users'
   end
