@@ -20,6 +20,7 @@ FactoryBot.define do
     end
     trait :invalid_user do
       name { nil }
+      email { nil }
     end
   end
 end
