@@ -121,9 +121,10 @@ describe Admin::UsersController do
           expect(@user.name).to eq('kakikubo')
         end
         # edit テンプレートを再表示する事
-        xit 're-renders the edit template' do # FIXME: ここだけうまくいってない
+        it 're-renders the edit template' do
           post :update, params: { id: @user, user: attributes_for(:user, :invalid_user) }
-          expect(response).to render_template edit_admin_user_path(@user)
+          # FIXME: 本当は edit_admin_user_path(@user) としたかったが。。
+          expect(response).to render_template 'admin/users/edit'
         end
       end
     end
