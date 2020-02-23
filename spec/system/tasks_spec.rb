@@ -131,7 +131,6 @@ describe 'タスク管理機能', type: :system do
   # 削除機能
   describe '削除機能', js: true do
     let(:login_user) { user_a }
-
     before do
       visit task_path id: @task.id
     end
@@ -140,6 +139,11 @@ describe 'タスク管理機能', type: :system do
         click_link '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
         # expect(page.driver.browser.accept_js_confirms.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
+      end
+      it 'タスクが削除される' do
+        click_link '削除'
+        page.driver.browser.switch_to.alert.accept
+        expect(page).to have_content '「次のタスク」を削除しました'
       end
     end
   end

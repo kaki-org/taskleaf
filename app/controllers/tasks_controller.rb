@@ -59,11 +59,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    if request.xhr?
-      head :no_content
-    else
-      redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました"
-    end
+    redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました"
   end
 
   private
