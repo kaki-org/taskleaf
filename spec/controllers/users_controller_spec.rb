@@ -17,34 +17,34 @@ describe Admin::UsersController do
     describe 'GET #new 新規作成しようとして' do
       it 'ログインを要求すること' do
         get :new
-        expect(response).to redirect_to login_url
+        expect(response).to require_login
       end
     end
     describe 'GET #edit 編集しようとして' do
       it 'ログインを要求すること' do
         user = create(:user)
         get :edit, params: { id: user }
-        expect(response).to redirect_to login_url
+        expect(response).to require_login
       end
     end
     describe 'POST #create パラメータつきで新規作成しようとして' do
       it 'ログインを要求すること' do
         post :create, params: { id: create(:user),
                                 user: attributes_for(:user) }
-        expect(response).to redirect_to login_url
+        expect(response).to require_login
       end
     end
     describe 'PATCH #update パラメータ付きで編集しようとして' do
       it 'ログインを要求すること' do
         put :update, params: { id: create(:user),
                                user: attributes_for(:user) }
-        expect(response).to redirect_to login_url
+        expect(response).to require_login
       end
     end
     describe 'DELETE #destroy 削除しようとして' do
       it 'ログインを要求すること' do
         delete :destroy, params: { id: create(:user) }
-        expect(response).to redirect_to login_url
+        expect(response).to require_login
       end
     end
   end

@@ -1,5 +1,7 @@
 h1 ログイン
 
+- if flash.now[:alert].present?
+  .alert.alert-danger= flash.now[:alert]
 = form_with scope: :session, local: true do |f|
   .form-group
     = f.label :email, 'メールアドレス'
