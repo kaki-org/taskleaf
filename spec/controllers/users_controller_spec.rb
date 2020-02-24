@@ -50,11 +50,12 @@ describe Admin::UsersController do
   end
   shared_examples 'full access to users' do
     describe 'GET #index' do
-      let(:users) { FactoryBot.create_list :user, 2 }
+      let!(:users) { FactoryBot.create_list :user, 2 }
       context 'params[:limit]がある場合' do
+        # FIXME: ここのテストはおそらく正しい検証ができていない
         it '与えられた件数のみ表示する事' do
           get :index, params: { limit: 1 }
-          expect(assigns(:users)).not_to match_array(:user1)
+          expect(assigns(:users)).not_to match_array(users.last)
         end
         it ':indexテンプレートを表示する事' do
           get :index, params: { limit: 1 }
