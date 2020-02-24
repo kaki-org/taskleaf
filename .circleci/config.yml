@@ -117,6 +117,6 @@ workflows:
       - rubocop
       # - continuous_bundle_update
       # - actions-package-update
-      - rspec
+      - rspec:
         requires:
         - rubocop
