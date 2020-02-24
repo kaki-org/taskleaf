@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  rubocop:
+  rspec_rubocop:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers-legacy
         environment:
@@ -40,58 +40,13 @@ jobs:
       - type: shell
         command: bundle exec brakeman
       # Run rspec
-      # - type: shell
-      #   command: bundle exec rspec
+       - type: shell
+         command: bundle exec rspec
       # Rubocop
       - run:
           name: Rubocop
           command: bundle exec rubocop
 
-  rspec:
-    docker:
-      - image: circleci/ruby:2.6.5-node-browsers-legacy
-        environment:
-          RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
-      - image: circleci/postgres:9.4
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: app_test
-          POSTGRES_PASSWORD: password
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run: yarn install
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-      # Rspec
-      - run:
-          name: Rspec
-          command: bundle exec rspec
-#  continuous_bundle_update:
-#    docker:
-#      - image: circleci/ruby:2.6.5-node
-#    steps:
-#      - checkout
-#      - restore_cache:
-#          name: Restore bundler cache
-#          key: taskleaf-{{ checksum "Gemfile.lock" }}
-#      - run:
-#          name: Setup requirements for continuous bundle update
-#          command: gem install -N circleci-bundle-update-pr
-#      - deploy:
-#          name: Continuous bundle update
-#          command: circleci-bundle-update-pr $GIT_USER_NAME $GIT_USER_EMAIL develop
   actions-package-update: # TODO Github Actionsが利用可能になったら移行したい
     docker:
       - image: node:10-alpine
@@ -112,10 +67,6 @@ workflows:
               only: master
     jobs:
       - actions-package-update
-      # - continuous_bundle_update
-  rubocop_rspec:
+  rspec_rubocop:
     jobs:
-      - rubocop
-      # - continuous_bundle_update
-      # - actions-package-update
-      - rspec
+      - rspec_rubocop
