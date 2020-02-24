@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  web: &app_base
     build:
       context: .
       dockerfile: ./devenv/web/Dockerfile
@@ -16,10 +16,22 @@ services:
       - bundler:/usr/local/bundle
     ports:
       - "3000:3000"
-      - "3035:3035"
     depends_on:
       - pgsql
       - redis
+    tmpfs:
+      - /tmp
+  webpack:
+    <<: *app_base
+    command: "bin/webpack-dev-server"
+    ports:
+      - "3035:3035"
+    depends_on:
+      - web
+    tty: false
+    stdin_open: false
+
+
   redis:
     image: redis:5-alpine
     ports:
