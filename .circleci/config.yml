@@ -77,29 +77,29 @@ jobs:
       - run:
           name: Rspec
           command: bundle exec rspec
-  continuous_bundle_update:
-    docker:
-      - image: circleci/ruby:2.6.5-node
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore bundler cache
-          key: taskleaf-{{ checksum "Gemfile.lock" }}
-      - run:
-          name: Setup requirements for continuous bundle update
-          command: gem install -N circleci-bundle-update-pr
-      - deploy:
-          name: Continuous bundle update
-          command: circleci-bundle-update-pr $GIT_USER_NAME $GIT_USER_EMAIL develop
-#  actions-package-update: # TODO Github Actionsが利用可能になったら移行したい
+#  continuous_bundle_update:
 #    docker:
-#      - image: node:10-alpine
+#      - image: circleci/ruby:2.6.5-node
 #    steps:
-#      - run: apk add --update --no-cache git openssh-client
 #      - checkout
-#      - run: yarn global add actions-package-update
-#      - run: yarn install
-#      - run: UPDATE_COMMAND=yarn EXECUTE=true actions-package-update upgrade --latest
+#      - restore_cache:
+#          name: Restore bundler cache
+#          key: taskleaf-{{ checksum "Gemfile.lock" }}
+#      - run:
+#          name: Setup requirements for continuous bundle update
+#          command: gem install -N circleci-bundle-update-pr
+#      - deploy:
+#          name: Continuous bundle update
+#          command: circleci-bundle-update-pr $GIT_USER_NAME $GIT_USER_EMAIL develop
+  actions-package-update: # TODO Github Actionsが利用可能になったら移行したい
+    docker:
+      - image: node:10-alpine
+    steps:
+      - run: apk add --update --no-cache git openssh-client
+      - checkout
+      - run: yarn global add actions-package-update
+      - run: yarn install
+      - run: UPDATE_COMMAND=yarn EXECUTE=true actions-package-update upgrade --latest
 workflows:
   version: 2
   nightly:
@@ -110,13 +110,13 @@ workflows:
             branches:
               only: master
     jobs:
-      - continuous_bundle_update
-#      - actions-package-update
+      - actions-package-update
+      # - continuous_bundle_update
   rubocop_rspec:
     jobs:
       - rubocop
-      - continuous_bundle_update
-#      - actions-package-update
-#      - rspec:
-#          requires:
-#            - rubocop
+      # - continuous_bundle_update
+      - actions-package-update
+      # - rspec:
+      #   requires:
+      #   - rubocop
