@@ -40,8 +40,8 @@ jobs:
       - type: shell
         command: bundle exec brakeman
       # Run rspec
-       - type: shell
-         command: bundle exec rspec
+      - type: shell
+        command: bundle exec rspec
       # Rubocop
       - run:
           name: Rubocop
