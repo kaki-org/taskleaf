@@ -76,7 +76,7 @@ describe Admin::UsersController do
       end
     end
     describe 'GET #show' do
-      let(:user1) { build_stubbed(:user, name: 'teruo', password: 'passoword', email: 'teruo@example.com')}
+      let(:user1) { build_stubbed(:user, name: 'teruo', password: 'passoword', email: 'teruo@example.com') }
       # FIXME: p.105より。なるほど、よくわからん。
       before :each do
         allow(user1).to receive(:persisted?).and_return(true)
@@ -96,9 +96,9 @@ describe Admin::UsersController do
       end
     end
     describe 'PATCH #update' do
-      let(:user){
+      let(:user) do
         create(:user, name: 'kakikubo', email: 'kakikubo@example.com', password: 'password')
-      }
+      end
       # 有効な属性の場合
       context 'valid attributes' do
         # 要求された @user を取得すること
@@ -137,7 +137,7 @@ describe Admin::UsersController do
     end
 
     describe 'DELETE #destroy' do
-      let!(:user){ create(:user)}
+      let!(:user) { create(:user) }
       # ユーザを削除する事
       it 'deletes the user' do
         expect do
