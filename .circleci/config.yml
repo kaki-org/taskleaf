@@ -109,14 +109,14 @@ workflows:
           filters:
             branches:
               only: master
-#    jobs:
-#      - continuous_bundle_update
+    jobs:
       - actions-package-update
+      # - continuous_bundle_update
   rubocop_rspec:
     jobs:
       - rubocop
-#      - continuous_bundle_update
+      # - continuous_bundle_update
       - actions-package-update
-#      - rspec:
-#          requires:
-#            - rubocop
+      # - rspec:
+      #   requires:
+      #   - rubocop
