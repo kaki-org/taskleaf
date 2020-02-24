@@ -75,7 +75,7 @@ describe Admin::UsersController do
       end
     end
     describe 'GET #show' do
-      let(:user1) { build_stubbed(:user)}
+      let(:user1) { build_stubbed(:user, name: 'teruo', password: 'passoword', email: 'teruo@example.com')}
       # FIXME: p.105より。なるほど、よくわからん。
       before :each do
         allow(user1).to receive(:persisted?).and_return(true)
