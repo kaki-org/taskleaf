@@ -54,7 +54,7 @@ describe Admin::UsersController do
       context 'params[:limit]がある場合' do
         it '与えられた件数のみ表示する事' do
           get :index, params: { limit: 1 }
-          expect(assigns(:users)).not_to match_array(:user2)
+          expect(assigns(:users)).not_to match_array(:user1)
         end
         it ':indexテンプレートを表示する事' do
           get :index, params: { limit: 1 }
@@ -75,16 +75,22 @@ describe Admin::UsersController do
       end
     end
     describe 'GET #show' do
-      # @user に要求された連絡先を割り当てる事
-      it 'assigns the requested user to @user' do
-        user = create(:user)
-        get :show, params: { id: user.id }
-        expect(assigns(:user)).to eq user
+      let(:user1) { build_stubbed(:user)}
+      # FIXME: p.105より。なるほど、よくわからん。
+      before :each do
+        allow(user1).to receive(:persisted?).and_return(true)
+        allow(User).to receive(:order).with('name').and_return([user1])
+        allow(User).to receive(:find).with(user1.id.to_s).and_return(user1)
+        allow(user1).to receive(:save).and_return(true)
+      end
+
+      it '@user に要求されたを割り当てる事' do
+        get :show, params: { id: user1 }
+        expect(assigns(:user)).to eq user1
       end
       # :show テンプレートを表示すること
       it 'renders the :show template' do
-        user = create(:user)
-        get :show, params: { id: user.id }
+        get :show, params: { id: user1 }
         expect(response).to render_template :show
       end
     end
@@ -101,9 +107,9 @@ describe Admin::UsersController do
         end
         # @userの属性を変更する事
         it "changes @user's attributes" do
-          patch :update, params: { id: user, user: attributes_for(:user, name: 'teruo') }
+          patch :update, params: { id: user, user: attributes_for(:user, name: 'user1') }
           user.reload
-          expect(user.name).to eq('teruo')
+          expect(user.name).to eq('user1')
         end
         # 更新した連絡先のページへリダイレクトすること
         it 'redirects to the updated contact' do
