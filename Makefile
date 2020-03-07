@@ -30,3 +30,7 @@ bundle:
 
 yarn:
 	docker-compose run --rm web yarn install
+
+guard:
+	docker-compose run --rm web bundle exec guard
+

@@ -107,8 +107,23 @@ GEM
       i18n (>= 1.6, < 2)
     ffi (1.11.3)
     foreman (0.87.0)
+    formatador (0.2.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    guard (2.16.1)
+      formatador (>= 0.2.4)
+      listen (>= 2.7, < 4.0)
+      lumberjack (>= 1.0.12, < 2.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-rspec (4.7.3)
+      guard (~> 2.1)
+      guard-compat (~> 1.1)
+      rspec (>= 2.99.0, < 4.0)
     hpricot (0.8.6)
     html2slim (0.2.0)
       hpricot
@@ -137,6 +152,7 @@ GEM
     loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
+    lumberjack (1.2.4)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
@@ -147,9 +163,13 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.0)
     msgpack (1.3.3)
+    nenv (0.3.0)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    notiffany (0.1.3)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     parallel (1.19.1)
     parser (2.7.0.4)
       ast (~> 2.4.0)
@@ -218,6 +238,10 @@ GEM
     redis (4.1.3)
     regexp_parser (1.6.0)
     rexml (3.2.4)
+    rspec (3.9.0)
+      rspec-core (~> 3.9.0)
+      rspec-expectations (~> 3.9.0)
+      rspec-mocks (~> 3.9.0)
     rspec-core (3.9.0)
       rspec-support (~> 3.9.0)
     rspec-expectations (3.9.0)
@@ -260,6 +284,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    shellany (0.0.1)
     sidekiq (6.0.5)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -273,6 +298,8 @@ GEM
       railties (>= 3.1)
       slim (>= 3.0, < 5.0)
     spring (2.1.0)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
@@ -330,6 +357,7 @@ DEPENDENCIES
   factory_bot_rails (~> 5.0)
   faker
   foreman
+  guard-rspec
   html2slim
   jbuilder (~> 2.10)
   kaminari
@@ -350,6 +378,7 @@ DEPENDENCIES
   sidekiq
   slim-rails
   spring
+  spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
   tzinfo-data
@@ -361,3 +390,5 @@ DEPENDENCIES
 RUBY VERSION
    ruby 2.6.5p114
 
+BUNDLED WITH
+   2.1.3

@@ -44,10 +44,12 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'debase'
   gem 'factory_bot_rails', '~> 5.0'
+  gem 'guard-rspec'
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.8'
   gem 'rubocop'
   gem 'ruby-debug-ide'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
