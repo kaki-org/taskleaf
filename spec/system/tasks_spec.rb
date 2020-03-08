@@ -42,6 +42,21 @@ describe 'タスク管理機能', type: :system do
         expect(page).not_to have_content '最初のタスク'
       end
     end
+
+    context '特別な日の判定' do
+      let(:login_user) { user_b }
+      it '誕生日には画面上にバースデーメッセージが出力される' do
+        travel_to(Time.parse('2020-03-13'))
+        visit tasks_path
+        expect(page).to have_content 'お誕生日おめでとうございます'
+      end
+      it '通常は画面上にバースデーメッセージが出力されない' do
+        travel_to(Time.parse('2020-03-08'))
+        visit tasks_path
+        expect(page).not_to have_content 'お誕生日おめでとうございます'
+        freeze_time
+      end
+    end
   end
 
   describe '詳細表示機能' do

@@ -24,3 +24,5 @@ html
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       = yield
+      - if @special_time
+        .alert.alert-success= 'お誕生日おめでとうございます'
