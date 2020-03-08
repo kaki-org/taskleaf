@@ -77,6 +77,14 @@ describe 'タスク管理機能', type: :system do
       it '正常に登録される' do
         expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
       end
+      it 'メールが送信される' do
+        # TODO: ここはそもそもsenderが取れない。。当たり前だが
+        # expect(open_last_email).to be_delivered_from sender.email
+        expect(last_email).to be_delivered_to 'user@example.com'
+        expect(last_email).to be_delivered_from 'taskleaf@example.com'
+        expect(last_email).to have_subject 'タスク作成完了メール'
+        expect(last_email).to have_body_text '以下のタスクを作成しました'
+      end
     end
     context '新規作成画面で名称を入力しなかったとき' do
       let(:task_name) { '' }
