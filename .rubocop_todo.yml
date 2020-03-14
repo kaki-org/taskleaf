@@ -14,8 +14,8 @@ Bundler/OrderedGems:
   Exclude:
     - 'Gemfile'
 
-ClassAndModuleChildren:
-  EnforcedStyle: compact
+#ClassAndModuleChildren:
+#  EnforcedStyle: compact
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
