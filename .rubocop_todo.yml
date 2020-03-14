@@ -14,8 +14,6 @@ Bundler/OrderedGems:
   Exclude:
     - 'Gemfile'
 
-#ClassAndModuleChildren:
-#  EnforcedStyle: compact
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -76,6 +74,7 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'app/controllers/admin/users_controller.rb'
     - 'app/helpers/admin/users_helper.rb'
+    - 'app/controllers/api/v1/tasks_controller.rb'
 
 # Offense count: 19
 Style/Documentation:
