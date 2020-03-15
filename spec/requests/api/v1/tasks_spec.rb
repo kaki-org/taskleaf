@@ -16,8 +16,8 @@ describe 'タスクAPI', type: :request do
     end
     it '作成したタスクを更新できる事' do
       put "/api/v1/tasks/#{task.id}", params: { task: {
-          name: 'MailerSpecを書く',
-          description: '送信したMailの内容を確認します',
+        name: 'MailerSpecを書く',
+        description: '送信したMailの内容を確認します'
       }, 'HTTP_ACCEPT' => 'application/vnd.tasks.v1' }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
