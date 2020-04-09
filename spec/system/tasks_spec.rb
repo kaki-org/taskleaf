@@ -76,10 +76,12 @@ describe 'タスク管理機能', type: :system do
     before do
       visit new_task_path
       fill_in '名称', with: task_name
+      attach_file '画像', "#{Rails.root}/spec/factories/redkaki.png"
     end
 
     context '新規作成画面で名称を入力したとき' do
       let(:task_name) { '新規作成のテストを書く' } # デフォルトで設定されているので本来不要な行
+      # let(:avatar) { attributes_for(:task_with_avatar)}
 
       # it '確認画面が表示される' do
       #   expect(page).to have_content task_name
@@ -90,6 +92,7 @@ describe 'タスク管理機能', type: :system do
       end
       it '正常に登録される' do
         expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
+        expect(Task.last.image.blob.filename).to eq 'redkaki.png'
       end
       it 'メールが送信される' do
         # TODO: ここはそもそもsenderが取れない。。当たり前だが
