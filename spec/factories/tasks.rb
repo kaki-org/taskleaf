@@ -14,5 +14,8 @@ FactoryBot.define do
     factory :society_task do
       description { Faker::Lorem.sentence }
     end
+    factory :task_with_avatar do
+      avatar { File.new("#{Rails.root}/spec/factories/redkaki.png") }
+    end
   end
 end

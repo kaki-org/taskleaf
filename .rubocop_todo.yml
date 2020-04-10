@@ -34,7 +34,7 @@ Lint/ShadowingOuterLocalVariable:
 
 # Offense count: 4
 Metrics/AbcSize:
-  Max: 18
+  Max: 40
 
 # Offense count: 5
 # Configuration parameters: CountComments, ExcludedMethods.
@@ -74,6 +74,7 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'app/controllers/admin/users_controller.rb'
     - 'app/helpers/admin/users_helper.rb'
+    - 'app/controllers/api/v1/tasks_controller.rb'
 
 # Offense count: 19
 Style/Documentation:

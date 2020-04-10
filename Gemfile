@@ -53,6 +53,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'email_spec'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'foreman'
   gem 'listen', '>= 3.0.5', '< 3.3'

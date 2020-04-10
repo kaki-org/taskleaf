@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     @q = current_user.tasks.ransack(params[:q])
     @tasks = @q.result(distinct: true).page(params[:page])
-
+    @special_time = special_time
     respond_to do |format|
       format.html
       format.csv { send_data @tasks.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv" }
@@ -70,5 +70,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :image)
+  end
+
+  def special_time
+    Time.current.all_day.include?(Time.parse('2020-03-13'))
   end
 end

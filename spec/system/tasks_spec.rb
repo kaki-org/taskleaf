@@ -42,6 +42,21 @@ describe 'タスク管理機能', type: :system do
         expect(page).not_to have_content '最初のタスク'
       end
     end
+
+    context '特別な日の判定' do
+      let(:login_user) { user_b }
+      it '誕生日には画面上にバースデーメッセージが出力される' do
+        travel_to(Time.parse('2020-03-13'))
+        visit tasks_path
+        expect(page).to have_content 'お誕生日おめでとうございます'
+      end
+      it '通常は画面上にバースデーメッセージが出力されない' do
+        travel_to(Time.parse('2020-03-08'))
+        visit tasks_path
+        expect(page).not_to have_content 'お誕生日おめでとうございます'
+        freeze_time
+      end
+    end
   end
 
   describe '詳細表示機能' do
@@ -61,26 +76,39 @@ describe 'タスク管理機能', type: :system do
     before do
       visit new_task_path
       fill_in '名称', with: task_name
-      click_button '確認'
+      attach_file '画像', "#{Rails.root}/spec/factories/redkaki.png"
     end
 
     context '新規作成画面で名称を入力したとき' do
       let(:task_name) { '新規作成のテストを書く' } # デフォルトで設定されているので本来不要な行
+      # let(:avatar) { attributes_for(:task_with_avatar)}
 
-      it '確認画面が表示される' do
-        expect(page).to have_content task_name
-        # expect(page).to have_content name: '登録内容の確認'
-      end
+      # it '確認画面が表示される' do
+      #   expect(page).to have_content task_name
+      #   # expect(page).to have_content name: '登録内容の確認'
+      # end
       before do
         click_button '登録'
       end
       it '正常に登録される' do
         expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
+        expect(Task.last.image.blob.filename).to eq 'redkaki.png'
+      end
+      it 'メールが送信される' do
+        # TODO: ここはそもそもsenderが取れない。。当たり前だが
+        # expect(open_last_email).to be_delivered_from sender.email
+        expect(last_email).to be_delivered_to 'user@example.com'
+        expect(last_email).to be_delivered_from 'taskleaf@example.com'
+        expect(last_email).to have_subject 'タスク作成完了メール'
+        expect(last_email).to have_body_text '以下のタスクを作成しました'
       end
     end
     context '新規作成画面で名称を入力しなかったとき' do
       let(:task_name) { '' }
 
+      before do
+        click_button '登録'
+      end
       it 'エラーとなる' do
         within '#error_explanation' do
           expect(page).to have_content '名称を入力してください'
