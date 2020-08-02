@@ -107,7 +107,7 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
-    faker (2.11.0)
+    faker (2.13.0)
       i18n (>= 1.6, < 2)
     ffi (1.12.2)
     foreman (0.87.1)
@@ -132,7 +132,7 @@ GEM
     html2slim (0.2.0)
       hpricot
     htmlentities (4.3.4)
-    i18n (1.8.3)
+    i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
