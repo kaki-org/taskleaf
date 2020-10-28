@@ -89,7 +89,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     connection_pool (2.2.2)
     crass (1.0.6)
     debase (0.2.4.1)
@@ -107,7 +107,7 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
-    faker (2.11.0)
+    faker (2.14.0)
       i18n (>= 1.6, < 2)
     ffi (1.12.2)
     foreman (0.87.2)
