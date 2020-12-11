@@ -178,8 +178,6 @@ GEM
     parser (2.7.2.0)
       ast (~> 2.4.1)
     pg (1.2.3)
-    polyamorous (2.3.2)
-      activerecord (>= 5.2.1)
     popper_js (1.16.0)
     pry (0.13.0)
       coderay (~> 1.1)
@@ -231,11 +229,10 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rainbow (3.0.0)
     rake (13.0.1)
-    ransack (2.3.2)
-      activerecord (>= 5.2.1)
-      activesupport (>= 5.2.1)
+    ransack (2.4.0)
+      activerecord (>= 5.2.4)
+      activesupport (>= 5.2.4)
       i18n
-      polyamorous (= 2.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -325,7 +322,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
@@ -349,7 +346,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.0)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   ruby
