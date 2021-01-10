@@ -37,7 +37,6 @@ User.create!(name: 'admin', email: 'admin@example.com', password: 'password', pa
 
 # rspecのインストール
 
-
 ```
 bundle
 bin/rails g rspec:install
@@ -72,16 +71,12 @@ kakikubo@kair ~/Documents/learning-rails/taskleaf %
 
 # mail送信テスト
 
-mailcatcherを利用するのが簡単そう。
-しかし、bundlerから実行すると何故か使い物にならない為、
-```
-gem install mailcatcher
-mailcatcher
-```
-として http://localhost:1080
-する必要がある。
+mailcatcher用のコンテナを起動しているので、
 
-面倒なので、そのうちDocker化してみる(TODO)
+http://lvh.me:50080
+
+で参照できます。
+
 ※ [参考リンク](https://qiita.com/pocari/items/de0436c39ffc65647cf0)
 
 
@@ -91,3 +86,11 @@ paginationでkaminariを使用している。スタイルを適用するため�
 ```
 bin/rails g kaminari:views bootstrap4
 ```
+
+# guard-rspec
+
+```
+make guard
+```
+
+したあとでテストファイルを編集していると自動でテスト実行を再開してくれる

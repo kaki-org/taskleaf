@@ -4,7 +4,11 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin
 
   def index
-    @users = User.all
+    @users = if params[:limit].blank?
+               User.all
+             else
+               User.all.limit(params[:limit])
+             end
   end
 
   def show
@@ -36,6 +40,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
     else
       render :edit
+      # redirect_to edit_admin_user_path, params: params
     end
   end
 
@@ -48,7 +53,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
   def require_admin

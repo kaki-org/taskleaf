@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  web: &app_base
     build:
       context: .
       dockerfile: ./devenv/web/Dockerfile
@@ -10,15 +10,29 @@ services:
       DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
       REDIS_URL: redis://redis:6379
+      WEBPACKER_DEV_SERVER_HOST: webpack
     volumes:
-      - .:/myapp
+      - .:/myapp:cached
+      - rails_cache:/myapp/tmp/cache
       - bundler:/usr/local/bundle
     ports:
       - "3000:3000"
-      - "3035:3035"
     depends_on:
       - pgsql
       - redis
+    tmpfs:
+      - /tmp
+  webpack:
+    <<: *app_base
+    command: "bin/webpack-dev-server"
+    ports:
+      - "3035:3035"
+    depends_on:
+      - web
+    tty: false
+    stdin_open: false
+
+
   redis:
     image: redis:5-alpine
     ports:
@@ -27,6 +41,10 @@ services:
     command: redis-server --appendonly yes
     volumes:
       - redis-data:/data
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - 50080:1080
   pgsql:
     image: postgres:11.4-alpine
     environment:
@@ -36,6 +54,7 @@ services:
     ports:
       - "5432:5432"
 volumes:
-  bundler: {}
+  bundler:
+  rails_cache:
   redis-data:
     driver: local

@@ -4,14 +4,14 @@ require 'rails_helper'
 require 'support/download_helper'
 
 describe 'タスク管理機能', type: :system do
-  let(:user_a) { FactoryBot.create(:user, name: 'ユーザA', email: 'a@example.com') }
-  let(:user_b) { FactoryBot.create(:user, name: 'ユーザB', email: 'b@example.com') }
-  let!(:task_a) { FactoryBot.create(:task, name: '最初のタスク', user: user_a) }
+  let(:user_a) { create(:user, name: 'ユーザA', email: 'a@example.com') }
+  let(:user_b) { create(:user, name: 'ユーザB', email: 'b@example.com') }
+  let!(:task_a) { create(:task, name: '最初のタスク', user: user_a) }
 
   before do
     # ユーザAを作成
     # 作成者がユーザAであるタスクを作成
-    @task = FactoryBot.create(:task, name: '次のタスク', description: '詳細な説明', user: user_a)
+    @task = create(:task, name: '次のタスク', description: '詳細な説明', user: user_a)
     # ユーザAでログインする
     # 1. ログイン画面にアクセス
     visit login_path
@@ -42,6 +42,21 @@ describe 'タスク管理機能', type: :system do
         expect(page).not_to have_content '最初のタスク'
       end
     end
+
+    context '特別な日の判定' do
+      let(:login_user) { user_b }
+      it '誕生日には画面上にバースデーメッセージが出力される' do
+        travel_to(Time.parse('2020-03-13'))
+        visit tasks_path
+        expect(page).to have_content 'お誕生日おめでとうございます'
+      end
+      it '通常は画面上にバースデーメッセージが出力されない' do
+        travel_to(Time.parse('2020-03-08'))
+        visit tasks_path
+        expect(page).not_to have_content 'お誕生日おめでとうございます'
+        freeze_time
+      end
+    end
   end
 
   describe '詳細表示機能' do
@@ -61,26 +76,39 @@ describe 'タスク管理機能', type: :system do
     before do
       visit new_task_path
       fill_in '名称', with: task_name
-      click_button '確認'
+      attach_file '画像', "#{Rails.root}/spec/factories/redkaki.png"
     end
 
     context '新規作成画面で名称を入力したとき' do
       let(:task_name) { '新規作成のテストを書く' } # デフォルトで設定されているので本来不要な行
+      # let(:avatar) { attributes_for(:task_with_avatar)}
 
-      it '確認画面が表示される' do
-        expect(page).to have_content task_name
-        # expect(page).to have_content name: '登録内容の確認'
-      end
+      # it '確認画面が表示される' do
+      #   expect(page).to have_content task_name
+      #   # expect(page).to have_content name: '登録内容の確認'
+      # end
       before do
         click_button '登録'
       end
       it '正常に登録される' do
         expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
+        expect(Task.last.image.blob.filename).to eq 'redkaki.png'
+      end
+      it 'メールが送信される' do
+        # TODO: ここはそもそもsenderが取れない。。当たり前だが
+        # expect(open_last_email).to be_delivered_from sender.email
+        expect(last_email).to be_delivered_to 'user@example.com'
+        expect(last_email).to be_delivered_from 'taskleaf@example.com'
+        expect(last_email).to have_subject 'タスク作成完了メール'
+        expect(last_email).to have_body_text '以下のタスクを作成しました'
       end
     end
     context '新規作成画面で名称を入力しなかったとき' do
       let(:task_name) { '' }
 
+      before do
+        click_button '登録'
+      end
       it 'エラーとなる' do
         within '#error_explanation' do
           expect(page).to have_content '名称を入力してください'
@@ -131,7 +159,6 @@ describe 'タスク管理機能', type: :system do
   # 削除機能
   describe '削除機能', js: true do
     let(:login_user) { user_a }
-
     before do
       visit task_path id: @task.id
     end
@@ -140,6 +167,11 @@ describe 'タスク管理機能', type: :system do
         click_link '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
         # expect(page.driver.browser.accept_js_confirms.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
+      end
+      it 'タスクが削除される' do
+        click_link '削除'
+        page.driver.browser.switch_to.alert.accept
+        expect(page).to have_content '「次のタスク」を削除しました'
       end
     end
   end
