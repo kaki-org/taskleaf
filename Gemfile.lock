@@ -134,7 +134,7 @@ GEM
     htmlentities (4.3.4)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
-    jbuilder (2.10.0)
+    jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -398,7 +398,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.6.5p114
+   ruby 2.7.2p137
 
 BUNDLED WITH
-   1.17.2
+   2.1.4
