@@ -20,7 +20,7 @@ rspec:
 	docker-compose run -e TZ="/usr/share/zoneinfo/Asia/Tokyo" -e LANG=ja_JP.UTF-8 -e LC_ALL=C.UTF-8 -e LANGUAGE=ja_JP.UTF-8 --rm web bundle exec rspec ${ARG}
 
 rubocop:
-	docker-compose run --rm web bundle exec rubocop
+	docker-compose run --rm web bundle exec rubocop ${ARG}
 
 erd:
 	docker-compose run --rm web bundle exec erd
