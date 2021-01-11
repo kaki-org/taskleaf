@@ -4,3 +4,5 @@ Style/AsciiComments:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+AllCops:
+  SuggestExtensions: false
