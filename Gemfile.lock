@@ -93,7 +93,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.8)
     connection_pool (2.2.3)
     crass (1.0.6)
     debase (0.2.4.1)
@@ -138,7 +138,7 @@ GEM
     htmlentities (4.3.4)
     i18n (1.8.7)
       concurrent-ruby (~> 1.0)
-    jbuilder (2.10.1)
+    jbuilder (2.11.0)
       activesupport (>= 5.0.0)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -368,7 +368,7 @@ DEPENDENCIES
   foreman
   guard-rspec
   html2slim
-  jbuilder (~> 2.10)
+  jbuilder (~> 2.11)
   kaminari
   launchy
   listen (>= 3.0.5, < 3.5)
