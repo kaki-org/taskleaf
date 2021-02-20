@@ -67,7 +67,7 @@ GEM
       execjs
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.7.1)
+    bootsnap (1.7.2)
       msgpack (~> 1.0)
     bootstrap (4.6.0)
       autoprefixer-rails (>= 9.1.0)
@@ -397,7 +397,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 3.0.0p0
 
 BUNDLED WITH
-   2.1.4
+   2.2.3
