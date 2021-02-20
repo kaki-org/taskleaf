@@ -73,6 +73,6 @@ class TasksController < ApplicationController
   end
 
   def special_time
-    Time.current.all_day.include?(Time.parse('2020-03-13'))
+    Time.current.all_day.cover?(Time.parse('2020-03-13'))
   end
 end
