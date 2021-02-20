@@ -56,5 +56,5 @@ interaction:
 
 provision:
   - dip compose down --volumes
-  - dip compose up -d db
+  - dip compose up -d pgsql
   - dip bash -c ./bin/setup
