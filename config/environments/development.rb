@@ -64,4 +64,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.active_job.queue_adapter = :sidekiq
+
+  config.hosts << "taskleaf.lvh.me"
 end

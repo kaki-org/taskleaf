@@ -35,6 +35,13 @@ rails consoleから
 User.create!(name: 'admin', email: 'admin@example.com', password: 'password', password_confirmation: 'password', admin: true)
 ```
 
+http://taskleaf.lvh.me:3000
+
+すでに `db/seeds.rb` は用意してあるので、こちらを利用して確認してみる
+
+- admin@example.com
+- password
+
 # rspecのインストール
 
 ```
@@ -48,7 +55,6 @@ bundle exec rspec --dry-run spec/system/tasks_spec.rb -f d
 ```
 
 # sandboxモード
-
 
 `-s`をつけるとsandboxモードで起動出来る。DBの変更はすべてロールバックされる
 ```
@@ -73,7 +79,7 @@ kakikubo@kair ~/Documents/learning-rails/taskleaf %
 
 mailcatcher用のコンテナを起動しているので、
 
-http://lvh.me:50080
+http://taskleaf.lvh.me:50080
 
 で参照できます。
 
