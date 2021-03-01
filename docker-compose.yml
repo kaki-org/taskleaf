@@ -53,6 +53,12 @@ services:
       - ./pgsql-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  rails_cred:
+    image: medpeer/rails_cred
+    environment:
+      RAILS_MASTER_KEY:
+    volumes:
+      - ./config/credentials:/app/config/credentials:cached
 volumes:
   bundler:
   rails_cache:

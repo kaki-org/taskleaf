@@ -1,5 +1,7 @@
 h1 タスク一覧
 
+= session[:userinfo].inspect
+
 = search_form_for @q, class: 'mb-5' do |f|
   .form-group.row
     = f.label :name_cont, '名称', class: 'col-sm-2 col-form-label'

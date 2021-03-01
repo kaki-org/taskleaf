@@ -1,4 +1,7 @@
 h1 ログイン
+= session[:userinfo].inspect
+img src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.svg"
+= button_to 'Auth0でログイン', 'auth/auth0', method: :post, class: 'btn btn-primary'
 
 - if flash.now[:alert].present?
   .alert.alert-danger= flash.now[:alert]
