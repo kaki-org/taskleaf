@@ -113,7 +113,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.16.0)
       i18n (>= 1.6, < 2)
-    ffi (1.14.2)
+    ffi (1.15.0)
     foreman (0.87.2)
     formatador (0.2.5)
     globalid (0.4.2)
@@ -154,7 +154,7 @@ GEM
     kaminari-core (1.2.1)
     launchy (2.5.0)
       addressable (~> 2.7)
-    listen (3.4.1)
+    listen (3.5.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.9.0)
@@ -371,7 +371,7 @@ DEPENDENCIES
   jbuilder (~> 2.11)
   kaminari
   launchy
-  listen (>= 3.0.5, < 3.5)
+  listen (>= 3.0.5, < 3.6)
   pg (>= 0.18, < 2.0)
   pry-byebug
   puma (~> 5.2)
