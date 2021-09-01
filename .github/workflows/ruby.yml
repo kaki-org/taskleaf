@@ -33,7 +33,7 @@ jobs:
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.0.1
+          ruby-version: 3.0.2
 
       #MySQLをインストール
       #- name: Install dependent libralies
