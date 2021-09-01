@@ -2,7 +2,7 @@
   "name": "taskleaf",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^5.3.0",
+    "@rails/webpacker": "^5.4.2",
     "rails-ujs": "^5.2.6"
   },
   "devDependencies": {

@@ -1,20 +1,28 @@
 version: '3'
 services:
   web: &app_base
-    build:
-      context: .
-      dockerfile: ./devenv/web/Dockerfile
-    command: foreman start
+    image: 'circleci/ruby:3.0.2-node-browsers'
+    # build:
+    #   context: .
+    #   dockerfile: ./devenv/web/Dockerfile
+#    command: foreman start
+    command: ["bin/rails", "server", "-b", "0.0.0.0"]
     environment:
       PGSQL_HOST: pgsql
       DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
       REDIS_URL: redis://redis:6379
       WEBPACKER_DEV_SERVER_HOST: webpack
+      BOOTSNAP_CACHE_DIR: '/usr/local/bundle'
+      HISTFILE: '/app/log/.bash_history'
+      TZ: 'Asia/Tokyo'
+      RAILS_ENV: ${RAILS_ENV:-development}
     volumes:
-      - .:/myapp:cached
-      - rails_cache:/myapp/tmp/cache
+      - .:/app:cached
+      - rails_cache:/app/tmp/cache
       - bundler:/usr/local/bundle
+    working_dir: /app
+    user: root
     ports:
       - "3000:3000"
     depends_on:
@@ -22,15 +30,18 @@ services:
       - redis
     tmpfs:
       - /tmp
+    stdin_open: true
+    tty: true
   webpack:
     <<: *app_base
+    container_name: webpack
     command: "bin/webpack-dev-server"
     ports:
       - "3035:3035"
     depends_on:
       - web
-    tty: false
-    stdin_open: false
+    tty: true
+    stdin_open: true
 
 
   redis:
