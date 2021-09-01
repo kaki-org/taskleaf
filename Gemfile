@@ -43,7 +43,7 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'debase'
-  gem 'factory_bot_rails', '~> 6.1'
+  gem 'factory_bot_rails', '~> 6.2'
   gem 'guard-rspec'
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 5.0'
