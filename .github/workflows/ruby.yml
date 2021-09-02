@@ -14,7 +14,7 @@ jobs:
           access_token: ${{ github.token }}
   rspec_job:
     #ubuntu環境で動かします
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     services:
       postgres:
@@ -61,6 +61,8 @@ jobs:
           bundle install --jobs 4 --retry 3 --path vendor/bundle
       - name: yarn install
         run: yarn install --check-files
+      - name: rubocop
+        run: bundle exec rubocop
 
       - name: Setup Database
         run: |
