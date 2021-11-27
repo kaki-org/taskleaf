@@ -80,6 +80,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+        with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Simplecov Report
         uses: aki77/simplecov-report-action@v1
