@@ -15,6 +15,25 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'simplecov'
+# require 'coveralls'
+require 'simplecov-lcov'
+
+SimpleCov::Formatter::LcovFormatter.config do |config|
+  # Coverallsはデフォルトではcoverage/lcov.infoの結果を送信する
+  config.report_with_single_file = true
+  config.single_report_path = 'coverage/lcov.info'
+end
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    # formatterにSimpleCov::Formatter::LcovFormatterを加える
+    SimpleCov::Formatter::LcovFormatter
+  ]
+)
+
+SimpleCov.start 'rails'
 
 require 'capybara/rspec'
 
