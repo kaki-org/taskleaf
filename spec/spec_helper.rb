@@ -37,9 +37,6 @@ SimpleCov.start 'rails'
 require 'codecov'
 SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
-
-
-
 require 'capybara/rspec'
 
 RSpec.configure do |config|
