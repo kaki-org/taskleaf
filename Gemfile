@@ -74,6 +74,9 @@ group :test do
   # gem 'chromedriver-helper' # 2019/03/31?あたりからこいつは非推奨(Capybaraとかでコケまくる。webdriversを利用する)
   gem 'webdrivers'
   gem 'rails-controller-testing'
+  gem 'simplecov', require: false
+  gem 'simplecov-lcov', require: false
+  # gem 'codecov'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
