@@ -76,7 +76,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
   gem 'simplecov-lcov', require: false
-  gem 'codecov'
+  # gem 'codecov'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
