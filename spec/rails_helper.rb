@@ -84,7 +84,7 @@ RSpec.configure do |config|
     options.add_argument('--window-size=1680,1050')
     # NOTE: chromedriver(v77)では、Linuxのヘッドレスモードで、下記設定が必要
     options.add_preference(:download, default_directory: DownloadHelper::PATH.to_s)
-    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options, http_client: client).tap do |driver|
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options:, http_client: client).tap do |driver|
       # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
       driver.browser.download_path = DownloadHelper::PATH.to_s
     end
