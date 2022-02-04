@@ -14,14 +14,14 @@ services:
       REDIS_URL: redis://redis:6379
       WEBPACKER_DEV_SERVER_HOST: webpack
       BOOTSNAP_CACHE_DIR: '/usr/local/bundle'
-      HISTFILE: '/app/log/.bash_history'
+      HISTFILE: '/home/circleci/log/.bash_history'
       TZ: 'Asia/Tokyo'
       RAILS_ENV: ${RAILS_ENV:-development}
     volumes:
-      - .:/app:cached
-      - rails_cache:/app/tmp/cache
+      - .:/home/circleci:cached
+      - rails_cache:/home/circleci/tmp/cache
       - bundler:/usr/local/bundle
-    working_dir: /app
+    working_dir: /home/circleci
     user: root
     ports:
       - "3000:3000"

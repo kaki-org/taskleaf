@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/.rubygems
 
 # Ignore all logfiles and tempfiles.
 /log/*
