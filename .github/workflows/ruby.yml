@@ -48,7 +48,7 @@ jobs:
           path: vendor/bundle
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-
+            ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
       - name: Cache node modules
         uses: actions/cache@v2
         with:
