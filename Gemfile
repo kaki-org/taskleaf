@@ -46,7 +46,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
   gem 'guard-rspec'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 5.0'
+  gem 'rspec-rails', '~> 5.1'
   gem 'rubocop'
   gem 'ruby-debug-ide'
   gem 'spring-commands-rspec'
