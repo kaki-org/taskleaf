@@ -43,12 +43,12 @@ jobs:
         run: gem install bundler
 
       - name: Cache gems
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          key: ${{ runner.os }}-gem-test-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+            ${{ runner.os }}-gem-test-${{ hashFiles('**/Gemfile.lock') }}
       - name: Cache node modules
         uses: actions/cache@v2
         with:
