@@ -48,7 +48,7 @@ jobs:
           path: vendor/bundle
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+            ${{ runner.os }}-gem-
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -58,7 +58,7 @@ jobs:
             ${{ runner.os }}-node-
       - name: bundle install
         run: |
-          bundle install --jobs 4 --retry 3 --path vendor/bundle2
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
       - name: yarn install
         run: yarn install --check-files
       - name: rubocop
