@@ -36,7 +36,6 @@ gem 'bcrypt', '~> 3.1.16'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
 gem 'debug'
 
 group :development, :test do
