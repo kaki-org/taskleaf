@@ -45,10 +45,10 @@ jobs:
       - name: Cache gems
         uses: actions/cache@v2
         with:
-          path: vendor/bundle2
-          key: ${{ runner.os }}-gem-test-${{ hashFiles('**/Gemfile.lock') }}
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gem-test-${{ hashFiles('**/Gemfile.lock') }}
+            ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
       - name: Cache node modules
         uses: actions/cache@v2
         with:
