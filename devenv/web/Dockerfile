@@ -1,5 +1,5 @@
 #FROM ruby:3.0.3-slim
-FROM cimg/ruby:3.0.3-browsers
+FROM cimg/ruby:3.1.0-browsers
 RUN sudo apt-get update -qq && sudo apt-get install -y build-essential libpq-dev curl apt-transport-https git libssl-dev imagemagick libmagickwand-dev zlib1g-dev unzip
 
 
