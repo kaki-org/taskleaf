@@ -64,7 +64,7 @@ jobs:
       - name: rubocop
         run: bundle exec rubocop
       - name: tmp cache clear
-        run: rails tmp:cache:clear
+        run: bundle exec rails tmp:cache:clear
 
       - name: Setup Database
         run: |
