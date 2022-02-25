@@ -33,7 +33,7 @@ jobs:
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.0.2
+          ruby-version: 3.0.3
 
       #MySQLをインストール
       #- name: Install dependent libralies
@@ -63,6 +63,8 @@ jobs:
         run: yarn install --check-files
       - name: rubocop
         run: bundle exec rubocop
+      - name: tmp cache clear
+        run: bundle exec rails tmp:cache:clear
 
       - name: Setup Database
         run: |
@@ -80,3 +82,8 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+      - name: Codecov
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage # このディレクトリに、テスティングツールによるカバレッジレポートファイルが出力される想定

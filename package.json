@@ -2,10 +2,10 @@
   "name": "taskleaf",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^5.4.2",
+    "@rails/webpacker": "^5.4.3",
     "rails-ujs": "^5.2.6"
   },
   "devDependencies": {
-    "webpack-dev-server": "^4.2.0"
+    "webpack-dev-server": "^4.7.4"
   }
 }
