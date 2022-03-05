@@ -33,7 +33,7 @@ jobs:
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.0.3
+          ruby-version: 3.1.1
 
       #MySQLをインストール
       #- name: Install dependent libralies
@@ -63,6 +63,8 @@ jobs:
         run: yarn install --check-files
       - name: rubocop
         run: bundle exec rubocop
+      - name: tmp cache clear
+        run: bundle exec rails tmp:cache:clear
 
       - name: Setup Database
         run: |

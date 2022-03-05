@@ -21,6 +21,12 @@ services:
       - .:/home/circleci:cached
       - rails_cache:/home/circleci/tmp/cache
       - bundler:/usr/local/bundle
+      # exclude volumes
+      - /home/circleci/vendor
+      - /home/circleci/tmp
+      - /home/circleci/log
+      - /home/circleci/.git
+      - /home/circleci/node_modules
     working_dir: /home/circleci
     user: root
     ports:
