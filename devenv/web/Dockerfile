@@ -1,4 +1,4 @@
-FROM cimg/ruby:3.1.0-browsers
+FROM cimg/ruby:3.1.1-browsers
 RUN sudo apt-get update -qq && sudo apt-get install -y build-essential libpq-dev curl apt-transport-https git libssl-dev imagemagick libmagickwand-dev zlib1g-dev unzip
 
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
