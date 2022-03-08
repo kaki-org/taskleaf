@@ -17,6 +17,7 @@ services:
       HISTFILE: '/home/circleci/log/.bash_history'
       TZ: 'Asia/Tokyo'
       RAILS_ENV: ${RAILS_ENV:-development}
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub    #追加、どのコンテナのブラウザを使用するか指定
     volumes:
       - .:/home/circleci:cached
       - rails_cache:/home/circleci/tmp/cache
@@ -48,6 +49,10 @@ services:
       - web
     tty: true
     stdin_open: true
+  chrome:
+    image: selenium/standalone-chrome
+    ports:
+      - '4444:4444'
 
 
   redis:
