@@ -50,8 +50,8 @@ RUN apk --no-cache add \
     postgresql-client \
     imagemagick  \
     chromium-chromedriver \
-    zlib-dev chromium \
-    xvfb wait4ports xorg-server dbus ttf-freefont mesa-dri-swrast udev python3 python3-dev py3-pip cmd:pip3 \
+    zlib-dev \
+    ttf-freefont python3 python3-dev py3-pip cmd:pip3 \
     tzdata
 #RUN cd /tmp && \
 #    curl -O http://chromedriver.storage.googleapis.com/100.0.4896.20/chromedriver_linux64.zip && \
