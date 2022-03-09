@@ -51,14 +51,14 @@ RUN apk --no-cache add \
     imagemagick  \
     chromium-chromedriver \
     zlib-dev \
-    ttf-freefont python3 python3-dev py3-pip cmd:pip3 \
+    ttf-freefont \
     tzdata
 #RUN cd /tmp && \
 #    curl -O http://chromedriver.storage.googleapis.com/100.0.4896.20/chromedriver_linux64.zip && \
 #    unzip chromedriver_linux64.zip && mv chromedriver /usr/local/bin \
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
-    && pip3 install --upgrade pip \
-    && pip3 install -U selenium
+#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+#    && pip3 install --upgrade pip \
+#    && pip3 install -U selenium
 
 
 # TZ JST

@@ -35,6 +35,7 @@ services:
     depends_on:
       - pgsql
       - redis
+#      - chrome
     tmpfs:
       - /tmp
     stdin_open: true
@@ -53,7 +54,6 @@ services:
     image: selenium/standalone-chrome
     ports:
       - '4444:4444'
-
 
   redis:
     image: redis:5-alpine
