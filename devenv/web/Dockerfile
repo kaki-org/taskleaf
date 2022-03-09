@@ -63,12 +63,12 @@ RUN apk --no-cache add \
 
 # TZ JST
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-RUN cd \
-    && wget https://noto-website.storage.googleapis.com/pkgs/NotoSerifCJKjp-hinted.zip \
-    && mkdir -p /usr/share/fonts/noto \
-    && unzip NotoSerifCJKjp-hinted.zip -d /usr/share/fonts/noto \
-    && rm NotoSerifCJKjp-hinted.zip \
-    && fc-cache -fv
+#RUN cd \
+#    && wget https://noto-website.storage.googleapis.com/pkgs/NotoSerifCJKjp-hinted.zip \
+#    && mkdir -p /usr/share/fonts/noto \
+#    && unzip NotoSerifCJKjp-hinted.zip -d /usr/share/fonts/noto \
+#    && rm NotoSerifCJKjp-hinted.zip \
+#    && fc-cache -fv
 
 ENV APP_PATH /work/app
 WORKDIR $APP_PATH

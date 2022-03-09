@@ -35,7 +35,7 @@ services:
     depends_on:
       - pgsql
       - redis
-#      - chrome
+      - chrome
     tmpfs:
       - /tmp
     stdin_open: true
