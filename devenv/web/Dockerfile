@@ -1,20 +1,70 @@
-FROM cimg/ruby:3.1.1-browsers
-RUN sudo apt-get update -qq && sudo apt-get install -y build-essential libpq-dev curl apt-transport-https git libssl-dev imagemagick libmagickwand-dev zlib1g-dev unzip
+# ビルド用コンテナ
+FROM ruby:3.1.1-alpine3.15 AS builder
+RUN apk --no-cache add --virtual build-dependencies \
+    build-base \
+    git \
+    make \
+    gcc \
+    g++ \
+    zlib-dev \
+    libffi-dev \
+    readline-dev \
+    libxml2-dev \
+    libxslt-dev \
+    postgresql-dev
+RUN apk --no-cache add \
+    bash \
+    yarn \
+    postgresql-client \
+    imagemagick \
+    tzdata
+ENV APP_PATH /work/app
+WORKDIR $APP_PATH
 
-RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google.list
+COPY Gemfile $APP_PATH
+COPY Gemfile.lock $APP_PATH
+RUN gem update bundler \
+    && bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3 \
+    && apk del build-dependencies # --virtual でグルーピングしたpackageを削除
+RUN rm -rf /usr/local/bundle/cache/*
 
-RUN sudo apt-get update -y && sudo apt-get install -y google-chrome-stable
-RUN sudo apt-get install -y graphviz
+# mainコンテナ
+FROM ruby:3.1.1-alpine3.15
+RUN apk --no-cache add \
+    bash \
+    file \
+    make \
+    curl \
+    gcc \
+    libffi-dev \
+    yarn \
+    readline-dev \
+    libxml2-dev \
+    libxslt-dev \
+    nodejs \
+    postgresql-client \
+    imagemagick  \
+    tzdata
+#RUN cd /tmp && \
+#    curl -O http://chromedriver.storage.googleapis.com/100.0.4896.20/chromedriver_linux64.zip && \
+#    unzip chromedriver_linux64.zip && mv chromedriver /usr/local/bin \
+#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+#    && pip3 install --upgrade pip \
+#    && pip3 install -U selenium
 
-RUN cd /tmp && \
-    wget -N http://chromedriver.storage.googleapis.com/100.0.4896.20/chromedriver_linux64.zip && \
-    unzip chromedriver_linux64.zip && sudo mv chromedriver /usr/local/bin
-#RUN mkdir /myapp
-#WORKDIR /myapp
-COPY Gemfile /home/circleci/Gemfile
-COPY Gemfile.lock /home/circleci/Gemfile.lock
-COPY . /home/circleci
 
+# TZ JST
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+#RUN cd \
+#    && wget https://noto-website.storage.googleapis.com/pkgs/NotoSerifCJKjp-hinted.zip \
+#    && mkdir -p /usr/share/fonts/noto \
+#    && unzip NotoSerifCJKjp-hinted.zip -d /usr/share/fonts/noto \
+#    && rm NotoSerifCJKjp-hinted.zip \
+#    && fc-cache -fv
 
-ENV LANG C.UTF-8
+ENV APP_PATH /work/app
+WORKDIR $APP_PATH
+COPY . $APP_PATH
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+
+CMD ["bin/rails", "s"]

@@ -32,6 +32,10 @@ interaction:
     service: web
     environment:
       RAILS_ENV: test
+      TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+      LANG: "ja_JP.UTF-8"
+      LC_ALL: "C.UTF-8"
+      LANGUAGE: "ja_JP.UTF-8"
     command: bundle exec rspec
 
   rubocop:
