@@ -42,12 +42,8 @@ RUN apk --no-cache add \
     libxml2-dev \
     libxslt-dev \
     nodejs \
-    postgresql-dev \
     postgresql-client \
     imagemagick  \
-    chromium-chromedriver \
-    zlib-dev \
-    ttf-freefont \
     tzdata
 #RUN cd /tmp && \
 #    curl -O http://chromedriver.storage.googleapis.com/100.0.4896.20/chromedriver_linux64.zip && \
