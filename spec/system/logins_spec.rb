@@ -13,6 +13,7 @@ describe 'ログイン機能', type: :system do
     it 'エラー画面が表示される' do
       click_button 'ログインする'
       expect(page).to have_content('ログインに失敗しました')
+      expect(page).to have_content('こんにちわ')
     end
   end
   context '正しいユーザ名とパスワードを入力' do
