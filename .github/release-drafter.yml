@@ -1,9 +1,12 @@
 name-template: 'v$RESOLVED_VERSION 🌈'
 tag-template: 'v$RESOLVED_VERSION'
+
 categories:
   - title: '🚀 Features'
     labels:
       - 'feature'
+  - title: '💪 Enhancement'
+    labels:
       - 'enhancement'
   - title: '🐛 Bug Fixes'
     labels:
@@ -12,8 +15,17 @@ categories:
       - 'bug'
   - title: '🧰 Maintenance'
     label: 'chore'
+  - title: '🔧 Refactoring'
+    label: 'refactor'
+  - title: '📖 Documentation'
+    label: 'documentation'
+  - title: '⛓️ Dependency update'
+    label: 'dependencies'
+
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+
 version-resolver:
   major:
     labels:
@@ -25,10 +37,12 @@ version-resolver:
     labels:
       - 'patch'
   default: patch
+
 template: |
   ## Changes
 
   $CHANGES
+
 autolabeler:
   - label: feature
     branch:
@@ -50,3 +64,24 @@ autolabeler:
   - label: enhancement
     branch:
       - '/(enhancement|improve)[/-].+/'
+
+  - label: nextjs
+    files:
+      - 'public/**/*'
+      - 'src/**/*'
+      - 'package.json'
+      - 'yarn.lock'
+      - 'next*'
+      - 'tsconfig.json'
+      - '.eslintrc.json'
+  - label: wasm
+    files:
+      - 'wasm/**/*'
+  - label: docker
+    files:
+      - 'docker/**/*'
+      - 'Dockerfile'
+      - '.dockerignore'
+  - label: github
+    files:
+      - '.github/**/*'
