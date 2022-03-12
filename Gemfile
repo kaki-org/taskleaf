@@ -90,4 +90,4 @@ gem 'sidekiq'
 gem 'slim-rails'
 gem 'webpacker'
 
-gem "rack-contrib", "~> 2.3"
+gem 'rack-contrib', '~> 2.3'
