@@ -85,7 +85,7 @@ RSpec.configure do |config|
         driver.browser.download_path = DownloadHelper::PATH.to_s
       end
     else
-      Capybara::Selenium::Driver.new(app, browser: :chromium, desired_capabilities: caps).tap do |driver|
+      Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: caps).tap do |driver|
         # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
         driver.browser.download_path = DownloadHelper::PATH.to_s
       end
