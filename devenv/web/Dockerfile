@@ -31,6 +31,7 @@ RUN rm -rf /usr/local/bundle/cache/*
 # mainコンテナ
 FROM ruby:3.1.1-alpine3.15
 RUN apk --no-cache add \
+    build-base \
     bash \
     file \
     make \
@@ -42,6 +43,7 @@ RUN apk --no-cache add \
     libxml2-dev \
     libxslt-dev \
     nodejs \
+    postgresql-dev \
     postgresql-client \
     imagemagick  \
     tzdata
