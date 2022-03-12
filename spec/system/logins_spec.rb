@@ -2,8 +2,28 @@
 
 require 'rails_helper'
 
-describe 'ログイン機能', type: :system do
+describe 'ログイン機能', type: :system, js: true do
   let(:user) { create(:user, name: 'ユーザA', email: 'a@example.com') }
+  context '日本語対応ブラウザでログイン画面にくると' do
+    let(:headers) do
+      { "Accept-Language": 'ja-JP' }
+    end
+    before do
+      @origin_headers = page.driver.options[:headers]
+      page.driver.options[:headers] ||= {}
+      page.driver.options[:headers].merge!(headers)
+      visit login_path
+    end
+    it 'こんにちわとでている' do
+      expect(page).to have_content('こんにちわ')
+    end
+  end
+  # context '英語対応ブラウザでログイン画面にくると' do
+  #   xbefore { visit login_path, params: { headers: 'Accept-Language: en'} }
+  #   xit 'Hello Worldとでている' do
+  #     expect(page).to have_content('Hello World')
+  #   end
+  # end
   context 'まちがったユーザ名とパスワードを入力' do
     before do
       visit login_path
