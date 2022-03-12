@@ -14,7 +14,7 @@ describe 'ログイン機能', type: :system, js: true do
       page.driver.options[:headers].merge!(headers)
       visit login_path
     end
-    it 'こんにちわとでている' do
+    xit 'こんにちわとでている' do
       expect(page).to have_content('こんにちわ')
     end
   end
