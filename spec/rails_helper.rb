@@ -74,7 +74,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   Capybara.register_driver :remote_chrome do |app|
-    url = 'http://chrome:4444/wd/hub'
+    url = ENV['SELENIUM_DRIVER_URL'] ? ENV['SELENIUM_DRIVER_URL'] : nil
     caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
       'goog:chromeOptions' => {
         'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050 lang=ja-JP]
