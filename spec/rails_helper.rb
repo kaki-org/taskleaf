@@ -73,18 +73,24 @@ RSpec.configure do |config|
 
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  Capybara.register_driver :chrome_headless do |app|
-    options = ::Selenium::WebDriver::Chrome::Options.new
-
-    options.add_argument('--no-sandbox')
-    options.add_argument('--lang=ja-JP')
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--window-size=1680,1050')
-    # NOTE: chromedriver(v77)では、Linuxのヘッドレスモードで、下記設定が必要
-    options.add_preference(:download, default_directory: DownloadHelper::PATH.to_s)
-    Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options, http_client: client).tap do |driver|
+  Capybara.register_driver :remote_chrome do |app|
+    url = 'http://chrome:4444/wd/hub'
+    caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
+      'goog:chromeOptions' => {
+        'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050 lang=ja-JP]
+      }
+    )
+    # options = ::Selenium::WebDriver::Chrome::Options.new
+    #
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--lang=ja-JP')
+    # options.add_argument('--headless')
+    # options.add_argument('--disable-gpu')
+    # options.add_argument('--disable-dev-shm-usage')
+    # options.add_argument('--window-size=1680,1050')
+    # # NOTE: chromedriver(v77)では、Linuxのヘッドレスモードで、下記設定が必要
+    # options.add_preference(:download, default_directory: DownloadHelper::PATH.to_s)
+    Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps).tap do |driver|
       # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
       driver.browser.download_path = DownloadHelper::PATH.to_s
     end
@@ -94,7 +100,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :chrome_headless
+    driven_by :remote_chrome
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    Capybara.server_port = 3000
+    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
   end
 
   config.include LoginMacros

@@ -17,9 +17,6 @@ RUN apk --no-cache add \
     yarn \
     postgresql-client \
     imagemagick \
-    chromium \
-    chromium-chromedriver \
-    python3 python3-dev py3-pip \
     tzdata
 ENV APP_PATH /work/app
 WORKDIR $APP_PATH
@@ -35,7 +32,6 @@ RUN rm -rf /usr/local/bundle/cache/*
 FROM ruby:3.1.1-alpine3.15
 RUN apk --no-cache add \
     bash \
-    build-base \
     file \
     make \
     curl \
