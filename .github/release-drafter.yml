@@ -65,13 +65,13 @@ autolabeler:
     branch:
       - '/(enhancement|improve)[/-].+/'
 
-  - label: nextjs
+  - label: javascript
     files:
       - 'public/**/*'
       - 'src/**/*'
       - 'package.json'
       - 'yarn.lock'
-      - 'next*'
+      - 'nuxt*'
       - 'tsconfig.json'
       - '.eslintrc.json'
   - label: wasm
