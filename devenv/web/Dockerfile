@@ -1,5 +1,5 @@
 # ビルド用コンテナ
-FROM ruby:3.1.1-alpine3.15 AS builder
+FROM ruby:3.1.2-alpine3.15 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -29,7 +29,7 @@ RUN gem update bundler \
 RUN rm -rf /usr/local/bundle/cache/*
 
 # mainコンテナ
-FROM ruby:3.1.1-alpine3.15
+FROM ruby:3.1.2-alpine3.15
 RUN apk --no-cache add \
     build-base \
     bash \
