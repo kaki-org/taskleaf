@@ -53,8 +53,6 @@ RUN apk --no-cache add \
 #RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
 #    && pip3 install --upgrade pip \
 #    && pip3 install -U selenium
-
-
 # TZ JST
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 #RUN cd \
@@ -68,5 +66,6 @@ ENV APP_PATH /work/app
 WORKDIR $APP_PATH
 COPY . $APP_PATH
 COPY --from=builder /usr/local/bundle /usr/local/bundle
+RUN bin/rails webpacker:install
 
 CMD ["bin/rails", "s"]
