@@ -11,7 +11,7 @@ FactoryBot.define do
         user.tasks << FactoryBot.build(:task,
                                        name: 'test task name',
                                        description: task,
-                                       user: user)
+                                       user:)
       end
     end
 

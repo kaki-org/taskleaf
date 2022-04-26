@@ -1,5 +1,5 @@
 # ビルド用コンテナ
-FROM arm64v8/ruby:3.1.1-alpine3.15 AS builder
+FROM ruby:3.1.2-alpine3.15 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -31,7 +31,7 @@ RUN gem update bundler \
 RUN rm -rf /usr/local/bundle/cache/*
 
 # mainコンテナ
-FROM ruby:3.1.1-alpine3.15
+FROM ruby:3.1.2-alpine3.15
 RUN apk --no-cache add \
     build-base \
     bash \
@@ -56,8 +56,6 @@ RUN apk --no-cache add \
 #RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
 #    && pip3 install --upgrade pip \
 #    && pip3 install -U selenium
-
-
 # TZ JST
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 #RUN cd \
@@ -71,5 +69,6 @@ ENV APP_PATH /work/app
 WORKDIR $APP_PATH
 COPY . $APP_PATH
 COPY --from=builder /usr/local/bundle /usr/local/bundle
+RUN bin/rails webpacker:install
 
 CMD ["bin/rails", "s"]

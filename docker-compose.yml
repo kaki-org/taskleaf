@@ -7,6 +7,7 @@ services:
       dockerfile: ./devenv/web/Dockerfile
 #    command: foreman start
     command: ["bin/rails", "server", "-b", "0.0.0.0"]
+    platform: linux/x86_64
     environment:
       PGSQL_HOST: pgsql
       DATABASE_USER: postgres
@@ -42,12 +43,16 @@ services:
     tty: true
   webpack:
     <<: *app_base
-    container_name: webpack
-    command: "bin/webpack-dev-server"
+    # container_name: webpack
+    command: ./bin/webpack-dev-server
     ports:
-      - "3035:3035"
+      - "127.0.0.1:3035:3035"
     depends_on:
       - web
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACK_DEV_SERVER_HOST=0.0.0.0
     tty: true
     stdin_open: true
   chrome:
