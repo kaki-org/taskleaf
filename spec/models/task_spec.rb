@@ -9,8 +9,8 @@ describe 'Task' do
   end
   it '一度に複数のタスクを持つことができる事' do
     user = create(:user)
-    create(:default_task, user: user)
-    mass_task = create(:mass_task, user: user)
+    create(:default_task, user:)
+    mass_task = create(:mass_task, user:)
     mass_task.valid?
     expect(mass_task).to be_valid
   end
