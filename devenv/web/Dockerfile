@@ -6,6 +6,7 @@ RUN apk --no-cache add --virtual build-dependencies \
     make \
     gcc \
     g++ \
+    gcompat \
     zlib-dev \
     libffi-dev \
     readline-dev \
@@ -24,6 +25,7 @@ WORKDIR $APP_PATH
 COPY Gemfile $APP_PATH
 COPY Gemfile.lock $APP_PATH
 RUN gem update bundler \
+    && bundle config set force_ruby_platform true \
     && bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3 \
     && apk del build-dependencies # --virtual でグルーピングしたpackageを削除
 RUN rm -rf /usr/local/bundle/cache/*
@@ -36,6 +38,7 @@ RUN apk --no-cache add \
     file \
     make \
     curl \
+    gcompat \
     gcc \
     libffi-dev \
     yarn \
