@@ -7,12 +7,12 @@ services:
       dockerfile: ./devenv/web/Dockerfile
 #    command: foreman start
     command: ["bin/rails", "server", "-b", "0.0.0.0"]
-    platform: linux/x86_64
+#    platform: linux/x86_64
     environment:
       PGSQL_HOST: pgsql
       DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
-      REDIS_URL: redis://redis:6379
+      REDIS_URL: redis://redis:16379
       WEBPACKER_DEV_SERVER_HOST: webpack
       BOOTSNAP_CACHE_DIR: '/usr/local/bundle'
       HISTFILE: '/work/app/log/.bash_history'
@@ -66,7 +66,7 @@ services:
   redis:
     image: redis:5-alpine
     ports:
-      - "6379:6379"
+      - "16379:6379"
 #    command: redis-server --appendonly yes --requirepass foobared
     command: redis-server --appendonly yes
     volumes:
