@@ -55,11 +55,10 @@ services:
       - WEBPACK_DEV_SERVER_HOST=0.0.0.0
     tty: true
     stdin_open: true
-  chrome:
+  chrome: #Chromeでのテスト実行用コンテナ
     build:
       context: .
       dockerfile: ./devenv/chrome/Dockerfile
-#    image: selenium/standalone-chrome:latest
     ports:
       - '4444:4444'
 

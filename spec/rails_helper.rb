@@ -74,33 +74,47 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   Capybara.register_driver :remote_chrome do |app|
+    url = ENV['SELENIUM_DRIVER_URL']
     caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
       'goog:chromeOptions' => {
-        'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050 lang=ja-JP]
+        'args' => [
+          'no-sandbox',
+          'headless',
+          'disable-gpu',
+          'window-size=1680,1050'
+        ]
       }
     )
-    if ENV['SELENIUM_DRIVER_URL'].present?
-      Capybara::Selenium::Driver.new(app, browser: :remote, url: ENV['SELENIUM_DRIVER_URL'], desired_capabilities: caps).tap do |driver|
-        # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
-        driver.browser.download_path = DownloadHelper::PATH.to_s
-      end
-    else
-      Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: caps).tap do |driver|
-        # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
-        driver.browser.download_path = DownloadHelper::PATH.to_s
-      end
-    end
-    # options = ::Selenium::WebDriver::Chrome::Options.new
-    #
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--lang=ja-JP')
-    # options.add_argument('--headless')
-    # options.add_argument('--disable-gpu')
-    # options.add_argument('--disable-dev-shm-usage')
-    # options.add_argument('--window-size=1680,1050')
-    # # NOTE: chromedriver(v77)では、Linuxのヘッドレスモードで、下記設定が必要
-    # options.add_preference(:download, default_directory: DownloadHelper::PATH.to_s)
+    Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
   end
+  # Capybara.register_driver :remote_chrome do |app|
+  #   caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
+  #     'goog:chromeOptions' => {
+  #       'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050 lang=ja-JP]
+  #     }
+  #   )
+  #   if ENV['SELENIUM_DRIVER_URL'].present?
+  #     Capybara::Selenium::Driver.new(app, browser: :remote, url: ENV['SELENIUM_DRIVER_URL'], desired_capabilities: caps).tap do |driver|
+  #       # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
+  #       driver.browser.download_path = DownloadHelper::PATH.to_s
+  #     end
+  #   else
+  #     Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: caps).tap do |driver|
+  #       # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
+  #       driver.browser.download_path = DownloadHelper::PATH.to_s
+  #     end
+  #   end
+  #   # options = ::Selenium::WebDriver::Chrome::Options.new
+  #   #
+  #   # options.add_argument('--no-sandbox')
+  #   # options.add_argument('--lang=ja-JP')
+  #   # options.add_argument('--headless')
+  #   # options.add_argument('--disable-gpu')
+  #   # options.add_argument('--disable-dev-shm-usage')
+  #   # options.add_argument('--window-size=1680,1050')
+  #   # # NOTE: chromedriver(v77)では、Linuxのヘッドレスモードで、下記設定が必要
+  #   # options.add_preference(:download, default_directory: DownloadHelper::PATH.to_s)
+  # end
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
