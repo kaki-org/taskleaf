@@ -76,7 +76,7 @@ RSpec.configure do |config|
   Capybara.register_driver :remote_chrome do |app|
     caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
       'goog:chromeOptions' => {
-        'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050 lang=ja-JP]
+        'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050 lang=ja]
       }
     )
     if ENV['SELENIUM_DRIVER_URL'].present?

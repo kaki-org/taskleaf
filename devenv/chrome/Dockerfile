@@ -1,4 +1,6 @@
-FROM selenium/standalone-chrome:latest
+# FROM selenium/standalone-chrome:latest
+ARG CHROME_IMAGE
+FROM ${CHROME_IMAGE}:latest
 LABEL authors=SeleniumHQ
 USER root
 #=================
@@ -6,12 +8,15 @@ USER root
 #=================
 ENV LANGUAGE ja_JP.UTF-8
 ENV LANG ja_JP.UTF-8
-RUN locale-gen ja_JP.UTF-8 \
-  && dpkg-reconfigure --frontend noninteractive locales \
-  && apt-get update -qqy \
-  && apt-get -qqy --no-install-recommends install \
-    language-pack-ja \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+# RUN locale-gen ja_JP.UTF-8 \
+#   && dpkg-reconfigure --frontend noninteractive locales \
+#   && apt-get update -qqy \
+#   && apt-get -qqy --no-install-recommends install \
+#   language-pack-ja \
+#   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+RUN apt-get update -qqy \
+  && apt-get -qqy install task-japanese locales-all
+
 
 USER seluser
 EXPOSE 5900

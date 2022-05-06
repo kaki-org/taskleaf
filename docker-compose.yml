@@ -47,6 +47,8 @@ services:
     build:
       context: .
       dockerfile: ./devenv/chrome/Dockerfile
+      args:
+        CHROME_IMAGE: ${CHROME_IMAGE:-selenium/standalone-chrome}
       # image: selenium/standalone-chrome:latest
     ports:
       - '4444:4444'
