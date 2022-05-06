@@ -73,7 +73,7 @@ kakikubo@kair ~/Documents/learning-rails/taskleaf %
 
 mailcatcher用のコンテナを起動しているので、
 
-http://lvh.me:50080
+<http://lvh.me:50080>
 
 で参照できます。
 
