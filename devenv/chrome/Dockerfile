@@ -8,14 +8,15 @@ USER root
 #=================
 ENV LANGUAGE ja_JP.UTF-8
 ENV LANG ja_JP.UTF-8
-# RUN locale-gen ja_JP.UTF-8 \
-#   && dpkg-reconfigure --frontend noninteractive locales \
-#   && apt-get update -qqy \
-#   && apt-get -qqy --no-install-recommends install \
-#   language-pack-ja \
-#   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
-RUN apt-get update -qqy \
-  && apt-get -qqy install task-japanese locales-all
+RUN if [ ${CHROME_IMAGE} = "selenium/standalone-chrome" ] ; then locale-gen ja_JP.UTF-8 \
+  && dpkg-reconfigure --frontend noninteractive locales \
+  && apt-get update -qqy \
+  && apt-get -qqy --no-install-recommends install \
+  language-pack-ja \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+  else apt-get update -qqy \
+  && apt-get -qqy install task-japanese locales-all \
+  ; fi
 
 
 USER seluser
