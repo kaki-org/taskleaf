@@ -5,10 +5,12 @@ services:
     build:
       context: .
       dockerfile: ./devenv/web/Dockerfile
-#    command: foreman start
+      args:
+        IMAGE_FILE: ${IMAGE_FILE:-ruby}
     command: ["bin/rails", "server", "-b", "0.0.0.0"]
-#    platform: linux/x86_64
+    # platform: linux/x86_64
     environment:
+      IMAGE_FILE: ${IMAGE_FILE:-ruby}
       PGSQL_HOST: pgsql
       DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
@@ -18,7 +20,6 @@ services:
       HISTFILE: '/work/app/log/.bash_history'
       TZ: 'Asia/Tokyo'
       RAILS_ENV: ${RAILS_ENV:-development}
-      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub    #追加、どのコンテナのブラウザを使用するか指定
     volumes:
       - .:/work/app:cached
       - rails_cache:/work/app/tmp/cache
@@ -36,7 +37,6 @@ services:
     depends_on:
       - pgsql
       - redis
-      - chrome
     tmpfs:
       - /tmp
     stdin_open: true
@@ -55,12 +55,6 @@ services:
       - WEBPACK_DEV_SERVER_HOST=0.0.0.0
     tty: true
     stdin_open: true
-  chrome: #Chromeでのテスト実行用コンテナ
-    build:
-      context: .
-      dockerfile: ./devenv/chrome/Dockerfile
-    ports:
-      - '4444:4444'
 
   redis:
     image: redis:5-alpine

@@ -87,6 +87,25 @@ RSpec.configure do |config|
     )
     Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
   end
+  Capybara.register_driver :headless_firefox do |app|
+    browser_options = Selenium::WebDriver::Firefox::Options.new(
+      args: ['-headless', '-lang=ja']
+    )
+    profile = Selenium::WebDriver::Firefox::Profile.new
+    profile["intl.accept_language"] = "ja"
+    browser_options.profile = profile
+
+
+    # binding.pry
+    # browser_options = ::Selenium::WebDriver::Firefox::Capabilities.firefox
+    # browser_options.add_argument('--headless')
+    # browser_options.add_argument('--lang=ja-JP')
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :firefox,
+      options: browser_options
+    )
+  end
   # Capybara.register_driver :remote_chrome do |app|
   #   caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
   #     'goog:chromeOptions' => {
@@ -120,10 +139,11 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :remote_chrome
-    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    Capybara.server_port = 3000
-    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+    if ENV['IMAGE_FILE'] == 'arm64v8/ruby'
+      driven_by :headless_firefox
+    else
+      driven_by :chrome_headless
+    end
   end
 
   config.include LoginMacros

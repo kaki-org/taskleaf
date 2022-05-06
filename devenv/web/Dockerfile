@@ -1,5 +1,6 @@
 # ビルド用コンテナ
-FROM ruby:3.1.2-alpine3.15 AS builder
+ARG IMAGE_FILE
+FROM $IMAGE_FILE:3.1.2-alpine3.15 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -31,8 +32,10 @@ RUN gem update bundler \
 RUN rm -rf /usr/local/bundle/cache/*
 
 # mainコンテナ
-FROM ruby:3.1.2-alpine3.15
-RUN apk --no-cache add \
+
+FROM ${IMAGE_FILE}:3.1.2-alpine3.15
+RUN if [ "$IMAGE_FILE" = "arm64v8/ruby" ] ; then export BROWSER=google-chrome-stable ; else export BROWSER=firefox-esr ;fi && \
+    apk --no-cache add \
     build-base \
     bash \
     file \
@@ -46,6 +49,7 @@ RUN apk --no-cache add \
     libxml2-dev \
     libxslt-dev \
     nodejs \
+    ${BROWSER} \
     postgresql-dev \
     postgresql-client \
     imagemagick  \
