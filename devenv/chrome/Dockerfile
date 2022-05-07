@@ -13,7 +13,7 @@ RUN if [ ${CHROME_IMAGE} = "selenium/standalone-chrome" ] ; then locale-gen ja_J
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
   language-pack-ja \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \; \
   else apt-get update -qqy \
   && apt-get -qqy install task-japanese locales-all \
   ; fi
