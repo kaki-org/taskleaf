@@ -1,11 +1,13 @@
 # ビルド用コンテナ
-FROM ruby:3.1.1-alpine3.15 AS builder
+ARG IMAGE_FILE
+FROM $IMAGE_FILE:3.1.2-alpine3.15 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
     make \
     gcc \
     g++ \
+    gcompat \
     zlib-dev \
     libffi-dev \
     readline-dev \
@@ -24,18 +26,23 @@ WORKDIR $APP_PATH
 COPY Gemfile $APP_PATH
 COPY Gemfile.lock $APP_PATH
 RUN gem update bundler \
+    && bundle config set force_ruby_platform true \
     && bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3 \
     && apk del build-dependencies # --virtual でグルーピングしたpackageを削除
 RUN rm -rf /usr/local/bundle/cache/*
 
 # mainコンテナ
-FROM ruby:3.1.1-alpine3.15
-RUN apk --no-cache add \
+#    ${BROWSER} \
+
+FROM ${IMAGE_FILE}:3.1.2-alpine3.15
+#RUN if [ "$IMAGE_FILE" = "arm64v8/ruby" ] ; then export BROWSER=google-chrome-stable ; else export BROWSER=firefox-esr ;fi && \
+    RUN apk --no-cache add \
     build-base \
     bash \
     file \
     make \
     curl \
+    gcompat \
     gcc \
     libffi-dev \
     yarn \
@@ -53,8 +60,6 @@ RUN apk --no-cache add \
 #RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
 #    && pip3 install --upgrade pip \
 #    && pip3 install -U selenium
-
-
 # TZ JST
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 #RUN cd \
@@ -68,5 +73,6 @@ ENV APP_PATH /work/app
 WORKDIR $APP_PATH
 COPY . $APP_PATH
 COPY --from=builder /usr/local/bundle /usr/local/bundle
+RUN bin/rails webpacker:install
 
 CMD ["bin/rails", "s"]
