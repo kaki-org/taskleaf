@@ -80,12 +80,12 @@ RSpec.configure do |config|
       }
     )
     if ENV['SELENIUM_DRIVER_URL'].present?
-      Capybara::Selenium::Driver.new(app, browser: :remote, url: ENV['SELENIUM_DRIVER_URL'], desired_capabilities: caps).tap do |driver|
+      Capybara::Selenium::Driver.new(app, browser: :remote, url: ENV['SELENIUM_DRIVER_URL'], capabilities: caps).tap do |driver|
         # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
         driver.browser.download_path = DownloadHelper::PATH.to_s
       end
     else
-      Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: caps).tap do |driver|
+      Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: caps).tap do |driver|
         # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
         driver.browser.download_path = DownloadHelper::PATH.to_s
       end
