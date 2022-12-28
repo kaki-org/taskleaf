@@ -14,8 +14,7 @@ services:
       PGSQL_HOST: pgsql
       DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
-      REDIS_URL: redis://redis:16379
-      WEBPACKER_DEV_SERVER_HOST: webpack
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       BOOTSNAP_CACHE_DIR: '/usr/local/bundle'
       HISTFILE: '/work/app/log/.bash_history'
       TZ: 'Asia/Tokyo'
@@ -52,21 +51,6 @@ services:
       # image: selenium/standalone-chrome:latest
     ports:
       - '4444:4444'
-
-  webpack:
-    <<: *app_base
-    # container_name: webpack
-    command: ./bin/webpack-dev-server
-    ports:
-      - "127.0.0.1:3035:3035"
-    depends_on:
-      - web
-    environment:
-      - NODE_ENV=development
-      - RAILS_ENV=development
-      - WEBPACK_DEV_SERVER_HOST=0.0.0.0
-    tty: true
-    stdin_open: true
 
   redis:
     image: redis:5-alpine
