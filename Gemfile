@@ -89,4 +89,4 @@ gem 'ransack'
 gem 'sidekiq'
 gem 'slim-rails'
 
-gem "pg", "~> 1.4"
+gem 'pg', '~> 1.4'
