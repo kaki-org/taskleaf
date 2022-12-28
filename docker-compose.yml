@@ -14,7 +14,7 @@ services:
       PGSQL_HOST: pgsql
       DATABASE_USER: postgres
       POSTGRES_PASSWORD: secret
-      REDIS_URL: redis://redis:16379
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       WEBPACKER_DEV_SERVER_HOST: webpack
       BOOTSNAP_CACHE_DIR: '/usr/local/bundle'
       HISTFILE: '/work/app/log/.bash_history'
