@@ -1,25 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## ローカル開発環境の整備
 
-Things you may want to cover:
+Dockerを使わない場合は以下の通り
 
-* Ruby version
+```bash
+# .envrc
+export PGSQL_HOST=pgsql.lvh.me
+export DYLD_LIBRARY_PATH=$(brew --prefix postgresql@14)/lib/postgresql@14
+export REDIS_URL='redis://redis.lvh.me:16379'
+```
 
-* System dependencies
+dbとredisは起動しておく
+```bash
+docker compose up -d db redis
+```
+初回は`bin/setup`を叩く
+```bash
+bin/setup
+```
 
-* Configuration
+起動してみる
+```bash
+bundle exec rails s
+```
 
-* Database creation
+rubymineの場合は環境変数に以下を指定しておく
+```plain
+REDIS_PORT=16379;PGSQL_HOST=pgsql.lvh.me
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
 
 * その他
 

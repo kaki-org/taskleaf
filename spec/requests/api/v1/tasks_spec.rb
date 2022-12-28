@@ -23,7 +23,7 @@ describe 'タスクAPI', type: :request do
       expect(json['description']).to eq task.description
     end
     it '作成したタスクを更新できる事' do
-      put "/api/v1/tasks/#{task.id}", params: params
+      put("/api/v1/tasks/#{task.id}", params:)
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json['id']).to eq task.id
