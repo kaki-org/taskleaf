@@ -7,13 +7,17 @@
     "@babel/preset-env": "^7.20.2",
     "babel-loader": "^9.1.0",
     "babel-plugin-macros": "^3.1.0",
-    "rails-ujs": "^5.2.7",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "rails-ujs": "^5.2.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "vite": "^4.0.0",
+    "vite-plugin-full-reload": "^1.0.5",
+    "vite-plugin-ruby": "^3.1.2"
+  },
   "scripts": {
-    "build": "webpack --config ./config/webpack/webpack.config.js"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "babel": {
     "presets": [
