@@ -2,12 +2,22 @@
   "name": "taskleaf",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "5.4.3",
+    "@babel/core": "^7.20.7",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "babel-plugin-macros": "^3.1.0",
     "rails-ujs": "^5.2.7",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.10.0"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
-  "devDependencies": {
-    "webpack-dev-server": "^4"
+  "devDependencies": {},
+  "scripts": {
+    "build": "webpack --config ./config/webpack/webpack.config.js"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }

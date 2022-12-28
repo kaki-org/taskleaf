@@ -52,6 +52,8 @@ FROM ${IMAGE_FILE}:3.1.2-alpine3.15
     nodejs \
     postgresql-dev \
     postgresql-client \
+    nodejs \
+    npm \
     imagemagick  \
     tzdata
 #RUN cd /tmp && \

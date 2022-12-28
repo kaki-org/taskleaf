@@ -10,7 +10,7 @@ gem 'rails', '~> 7.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 5.6'
+gem 'puma', '~> 6.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -34,6 +34,7 @@ gem 'bcrypt', '~> 3.1.17'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'jsbundling-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -46,7 +47,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
   gem 'guard-rspec'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 5.1'
+  gem 'rspec-rails', '~> 6.0'
   gem 'rubocop'
   gem 'spring-commands-rspec'
 end
@@ -59,7 +60,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen', '~> 2.1.0'
 end
 
 group :test do
@@ -88,4 +89,3 @@ gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'webpacker'
