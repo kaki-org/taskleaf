@@ -10,6 +10,7 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'selenium-webdriver'
 require 'email_spec'
+ViteRuby.instance.logger = ActiveSupport::Logger.new($stdout)
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

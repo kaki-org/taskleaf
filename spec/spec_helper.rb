@@ -123,4 +123,9 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+  config.before(:all, type: :system) do
+    puts "\e[31mPrecompiling assets for system specs \e[0m"
+    ViteRuby.instance.manifest.resolve_entries('application', type: 'js')
+    puts "\e[32m-> Finished! precompiling assets for system specs \e[0m"
+  end
 end

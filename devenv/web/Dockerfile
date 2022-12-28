@@ -70,10 +70,10 @@ RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 #    && unzip NotoSerifCJKjp-hinted.zip -d /usr/share/fonts/noto \
 #    && rm NotoSerifCJKjp-hinted.zip \
 #    && fc-cache -fv
-
 ENV APP_PATH /work/app
 WORKDIR $APP_PATH
 COPY . $APP_PATH
 COPY --from=builder /usr/local/bundle /usr/local/bundle
+RUN npm update
 
 CMD ["bin/rails", "s"]
