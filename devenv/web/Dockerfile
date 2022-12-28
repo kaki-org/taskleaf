@@ -75,6 +75,5 @@ ENV APP_PATH /work/app
 WORKDIR $APP_PATH
 COPY . $APP_PATH
 COPY --from=builder /usr/local/bundle /usr/local/bundle
-RUN bin/rails webpacker:install
 
 CMD ["bin/rails", "s"]
