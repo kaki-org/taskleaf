@@ -17,7 +17,6 @@ FileUtils.chdir APP_ROOT do
 
   puts '== Installing dependencies =='
   system! 'gem install bundler --conservative'
-  system! 'bundle config set force_ruby_platform true'
   system('bundle check') || system!('bundle install')
 
   # puts "\n== Copying sample files =="
