@@ -26,14 +26,13 @@ jobs:
           POSTGRES_PASSWORD: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-    #GitHub Actionsでサポートしているrubyのversionは2.6系以降です
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.1.3
+          ruby-version: 3.2.1
 
       #MySQLをインストール
       #- name: Install dependent libralies
