@@ -1,6 +1,6 @@
 # ビルド用コンテナ
 ARG IMAGE_FILE
-FROM $IMAGE_FILE:3.1.3-alpine3.15 AS builder
+FROM $IMAGE_FILE:3.2.1-alpine3.17 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -34,7 +34,7 @@ RUN rm -rf /usr/local/bundle/cache/*
 # mainコンテナ
 #    ${BROWSER} \
 
-FROM ${IMAGE_FILE}:3.1.3-alpine3.15
+FROM ${IMAGE_FILE}:3.2.1-alpine3.17
 #RUN if [ "$IMAGE_FILE" = "arm64v8/ruby" ] ; then export BROWSER=google-chrome-stable ; else export BROWSER=firefox-esr ;fi && \
     RUN apk --no-cache add \
     build-base \
