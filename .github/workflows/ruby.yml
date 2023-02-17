@@ -52,23 +52,10 @@ jobs:
       - name: Setup bundler
         run: gem install bundler
 
-      - name: Cache gems
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: bundle install
         run: |
-          bundle install --jobs 4 --retry 3 --path vendor/bundle
+          bundle config set path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
       - name: yarn install
         run: yarn install --check-files
       - name: rubocop
