@@ -74,18 +74,18 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   Capybara.register_driver :remote_chrome do |app|
-    caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
+    caps = ::Selenium::WebDriver::Options.chrome(
       'goog:chromeOptions' => {
         'args' => %w[no-sandbox headless disable-gpu window-size=1680,1050 lang=ja]
       }
     )
     if ENV['SELENIUM_DRIVER_URL'].present?
-      Capybara::Selenium::Driver.new(app, browser: :remote, url: ENV['SELENIUM_DRIVER_URL'], capabilities: caps).tap do |driver|
+      Capybara::Selenium::Driver.new(app, browser: :remote, url: ENV['SELENIUM_DRIVER_URL'], options: caps).tap do |driver|
         # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
         driver.browser.download_path = DownloadHelper::PATH.to_s
       end
     else
-      Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: caps).tap do |driver|
+      Capybara::Selenium::Driver.new(app, browser: :chrome, options: caps).tap do |driver|
         # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
         driver.browser.download_path = DownloadHelper::PATH.to_s
       end
