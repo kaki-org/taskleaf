@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       redirect_to root_url, notice: 'ログインしました。'
     else
       flash.now[:alert] = 'ログインに失敗しました'
-      render :new
+      render :new, status: 422
     end
   end
 
