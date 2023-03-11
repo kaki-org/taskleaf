@@ -61,7 +61,7 @@ jobs:
 
       - name: setup chrome
         uses: browser-actions/setup-chrome@v1
-        run: chrome --version
+        # run: chrome --version
       - name: Setup Database
         run: |
           cp config/database.yml.github-actions config/database.yml
