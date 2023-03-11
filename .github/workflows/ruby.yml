@@ -53,7 +53,10 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         # run: chrome --version
       - name: check chrome
-        run: chrome --version
+        run: |
+          chrome --version
+          which chrome
+          which google-chrome
       - name: Setup bundler
         run: gem install bundler
 
