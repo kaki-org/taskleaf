@@ -110,8 +110,8 @@ RSpec.configure do |config|
     if ENV['SELENIUM_DRIVER_URL'].present?
       Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
       Capybara.server_port = 3000
+      Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
     end
-    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
   end
 
   config.include LoginMacros

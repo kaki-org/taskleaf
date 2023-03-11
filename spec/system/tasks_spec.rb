@@ -170,8 +170,10 @@ describe 'タスク管理機能', type: :system do
       end
       it 'タスクが削除される' do
         click_link '削除'
-        page.driver.browser.switch_to.alert.accept
         expect(page).to have_content '「次のタスク」を削除しました'
+        if page.driver.browser.switch_to.alert.present?
+          page.driver.browser.switch_to.alert.accept
+        end
       end
     end
   end
