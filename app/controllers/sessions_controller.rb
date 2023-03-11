@@ -13,13 +13,17 @@ class SessionsController < ApplicationController
       redirect_to root_url, notice: 'ログインしました。'
     else
       flash.now[:alert] = 'ログインに失敗しました'
-      render :new
+      render :new, status: 422
     end
   end
 
   def destroy
     reset_session
-    redirect_to root_url, notice: 'ログアウトしました'
+    respond_to do |format|
+      # status: :see_other が必須！！
+      format.html { redirect_to root_url, notice: 'ログアウトしました', status: :see_other }
+      format.json { head :no_content }
+    end
   end
 
   private

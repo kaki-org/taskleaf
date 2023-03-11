@@ -135,6 +135,7 @@ describe 'タスク管理機能', type: :system do
     end
     context '削除ボタンを押す' do
       it '確認ダイアログが表示される' do
+        sleep 1
         click_link '削除'
         expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
         # expect(page.driver.browser.accept_js_confirms.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
