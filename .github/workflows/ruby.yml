@@ -77,8 +77,8 @@ jobs:
       - name: tmp cache clear
         run: |
           bundle exec rails tmp:cache:clear
-          killall -9 google-chrome-stable
-          rm /tmp/.com.google.Chrome.*
+#          killall -9 google-chrome-stable
+#          rm /tmp/.com.google.Chrome.*
 
       - name: Setup Database
         run: |
