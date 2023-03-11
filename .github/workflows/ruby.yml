@@ -26,6 +26,11 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      chrome:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+          - 5900:5900
 
     steps:
       - name: checkout
@@ -45,19 +50,19 @@ jobs:
       #- name: Install dependent libralies
       #  run: sudo apt-get install libmysqlclient-dev
 
-      - name: apt-get update
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2
-      - name: setup chrome
-        uses: browser-actions/setup-chrome@v1
+#      - name: apt-get update
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2
+#      - name: setup chrome
+#        uses: browser-actions/setup-chrome@v1
         # run: chrome --version
-      - name: check chrome
-        run: |
-          chrome --version
-          which chrome
-          which google-chrome
-          sudo ln -sf /opt/hostedtoolcache/chromium/latest/x64/chrome /usr/bin/google-chrome
+#      - name: check chrome
+#        run: |
+#          chrome --version
+#          which chrome
+#          which google-chrome
+#          sudo ln -sf /opt/hostedtoolcache/chromium/latest/x64/chrome /usr/bin/google-chrome
       - name: Setup bundler
         run: gem install bundler
 
@@ -95,6 +100,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub    #追加、どのコンテナのブラウザを使用するか指定
       - name: Codecov
         uses: codecov/codecov-action@v2.1.0
         with:
