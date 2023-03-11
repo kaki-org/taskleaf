@@ -83,6 +83,6 @@ gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'sassc-rails'
+gem 'sass-rails'
 
 gem 'pg', '~> 1.4'
