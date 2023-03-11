@@ -59,7 +59,8 @@ jobs:
       - name: tmp cache clear
         run: bundle exec rails tmp:cache:clear
 
-      - uses: browser-actions/setup-chrome@v1
+      - name: setup chrome
+        uses: browser-actions/setup-chrome@v1
         run: chrome --version
       - name: Setup Database
         run: |
