@@ -57,7 +57,7 @@ jobs:
           chrome --version
           which chrome
           which google-chrome
-          ln -sf /opt/hostedtoolcache/chromium/latest/x64/chrome /usr/bin/google-chrome
+          sudo ln -sf /opt/hostedtoolcache/chromium/latest/x64/chrome /usr/bin/google-chrome
       - name: Setup bundler
         run: gem install bundler
 
