@@ -18,17 +18,17 @@ gem 'jbuilder', '~> 2.11'
 gem 'bcrypt', '~> 3.1.17'
 
 gem 'jsbundling-rails'
-gem "sprockets-rails"
+gem 'sprockets-rails'
 
 # gem 'hotwire-rails'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+gem 'importmap-rails'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
+gem 'turbo-rails'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
+gem 'stimulus-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -86,4 +86,3 @@ gem 'slim-rails'
 gem 'sassc-rails'
 
 gem 'pg', '~> 1.4'
-
