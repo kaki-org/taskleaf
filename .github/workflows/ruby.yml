@@ -15,7 +15,7 @@ concurrency:
 jobs:
   rspec_job:
     #ubuntu環境で動かします
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     services:
       postgres:
@@ -46,23 +46,6 @@ jobs:
         with:
           ruby-version: 3.2.1
 
-      #MySQLをインストール
-      #- name: Install dependent libralies
-      #  run: sudo apt-get install libmysqlclient-dev
-
-#      - name: apt-get update
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2
-#      - name: setup chrome
-#        uses: browser-actions/setup-chrome@v1
-        # run: chrome --version
-#      - name: check chrome
-#        run: |
-#          chrome --version
-#          which chrome
-#          which google-chrome
-#          sudo ln -sf /opt/hostedtoolcache/chromium/latest/x64/chrome /usr/bin/google-chrome
       - name: Setup bundler
         run: gem install bundler
 
@@ -77,8 +60,6 @@ jobs:
       - name: tmp cache clear
         run: |
           bundle exec rails tmp:cache:clear
-#          killall -9 google-chrome-stable
-#          rm /tmp/.com.google.Chrome.*
 
       - name: Setup Database
         run: |
