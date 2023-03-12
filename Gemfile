@@ -10,17 +10,6 @@ gem 'rails', '~> 7.0.2'
 # Use postgresql as the database for Active Record
 # Use Puma as the app server
 gem 'puma', '~> 6.1'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 6.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 5.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.11'
 # Use Redis adapter to run Action Cable in production
@@ -28,12 +17,18 @@ gem 'jbuilder', '~> 2.11'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.17'
 
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 gem 'jsbundling-rails'
+gem 'sprockets-rails'
+
+# gem 'hotwire-rails'
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem 'importmap-rails'
+
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem 'turbo-rails'
+
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem 'stimulus-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -71,7 +66,7 @@ group :test do
   gem 'launchy'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper' # 2019/03/31?あたりからこいつは非推奨(Capybaraとかでコケまくる。webdriversを利用する)
-  gem 'webdrivers', require: !ENV['SELENIUM_DRIVER_URL']
+  # gem 'webdrivers', require: !ENV['SELENIUM_DRIVER_URL']
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
   gem 'simplecov-lcov', require: false
@@ -88,5 +83,6 @@ gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
 gem 'sidekiq'
 gem 'slim-rails'
+gem 'sass-rails'
 
 gem 'pg', '~> 1.4'

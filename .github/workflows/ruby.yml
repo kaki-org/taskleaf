@@ -2,9 +2,8 @@ name: Build
 
 #プルリクエスト作成時に実行(他にもpush時など設定できます)
 on:
-  pull_request_target:
-    types: [opened, reopened, synchronize]
   pull_request:
+    types: [opened, reopened, synchronize]
   push:
     branches:
       - staging
@@ -16,7 +15,7 @@ concurrency:
 jobs:
   rspec_job:
     #ubuntu環境で動かします
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     services:
       postgres:
@@ -27,16 +26,18 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      chrome:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+          - 5900:5900
 
-    if: |
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     steps:
       - name: checkout
-        if: ${{ github.event_name != 'pull_request_target' }}
+        if: ${{ github.event_name != 'pull_request' }}
         uses: actions/checkout@v3
       - name: checkout pr
-        if: ${{ github.event_name == 'pull_request_target' }}
+        if: ${{ github.event_name == 'pull_request' }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
@@ -44,10 +45,6 @@ jobs:
         uses: ruby/setup-ruby@master
         with:
           ruby-version: 3.2.1
-
-      #MySQLをインストール
-      #- name: Install dependent libralies
-      #  run: sudo apt-get install libmysqlclient-dev
 
       - name: Setup bundler
         run: gem install bundler
@@ -61,7 +58,8 @@ jobs:
       - name: rubocop
         run: bundle exec rubocop
       - name: tmp cache clear
-        run: bundle exec rails tmp:cache:clear
+        run: |
+          bundle exec rails tmp:cache:clear
 
       - name: Setup Database
         run: |
@@ -83,6 +81,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub    #追加、どのコンテナのブラウザを使用するか指定
       - name: Codecov
         uses: codecov/codecov-action@v2.1.0
         with:
