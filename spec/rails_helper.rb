@@ -71,8 +71,6 @@ RSpec.configure do |config|
   client = Selenium::WebDriver::Remote::Http::Default.new
   client.read_timeout = 120 # instead of the default 60
 
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
   Capybara.register_driver :remote_chrome do |app|
     caps = ::Selenium::WebDriver::Options.chrome(
       'goog:chromeOptions' => {
@@ -90,16 +88,6 @@ RSpec.configure do |config|
         driver.browser.download_path = DownloadHelper::PATH.to_s
       end
     end
-    # options = ::Selenium::WebDriver::Chrome::Options.new
-    #
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--lang=ja-JP')
-    # options.add_argument('--headless')
-    # options.add_argument('--disable-gpu')
-    # options.add_argument('--disable-dev-shm-usage')
-    # options.add_argument('--window-size=1680,1050')
-    # # NOTE: chromedriver(v77)では、Linuxのヘッドレスモードで、下記設定が必要
-    # options.add_preference(:download, default_directory: DownloadHelper::PATH.to_s)
   end
   config.before(:each, type: :system) do
     driven_by :rack_test
