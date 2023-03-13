@@ -45,6 +45,11 @@ jobs:
         uses: ruby/setup-ruby@master
         with:
           ruby-version: 3.2.1
+          bundler-cache: true
+      - name: Use Node.js 16.19.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.19.0
 
       - name: Setup bundler
         run: gem install bundler
