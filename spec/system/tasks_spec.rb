@@ -21,6 +21,7 @@ describe 'タスク管理機能', type: :system do
     fill_in 'パスワード', with: login_user.password
     # 4. ログインする
     click_button 'ログインする'
+    visit current_path
   end
 
   shared_examples_for 'ユーザAが作成したタスクが表示される' do
@@ -155,16 +156,16 @@ describe 'タスク管理機能', type: :system do
     end
   end
 
-  # TODO
   # 削除機能
   describe '削除機能' do
     let(:login_user) { user_a }
+
     before do
       visit task_path id: @task.id
     end
     context '削除ボタンを押す', js: true do
       before '確認ダイアログが表示される' do
-        sleep 3
+        sleep 1
         click_link '削除'
       end
       it 'タスクが削除される' do
@@ -174,5 +175,4 @@ describe 'タスク管理機能', type: :system do
       end
     end
   end
-  # のテストを書く
 end
