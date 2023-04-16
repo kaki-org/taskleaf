@@ -36,7 +36,7 @@ RUN rm -rf /usr/local/bundle/cache/*
 
 FROM ${IMAGE_FILE}:3.2.1-alpine3.17
 #RUN if [ "$IMAGE_FILE" = "arm64v8/ruby" ] ; then export BROWSER=google-chrome-stable ; else export BROWSER=firefox-esr ;fi && \
-    RUN apk --no-cache add \
+RUN apk --no-cache add \
     build-base \
     bash \
     file \
