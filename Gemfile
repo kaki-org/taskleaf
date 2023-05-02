@@ -85,4 +85,4 @@ gem 'sidekiq'
 gem 'slim-rails'
 gem 'sass-rails'
 
-gem 'pg', '~> 1.4'
+gem 'pg', '~> 1.5'
