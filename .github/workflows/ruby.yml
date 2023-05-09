@@ -86,7 +86,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub    #追加、どのコンテナのブラウザを使用するか指定
+          # SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub    #追加、どのコンテナのブラウザを使用するか指定
       - name: Codecov
         uses: codecov/codecov-action@v3.1.3
         with:
