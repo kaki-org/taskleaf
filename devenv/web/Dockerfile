@@ -1,6 +1,6 @@
 # ビルド用コンテナ
 ARG IMAGE_FILE
-FROM $IMAGE_FILE:3.2.1-alpine3.17 AS builder
+FROM $IMAGE_FILE:3.2.2-alpine3.18 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -34,9 +34,8 @@ RUN rm -rf /usr/local/bundle/cache/*
 # mainコンテナ
 #    ${BROWSER} \
 
-FROM ${IMAGE_FILE}:3.2.1-alpine3.17
-#RUN if [ "$IMAGE_FILE" = "arm64v8/ruby" ] ; then export BROWSER=google-chrome-stable ; else export BROWSER=firefox-esr ;fi && \
-    RUN apk --no-cache add \
+FROM ${IMAGE_FILE}:3.2.2-alpine3.18
+RUN apk --no-cache add \
     build-base \
     bash \
     file \
@@ -56,20 +55,7 @@ FROM ${IMAGE_FILE}:3.2.1-alpine3.17
     npm \
     imagemagick  \
     tzdata
-#RUN cd /tmp && \
-#    curl -O http://chromedriver.storage.googleapis.com/100.0.4896.20/chromedriver_linux64.zip && \
-#    unzip chromedriver_linux64.zip && mv chromedriver /usr/local/bin \
-#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
-#    && pip3 install --upgrade pip \
-#    && pip3 install -U selenium
-# TZ JST
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-#RUN cd \
-#    && wget https://noto-website.storage.googleapis.com/pkgs/NotoSerifCJKjp-hinted.zip \
-#    && mkdir -p /usr/share/fonts/noto \
-#    && unzip NotoSerifCJKjp-hinted.zip -d /usr/share/fonts/noto \
-#    && rm NotoSerifCJKjp-hinted.zip \
-#    && fc-cache -fv
 
 ENV APP_PATH /work/app
 WORKDIR $APP_PATH
