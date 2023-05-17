@@ -100,6 +100,15 @@ describe 'タスク管理機能', type: :system do
         expect(page).to have_selector '.alert-success', text: '最初のタスク(更新後)'
       end
     end
+    context '更新画面で名称を入力しなかったとき' do
+      it 'エラーとなる' do
+        fill_in '名称', with: ''
+        click_button '更新する'
+        within '#error_explanation' do
+          expect(page).to have_content '名称を入力してください'
+        end
+      end
+    end
   end
 
   # 検索機能(ransack)
