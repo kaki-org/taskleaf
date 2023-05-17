@@ -6,15 +6,7 @@ describe 'admin/users', type: :request do
   include_context 'userでログイン済み'
   let(:user) { FactoryBot.create(:user, admin: true, email: 'test@example.com', password: 'password') }
   let(:user2) { FactoryBot.create(:user, email: 'test2@example.com', password: 'password') }
-  # let(:params) do
-  #   {
-  #     user: {
-  #       name: 'ユーザーA',
-  #       email: 'test2@example.com',
-  #       password: 'password'
-  #     }
-  #   }
-  # end
+
   describe 'GET /admin/users' do
     before  { get '/admin/users' }
 
