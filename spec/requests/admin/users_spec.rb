@@ -34,6 +34,17 @@ describe 'admin/users', type: :request do
         expect(User.last.name).to eq 'ユーザーB'
         expect(User.last.email).to eq 'test2@example.com'
       end
+      it 'ユーザーの作成に失敗する事' do
+        params = {
+          user: {
+            name: 'ユーザーA',
+            email: 'test@example.com',
+            password: 'password',
+            password_confirmation: 'password'
+          }
+        }
+        expect { post('/admin/users', params:) }.to change(User, :count).by(0)
+      end
       it 'ユーザー編集画面に遷移できる事' do
         get "/admin/users/#{user2.id}/edit"
         expect(response.status).to eq 200
