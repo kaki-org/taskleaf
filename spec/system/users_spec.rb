@@ -16,9 +16,9 @@ describe 'タスク管理機能', type: :system do
     # 1. ログイン画面にアクセス
     visit login_path
     # 2. メールアドレスを入力する
-    fill_in 'メールアドレス', with: login_user.email
+    fill_in 'session_email', with: login_user.email
     # 3. パスワードを入力する
-    fill_in 'パスワード', with: login_user.password
+    fill_in 'session_password', with: login_user.password
     # 4. ログインする
     click_button 'ログインする'
   end
@@ -140,12 +140,14 @@ describe 'タスク管理機能', type: :system do
     let(:login_user) { user_a }
 
     before do
+      sleep 0.5
       visit task_path(@task)
     end
     context '削除ボタンを押す' do
       it '確認ダイアログが表示される' do
         visit task_path(@task) # うまく遷移できてないことが多いのでリロードの意味で再度visitを呼び出す
         click_link '削除'
+        sleep 0.5
         expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
         # expect(page.driver.browser.accept_js_confirms.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
       end
