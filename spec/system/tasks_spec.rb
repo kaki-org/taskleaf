@@ -99,8 +99,8 @@ describe 'タスク管理機能', type: :system do
         expect(Task.last.image.blob.filename).to eq 'redkaki.png'
       end
       it 'メールが送信される' do
-        # TODO: ここはそもそもsenderが取れない。。当たり前だが
-        # expect(open_last_email).to be_delivered_from sender.email
+        sender = ActionMailer::Base.deliveries.last.from
+        expect(last_email).to be_delivered_from sender
         expect(last_email).to be_delivered_to 'user@example.com'
         expect(last_email).to be_delivered_from 'taskleaf@example.com'
         expect(last_email).to have_subject 'タスク作成完了メール'
