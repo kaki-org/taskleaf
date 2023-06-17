@@ -15,11 +15,11 @@ concurrency:
 jobs:
   rspec_job:
     #ubuntu環境で動かします
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     services:
       postgres:
-        image: postgres:11.2-alpine
+        image: postgres:15.3-alpine
         ports:
           - 5432:5432
         env:
@@ -47,10 +47,10 @@ jobs:
         with:
           ruby-version: 3.2.2
           bundler-cache: true
-      - name: Use Node.js 16.19.0
+      - name: Use Node.js 18.16.0
         uses: actions/setup-node@v3
         with:
-          node-version: 16.19.0
+          node-version: 18.16.0
 
       - name: Setup bundler
         run: gem install bundler
