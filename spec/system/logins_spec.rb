@@ -9,6 +9,7 @@ describe 'ログイン機能', type: :system, js: true do
       { "Accept-Language": 'ja-JP' }
     end
     before do
+      Selenium::WebDriver.logger
       @origin_headers = page.driver.options[:headers]
       page.driver.options[:headers] ||= {}
       page.driver.options[:headers].merge!(headers)

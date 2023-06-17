@@ -140,6 +140,7 @@ describe 'タスク管理機能', type: :system do
     let(:login_user) { user_a }
 
     before do
+      Selenium::WebDriver.logger
       sleep 0.5
       visit task_path(@task)
     end

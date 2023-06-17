@@ -9,6 +9,7 @@ describe 'タスク管理機能', type: :system do
   let!(:task_a) { create(:task, name: '最初のタスク', user: user_a) }
 
   before do
+    Selenium::WebDriver.logger
     # ユーザAを作成
     # 作成者がユーザAであるタスクを作成
     @task = create(:task, name: '次のタスク', description: '詳細な説明', user: user_a)
@@ -64,6 +65,7 @@ describe 'タスク管理機能', type: :system do
     context 'ユーザAがログインしているとき' do
       let(:login_user) { user_a }
       before do
+        Selenium::WebDriver.logger
         visit task_path(task_a)
       end
       it_behaves_like 'ユーザAが作成したタスクが表示される'
@@ -75,6 +77,7 @@ describe 'タスク管理機能', type: :system do
     let(:task_name) { '新規作成のテストを書く' } # デフォルトとして設定
 
     before do
+      Selenium::WebDriver.logger
       visit new_task_path
       fill_in '名称', with: task_name
       attach_file '画像', "#{Rails.root}/spec/factories/redkaki.png"
@@ -122,6 +125,7 @@ describe 'タスク管理機能', type: :system do
     let(:login_user) { user_a }
 
     before do
+      Selenium::WebDriver.logger
       visit edit_task_path id: @task.id
     end
     context '更新画面で名称と詳しい説明を入力したとき' do
@@ -138,6 +142,7 @@ describe 'タスク管理機能', type: :system do
     let(:login_user) { user_a }
 
     before do
+      Selenium::WebDriver.logger
       visit tasks_path q: { name_cont: '最初' }
     end
     context '検索結果を確認したとき' do
@@ -161,6 +166,7 @@ describe 'タスク管理機能', type: :system do
     let(:login_user) { user_a }
 
     before do
+      Selenium::WebDriver.logger
       visit task_path id: @task.id
     end
     context '削除ボタンを押す', js: true do
