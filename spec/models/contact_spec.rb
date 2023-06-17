@@ -3,5 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'create contact' do
+    it 'should create contact' do
+      contact = Contact.new
+      contact.name = 'test'
+      contact.email = 'test@example.com'
+      contact.save
+      expect(contact).to be_valid
+    end
+  end
 end
