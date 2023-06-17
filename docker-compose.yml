@@ -53,7 +53,7 @@ services:
       - '4444:4444'
 
   redis:
-    image: redis:5-alpine
+    image: redis:6-alpine
     ports:
       - "16379:6379"
 #    command: redis-server --appendonly yes --requirepass foobared
@@ -65,7 +65,7 @@ services:
     ports:
       - 50080:1080
   pgsql:
-    image: postgres:11.4-alpine
+    image: postgres:15.3-alpine
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
