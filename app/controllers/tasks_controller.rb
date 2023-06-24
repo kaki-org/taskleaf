@@ -24,19 +24,9 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
-  def confirm_new
-    @task = current_user.tasks.new(task_params)
-    render :new unless @task.valid?
-  end
-
   def create
     # @task = Task.new(task_params.merge(user_id: current_user.id))
     @task = current_user.tasks.new(task_params)
-
-    if params[:back].present?
-      render :new
-      return
-    end
 
     if @task.save
       TaskMailer.creation_email(@task).deliver_now
@@ -53,8 +43,12 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました。"
     else
-      render :edit
+      render :edit, task: @task.errors
     end
+  end
+
+  def confirm_destroy
+    @task = current_user.tasks.find_by(id: params.require(:task_id))
   end
 
   def destroy

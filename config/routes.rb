@@ -10,21 +10,13 @@ Rails.application.routes.draw do
     end
   end
   namespace :admin do
-    resources :users
-    # get 'users/new'
-    # get 'users/edit'
-    # get 'users/show'
-    # get 'users/index'
+    resources :users do
+      get :confirm_destroy
+    end
   end
   root to: 'tasks#index'
   resources :tasks do
-    post :confirm, action: :confirm_new, on: :new
+    get :confirm_destroy
     post :import, on: :collection
   end
-  # similiar to
-  # get 'tasks/index'
-  # get 'tasks/show'
-  # get 'tasks/new'
-  # get 'tasks/edit'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
