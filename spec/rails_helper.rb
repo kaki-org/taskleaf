@@ -72,7 +72,7 @@ RSpec.configure do |config|
   client.read_timeout = 120 # instead of the default 60
 
   Capybara.register_driver :remote_chrome do |app|
-    caps = ::Selenium::WebDriver::Options.chrome(
+    caps = Selenium::WebDriver::Options.chrome(
       'goog:chromeOptions' => {
         'args' => %w[no-sandbox disable-dev-shm-usage headless disable-gpu window-size=1680,1050 lang=ja]
       }

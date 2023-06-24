@@ -6,7 +6,7 @@ describe 'ログイン機能', type: :system, js: true do
   let(:user) { create(:user, name: 'ユーザA', email: 'a@example.com') }
   context '日本語対応ブラウザでログイン画面にくると' do
     let(:headers) do
-      { "Accept-Language": 'ja-JP' }
+      { 'Accept-Language': 'ja-JP' }
     end
     before do
       Selenium::WebDriver.logger
