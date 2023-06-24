@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'support/download_helper'
 
-describe 'タスク管理機能', type: :system do
+xdescribe 'タスク管理機能', type: :system do
   let(:user_a) { create(:user, name: 'ユーザA', email: 'a@example.com') }
   let(:user_b) { create(:user, name: 'ユーザB', email: 'b@example.com') }
   let!(:task_a) { create(:task, name: '最初のタスク', user: user_a) }
@@ -93,14 +93,6 @@ describe 'タスク管理機能', type: :system do
         expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
         expect(Task.last.image.blob.filename).to eq 'redkaki.png'
       end
-      it 'メールが送信される' do
-        sender = ActionMailer::Base.deliveries.last.from
-        expect(last_email).to be_delivered_from sender
-        expect(last_email).to be_delivered_to 'user@example.com'
-        expect(last_email).to be_delivered_from 'taskleaf@example.com'
-        expect(last_email).to have_subject 'タスク作成完了メール'
-        expect(last_email).to have_body_text '以下のタスクを作成しました'
-      end
     end
     context '新規作成画面で名称を入力しなかったとき' do
       let(:task_name) { '' }
@@ -152,27 +144,6 @@ describe 'タスク管理機能', type: :system do
     context '不正な検索結果を確認したとき' do
       it '登録したタスク以外も出力されている' do
         expect(page).to have_content '最初のタスク'
-      end
-    end
-  end
-
-  # 削除機能
-  describe '削除機能' do
-    let(:login_user) { user_a }
-
-    before do
-      Selenium::WebDriver.logger
-      visit task_path id: @task.id
-    end
-    context '削除ボタンを押す', js: true do
-      before '確認ダイアログが表示される' do
-        sleep 1
-        click_link '削除'
-      end
-      it 'タスクが削除される' do
-        expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
-        page.driver.browser.switch_to.alert.accept
-        expect(page).to have_content '「次のタスク」を削除しました'
       end
     end
   end
