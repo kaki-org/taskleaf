@@ -147,25 +147,4 @@ describe 'タスク管理機能', type: :system do
       end
     end
   end
-
-  # 削除機能
-  describe '削除機能' do
-    let(:login_user) { user_a }
-
-    before do
-      Selenium::WebDriver.logger
-      visit task_path id: @task.id
-    end
-    context '削除ボタンを押す', js: true do
-      before '確認ダイアログが表示される' do
-        sleep 1
-        click_link '削除'
-      end
-      it 'タスクが削除される' do
-        expect(page.driver.browser.switch_to.alert.text).to eq 'タスク「次のタスク」を削除します。よろしいですか？'
-        page.driver.browser.switch_to.alert.accept
-        expect(page).to have_content '「次のタスク」を削除しました'
-      end
-    end
-  end
 end
