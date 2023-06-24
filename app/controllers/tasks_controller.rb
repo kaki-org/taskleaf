@@ -28,11 +28,6 @@ class TasksController < ApplicationController
     # @task = Task.new(task_params.merge(user_id: current_user.id))
     @task = current_user.tasks.new(task_params)
 
-    if params[:back].present?
-      render :new
-      return
-    end
-
     if @task.save
       TaskMailer.creation_email(@task).deliver_now
       SampleJob.perform_later
@@ -48,7 +43,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました。"
     else
-      render :edit
+      render :edit, task: @task.errors
     end
   end
 

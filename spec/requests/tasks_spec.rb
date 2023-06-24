@@ -62,6 +62,15 @@ describe Task, type: :request do
     end
   end
 
+  describe '新規作成画面' do
+    include_context 'userでログイン済み'
+    let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
+    before { get '/tasks/new' }
+    it '新規作成画面が表示される事' do
+      expect(response.status).to eq 200
+      expect(response.body).to include 'タスクの新規登録'
+    end
+  end
   describe '新規作成機能' do
     include_context 'userでログイン済み'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
@@ -122,6 +131,19 @@ describe Task, type: :request do
     it 'タスクの編集ができる事' do
       expect(response.status).to eq 302
       expect(Task.last.name).to eq new_task_name
+    end
+  end
+  describe '編集機能で失敗' do
+    include_context 'userでログイン済み'
+    let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
+    let(:task) { FactoryBot.create(:task, user:) }
+    let(:new_task_name) { '' }
+    before do
+      patch task_path(task.id), params: { task: { name: new_task_name } }
+    end
+    it 'タスクの編集ができる事' do
+      expect(response.status).to eq 200
+      expect(response.body).to include '名称を入力してください'
     end
   end
   describe '検索機能' do

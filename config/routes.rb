@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     end
   end
   namespace :admin do
-    resources :users
+    resources :users do
+      get :confirm_destroy
+    end
   end
   root to: 'tasks#index'
   resources :tasks do

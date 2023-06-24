@@ -44,7 +44,15 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    redirect_to admin_users_url, notice: '自分自身は削除できません' and return if current_user.id == params[:user_id].to_i
+
+    @user = User.find(params[:user_id])
+  end
+
   def destroy
+    redirect_to admin_users_url, notice: '自分自身は削除できません' and return if current_user.id == params[:id].to_i
+
     @user = User.find(params[:id])
     @user.destroy
     redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました"
