@@ -50,20 +50,34 @@ describe Task, type: :request do
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let(:task_params) { FactoryBot.attributes_for(:task) }
 
-    before do
-      post tasks_path, params: { task: task_params }
+    context '正しいパラメータを送信' do
+      before do
+        post tasks_path, params: { task: task_params }
+      end
+      it 'タスクを作成できる事' do
+        expect(response.status).to eq 302
+        expect(Task.last.name).to eq task_params[:name]
+      end
+      it 'メールが送信される事' do
+        sender = ActionMailer::Base.deliveries.last.from
+        expect(last_email).to be_delivered_from sender
+        expect(last_email).to be_delivered_to 'user@example.com'
+        expect(last_email).to be_delivered_from 'taskleaf@example.com'
+        expect(last_email).to have_subject 'タスク作成完了メール'
+        expect(last_email).to have_body_text '以下のタスクを作成しました'
+      end
     end
-    it 'タスクを作成できる事' do
-      expect(response.status).to eq 302
-      expect(Task.last.name).to eq task_params[:name]
-    end
-    it 'メールが送信される事' do
-      sender = ActionMailer::Base.deliveries.last.from
-      expect(last_email).to be_delivered_from sender
-      expect(last_email).to be_delivered_to 'user@example.com'
-      expect(last_email).to be_delivered_from 'taskleaf@example.com'
-      expect(last_email).to have_subject 'タスク作成完了メール'
-      expect(last_email).to have_body_text '以下のタスクを作成しました'
+    context '不正なパラメータを送信' do
+      let(:task_params) { FactoryBot.attributes_for(:task, name: '') }
+      before do
+        post tasks_path, params: { task: task_params }
+      end
+      it 'タスクの作成に失敗する事' do
+        expect(response.status).to eq 200
+      end
+      it 'エラーメッセージが表示される事' do
+        expect(response.body).to include '名称を入力してください'
+      end
     end
   end
 
