@@ -43,6 +43,23 @@ describe Task, type: :request do
         end
       end
     end
+    context '他人でログインしている場合' do
+      include_context 'other_userでログイン済み'
+      let(:other_user) { FactoryBot.create(:user, admin: true, email: 'other@example.com', password: 'password') }
+      let(:user) { FactoryBot.create(:user, admin: true, email: 'test@example.com', password: 'password') }
+      let!(:other_task) { create(:task, name: '他人のタスク', user: other_user) }
+      let!(:task_a) { create(:task, name: '最初のタスク', user:) }
+      let!(:task_b) { create(:task, name: '次のタスク', user:) }
+      let!(:task_c) { create(:task, name: '最後のタスク', user:) }
+      before { get '/tasks' }
+      it '他人のタスクの一覧のみ取得できる事' do
+        expect(response.status).to eq 200
+        expect(response.body).to include '他人のタスク'
+        expect(response.body).not_to include '最初のタスク'
+        expect(response.body).not_to include '次のタスク'
+        expect(response.body).not_to include '最後のタスク'
+      end
+    end
   end
 
   describe '新規作成機能' do
