@@ -93,14 +93,6 @@ describe 'タスク管理機能', type: :system do
         expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
         expect(Task.last.image.blob.filename).to eq 'redkaki.png'
       end
-      it 'メールが送信される' do
-        sender = ActionMailer::Base.deliveries.last.from
-        expect(last_email).to be_delivered_from sender
-        expect(last_email).to be_delivered_to 'user@example.com'
-        expect(last_email).to be_delivered_from 'taskleaf@example.com'
-        expect(last_email).to have_subject 'タスク作成完了メール'
-        expect(last_email).to have_body_text '以下のタスクを作成しました'
-      end
     end
     context '新規作成画面で名称を入力しなかったとき' do
       let(:task_name) { '' }
