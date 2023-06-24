@@ -61,6 +61,15 @@ describe 'admin/users', type: :request do
         expect(User.last.name).to eq 'ユーザーBB'
         expect(User.last.email).to eq 'test22@example.com'
       end
+      it 'ユーザの削除確認画面に遷移できる事' do
+        get "/admin/users/#{user2.id}/confirm_destroy"
+        expect(response.status).to eq 200
+      end
+      it 'ユーザーを削除できる事' do
+        delete "/admin/users/#{user2.id}"
+        expect(response.status).to eq 302
+        expect(User.last.email).to eq 'test@example.com'
+      end
     end
   end
 end
