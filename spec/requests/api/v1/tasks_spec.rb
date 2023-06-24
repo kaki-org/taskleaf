@@ -30,5 +30,11 @@ describe 'タスクAPI', type: :request do
       expect(json['name']).to eq 'MailerSpecを書く'
       expect(json['description']).to eq '送信したMailの内容を確認します'
     end
+
+    it '作成したタスクを削除できる事' do
+      delete "/api/v1/tasks/#{task.id}"
+      expect(response).to have_http_status(:success)
+      expect(Task.find_by(id: task.id)).to eq nil
+    end
   end
 end

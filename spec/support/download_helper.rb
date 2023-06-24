@@ -40,6 +40,6 @@ end
 
 RSpec.configure do |config|
   config.include DownloadHelper, type: :system
-  config.before(:suite) { Dir.mkdir(DownloadHelper::PATH) unless Dir.exist?(DownloadHelper::PATH) }
+  config.before(:suite) { FileUtils.mkdir_p(DownloadHelper::PATH) }
   config.after(:example, type: :system) { clear_downloads }
 end
