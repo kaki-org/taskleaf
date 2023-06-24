@@ -70,7 +70,7 @@ describe Task, type: :request do
   describe '詳細表示機能' do
     include_context 'userでログイン済み'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
-    let(:task) { FactoryBot.create(:task, user: user) }
+    let(:task) { FactoryBot.create(:task, user:) }
     before do
       get task_path(task.id)
     end
@@ -83,10 +83,10 @@ describe Task, type: :request do
   describe '編集機能' do
     include_context 'userでログイン済み'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
-    let(:task) { FactoryBot.create(:task, user: user) }
+    let(:task) { FactoryBot.create(:task, user:) }
     let(:new_task_name) { '新しいタスク名' }
     before do
-      patch task_path(task.id), params: { task: {name: new_task_name } }
+      patch task_path(task.id), params: { task: { name: new_task_name } }
     end
     it 'タスクの編集ができる事' do
       expect(response.status).to eq 302
@@ -98,13 +98,13 @@ describe Task, type: :request do
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let(:user2) { FactoryBot.create(:user, admin: true) }
 
-    let!(:task_a) { FactoryBot.create(:task, name: '最初のタスク', user: user) }
-    let!(:task_b) { FactoryBot.create(:task, name: '次のタスク', user: user) }
-    let!(:task_c) { FactoryBot.create(:task, name: '最後のタスク', user: user) }
+    let!(:task_a) { FactoryBot.create(:task, name: '最初のタスク', user:) }
+    let!(:task_b) { FactoryBot.create(:task, name: '次のタスク', user:) }
+    let!(:task_c) { FactoryBot.create(:task, name: '最後のタスク', user:) }
     let!(:task_a_by_user2) { FactoryBot.create(:task, name: 'ユーザ2の最初のタスク', user: user2) }
     context 'タイトルで検索する場合' do
       before do
-        get '/tasks', params: { q: {name_cont: '最初のタスク' }}
+        get '/tasks', params: { q: { name_cont: '最初のタスク' } }
       end
       it '検索キーワードを含むタスクで絞り込まれる事' do
         expect(response.body).to include '最初のタスク'
@@ -120,7 +120,7 @@ describe Task, type: :request do
   describe '削除確認画面' do
     include_context 'userでログイン済み'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
-    let!(:task) { FactoryBot.create(:task, user: user) }
+    let!(:task) { FactoryBot.create(:task, user:) }
 
     before do
       get "/tasks/#{task.id}/confirm_destroy"
@@ -134,7 +134,7 @@ describe Task, type: :request do
   describe '削除機能' do
     include_context 'userでログイン済み'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
-    let!(:task) { FactoryBot.create(:task, user: user) }
+    let!(:task) { FactoryBot.create(:task, user:) }
 
     before do
       delete "/tasks/#{task.id}"
