@@ -47,7 +47,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'email_spec'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'foreman'
   gem 'listen', '>= 3.0.5', '< 3.9'
@@ -60,6 +59,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
+  gem 'email_spec'
   gem 'faker'
 
   gem 'selenium-webdriver'
