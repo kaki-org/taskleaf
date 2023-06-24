@@ -7,7 +7,7 @@ describe Task, type: :request do
     context 'ログインしている場合' do
       include_context 'userでログイン済み'
       let(:user) { FactoryBot.create(:user, admin: true, email: 'test@example.com', password: 'password') }
-      let(:user2) { FactoryBot.create(:user, email: 'test2@example.com', password: 'password') }
+      let(:other_user) { FactoryBot.create(:user, email: 'test2@example.com', password: 'password') }
       let!(:task_a) { create(:task, name: '最初のタスク', user:) }
       let!(:task_b) { create(:task, name: '次のタスク', user:) }
       let!(:task_c) { create(:task, name: '最後のタスク', user:) }
@@ -96,12 +96,12 @@ describe Task, type: :request do
   describe '検索機能' do
     include_context 'userでログイン済み'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
-    let(:user2) { FactoryBot.create(:user, admin: true) }
+    let(:other_user) { FactoryBot.create(:user, admin: true) }
 
     let!(:task_a) { FactoryBot.create(:task, name: '最初のタスク', user:) }
     let!(:task_b) { FactoryBot.create(:task, name: '次のタスク', user:) }
     let!(:task_c) { FactoryBot.create(:task, name: '最後のタスク', user:) }
-    let!(:task_a_by_user2) { FactoryBot.create(:task, name: 'ユーザ2の最初のタスク', user: user2) }
+    let!(:task_a_by_user2) { FactoryBot.create(:task, name: 'ユーザ2の最初のタスク', user: other_user) }
     context 'タイトルで検索する場合' do
       before do
         get '/tasks', params: { q: { name_cont: '最初のタスク' } }
