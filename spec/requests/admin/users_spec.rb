@@ -15,7 +15,7 @@ describe 'admin/users', type: :request do
         expect(response.status).to eq 200
         expect(response.body).to include(user.name)
       end
-      it ユーザーの詳細画面に遷移できる事 do
+      it 'ユーザーの詳細画面に遷移できる事' do
         get "/admin/users/#{user.id}"
         expect(response.status).to eq 200
       end
