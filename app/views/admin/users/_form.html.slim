@@ -4,7 +4,7 @@
       .alert.alert-danger
         li = message
 
-= form_with model: [:admin, user], local: true do |f|
+= form_with model: [:admin, user], local: true, data: { turbo: false } do |f|
   .form-group
     = f.label :name, '名前'
     = f.text_field :name, class: 'form-control'
