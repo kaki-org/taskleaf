@@ -12,6 +12,12 @@ class Api::V1::TasksController < ApplicationController
     render json: task if task.update(attributes: task_params)
   end
 
+  def destroy
+    task = Task.find(params[:id])
+    task.destroy!
+    render json: task
+  end
+
   private
 
   def task_params
