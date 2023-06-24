@@ -4,6 +4,7 @@ h1 タスクの詳細
   = link_to '一覧', tasks_path, class: 'nav-link'
 table.table.table-hover
   tbody
+    '削除します。よろしいですか？
     tr
       th= Task.human_attribute_name(:id)
       td= @task.id
@@ -23,6 +24,6 @@ table.table.table-hover
       th= Task.human_attribute_name(:updated_at)
       td= @task.updated_at
 
-= link_to '編集', edit_task_path, class: 'btn btn-primary mr-3'
-= link_to '削除', task_confirm_destroy_path(@task), class: 'btn btn-danger'
+/ = link_to '編集', edit_task_path, class: 'btn btn-primary mr-3'
+= link_to '削除', task_path(@task.id), data: { turbo_method: :delete }, class: 'btn btn-danger'
 / = link_to '削除', @task, data: { turbo_method: :delete, turbo_confirm: "タスク「#{@task.name}」を削除します。よろしいですか？", turbo_frame: :top}, class: 'btn btn-danger'

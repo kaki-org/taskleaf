@@ -24,6 +24,7 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+
   def create
     # @task = Task.new(task_params.merge(user_id: current_user.id))
     @task = current_user.tasks.new(task_params)
@@ -50,6 +51,10 @@ class TasksController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def confirm_destroy
+    @task = current_user.tasks.find_by(id: params.require(:task_id))
   end
 
   def destroy
