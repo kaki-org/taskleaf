@@ -14,7 +14,7 @@ module.exports = {
   entry: {
     application: [
       "./app/javascript/application_legacy.js",
-      './app/assets/stylesheets/application.scss',
+      './app/javascript/stylesheets/application.scss',
     ]
   },
   output: {

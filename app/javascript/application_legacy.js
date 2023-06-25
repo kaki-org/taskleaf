@@ -10,5 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require ../../vendor/bundle/ruby/3.2.0/gems/activestorage-7.0.5/app/assets/javascripts/activestorage
 //= require_tree .
+// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
+import "@hotwired/turbo-rails";
+Turbo.session.drive = false
