@@ -1,7 +1,7 @@
 // Action Cable provides the framework to deal with WebSockets in Rails.
 // You can generate new channels where WebSocket features live using the `rails generate channel` command.
 //
-//= require action_cable
+//= require ../../vendor/bundle/ruby/3.2.0/gems/actioncable-7.0.4.3/app/assets/javascripts/action_cable.js
 //= require_self
 //= require_tree ./channels
 

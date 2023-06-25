@@ -65,7 +65,7 @@ autolabeler:
     branch:
       - '/(enhancement|improve)[/-].+/'
 
-  - label: javascript
+  - label: javascripts
     files:
       - 'public/**/*'
       - 'src/**/*'
