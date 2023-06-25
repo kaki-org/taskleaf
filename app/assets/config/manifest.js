@@ -1,6 +1,6 @@
 //= link_tree ../images
-//= link_tree ../../javascript .js
+//= link_tree ../../frontend .js
 //= link_tree ../../../vendor/javascript .js
 //= link_tree ../builds
-//= link_directory ../../javascript/stylesheets .css
+//= link_directory ../../frontend/stylesheets .css
 
