@@ -159,7 +159,7 @@ bower.json
 # Ignore node_modules
 node_modules/
 
-# Ignore precompiled javascripts packs
+# Ignore precompiled javascript packs
 /public/packs
 /public/packs-test
 /public/assets
