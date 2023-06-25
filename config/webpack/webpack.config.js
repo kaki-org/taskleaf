@@ -13,8 +13,8 @@ module.exports = {
   devtool: "source-map",
   entry: {
     application: [
-      "./app/javascript/application_legacy.js",
-      './app/assets/stylesheets/application.scss',
+      "./app/frontend/application_legacy.js",
+      './app/frontend/stylesheets/application.scss',
     ]
   },
   output: {

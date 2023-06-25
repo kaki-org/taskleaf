@@ -61,6 +61,8 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: yarn install
         run: yarn install --check-files
+      - name: webpack
+        run: bundle exec rails assets:precompile
       - name: rubocop
         run: bundle exec rubocop
       - name: tmp cache clear
