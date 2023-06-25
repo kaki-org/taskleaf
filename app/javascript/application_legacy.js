@@ -10,5 +10,5 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require ../../vendor/bundle/ruby/3.2.0/gems/activestorage-7.0.4.3/app/assets/javascripts/activestorage
+//= require ../../vendor/bundle/ruby/3.2.0/gems/activestorage-7.0.5/app/assets/javascripts/activestorage
 //= require_tree .
