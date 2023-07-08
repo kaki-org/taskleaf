@@ -73,7 +73,7 @@ RSpec.configure do |config|
 
   Capybara.register_driver(:playwright) do |app|
     channel = ENV['PLAYWRIGHT_CHROMIUM_CHANNEL'] || 'chrome'
-    Capybara::Playwright::Driver.new(app, channel: channel, viewport: { width: 1400, height: 1400 })
+    Capybara::Playwright::Driver.new(app, channel:, viewport: { width: 1400, height: 1400 })
   end
   Capybara.default_max_wait_time = 15
   Capybara.default_driver = :playwright
