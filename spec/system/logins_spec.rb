@@ -10,9 +10,9 @@ describe 'ログイン機能', type: :system, js: true do
     end
     before do
       Selenium::WebDriver.logger
-      @origin_headers = page.driver.options[:headers]
-      page.driver.options[:headers] ||= {}
-      page.driver.options[:headers].merge!(headers)
+      # @origin_headers = page.driver.options[:headers]
+      # page.driver.options[:headers] ||= {}
+      # page.driver.options[:headers].merge!(headers)
       visit login_path
     end
     it 'こんにちわとでている' do
