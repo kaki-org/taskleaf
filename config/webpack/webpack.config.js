@@ -45,6 +45,6 @@ module.exports = {
     new MiniCssExtractPlugin(),
   ],
   optimization: {
-    moduleIds: 'hashed',
+    moduleIds: 'deterministic',
   }
 };
