@@ -8,7 +8,6 @@ require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'capybara/rails'
-# require 'selenium-webdriver'
 require 'email_spec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -68,9 +67,6 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
 
-  # client = Selenium::WebDriver::Remote::Http::Default.new
-  # client.read_timeout = 120 # instead of the default 60
-
   Capybara.register_driver(:playwright) do |app|
     channel = ENV['PLAYWRIGHT_CHROMIUM_CHANNEL'] || 'chrome'
     Capybara::Playwright::Driver.new(app, channel:, viewport: { width: 1400, height: 1400 })
@@ -79,36 +75,12 @@ RSpec.configure do |config|
   Capybara.default_driver = :playwright
   Capybara.javascript_driver = :playwright
 
-  # Capybara.register_driver :remote_chrome do |app|
-  #   caps = Selenium::WebDriver::Options.chrome(
-  #     'goog:chromeOptions' => {
-  #       'args' => %w[no-sandbox disable-dev-shm-usage headless disable-gpu window-size=1680,1050 lang=ja]
-  #     }
-  #   )
-  #   if ENV['SELENIUM_DRIVER_URL'].present?
-  #     Capybara::Selenium::Driver.new(app, browser: :remote, url: ENV['SELENIUM_DRIVER_URL'], options: caps).tap do |driver|
-  #       # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
-  #       driver.browser.download_path = DownloadHelper::PATH.to_s
-  #     end
-  #   else
-  #     Capybara::Selenium::Driver.new(app, browser: :chrome, options: caps).tap do |driver|
-  #       # NOTE: chrome(v77未満)用にダウンロードディレクトリを設定
-  #       driver.browser.download_path = DownloadHelper::PATH.to_s
-  #     end
-  #   end
-  # end
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
 
   config.before(:each, type: :system, js: true) do
     driven_by :playwright
-    # driven_by :remote_chrome
-    # if ENV['SELENIUM_DRIVER_URL'].present?
-    #   Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    #   Capybara.server_port = 3000
-    #   Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
-    # end
   end
 
   config.include LoginMacros
