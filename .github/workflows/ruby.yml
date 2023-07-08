@@ -26,12 +26,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-      chrome:
-        image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
-          - 5900:5900
-        options: --shm-size=2g
 
     steps:
       - name: checkout
@@ -61,6 +55,8 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: yarn install
         run: yarn install --check-files
+      - name: Install Playwright
+        run: yarn playwright install chromium
       - name: webpack
         run: bundle exec rails assets:precompile
       - name: rubocop
@@ -89,7 +85,7 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub #追加、どのコンテナのブラウザを使用するか指定
+          PLAYWRIGHT_CHROMIUM_CHANNEL: 'chromium'
       - name: Codecov
         uses: codecov/codecov-action@v3.1.4
         with:
