@@ -63,7 +63,7 @@ group :test do
   gem 'email_spec'
   gem 'faker'
 
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdriver'
   gem 'launchy'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper' # 2019/03/31?あたりからこいつは非推奨(Capybaraとかでコケまくる。webdriversを利用する)

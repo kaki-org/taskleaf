@@ -8,7 +8,7 @@ require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'capybara/rails'
-require 'selenium-webdriver'
+# require 'selenium-webdriver'
 require 'email_spec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -68,8 +68,8 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
 
-  client = Selenium::WebDriver::Remote::Http::Default.new
-  client.read_timeout = 120 # instead of the default 60
+  # client = Selenium::WebDriver::Remote::Http::Default.new
+  # client.read_timeout = 120 # instead of the default 60
 
   Capybara.register_driver(:playwright) do |app|
     channel = ENV['PLAYWRIGHT_CHROMIUM_CHANNEL'] || 'chrome'
