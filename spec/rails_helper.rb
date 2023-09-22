@@ -74,6 +74,7 @@ RSpec.configure do |config|
   Capybara.default_max_wait_time = 15
   Capybara.default_driver = :playwright
   Capybara.javascript_driver = :playwright
+  Capybara.save_path = "tmp/capybara"
 
   config.before(:each, type: :system) do
     driven_by :rack_test
