@@ -18,7 +18,7 @@
     "webpack-remove-empty-scripts": "^1.0.1"
   },
   "scripts": {
-    "build": "webpack --config ./config/webpack/webpack.config.js"
+    "build": "bun bun.config.js"
   },
   "babel": {
     "presets": [
