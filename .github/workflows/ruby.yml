@@ -55,13 +55,12 @@ jobs:
         run: bun install --check-files
       - name: Install Playwright
         run: bun playwright install chromium
-      - name: webpack
+      - name: Bun
         run: bundle exec rails assets:precompile
       - name: rubocop
         run: bundle exec rubocop
       - name: tmp cache clear
-        run: |
-          bundle exec rails tmp:cache:clear
+        run: echo bundle exec rails tmp:cache:clear
 
       - name: Setup Database
         run: |
