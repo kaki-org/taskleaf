@@ -41,11 +41,9 @@ jobs:
         with:
           ruby-version: 3.2.2
           bundler-cache: true
-      - name: Use Node.js 18.16.0
-        uses: actions/setup-node@v3
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: 18.16.0
-
+          bun-version: 1.0.2
       - name: Setup bundler
         run: gem install bundler
 
@@ -53,17 +51,16 @@ jobs:
         run: |
           bundle config set path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
-      - name: yarn install
-        run: yarn install --check-files
+      - name: bun install
+        run: bun install --check-files
       - name: Install Playwright
-        run: yarn playwright install chromium
-      - name: webpack
+        run: bun playwright install chromium
+      - name: Bun
         run: bundle exec rails assets:precompile
       - name: rubocop
         run: bundle exec rubocop
       - name: tmp cache clear
-        run: |
-          bundle exec rails tmp:cache:clear
+        run: echo bundle exec rails tmp:cache:clear
 
       - name: Setup Database
         run: |
