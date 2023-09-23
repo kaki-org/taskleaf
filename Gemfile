@@ -18,6 +18,7 @@ gem 'jbuilder', '~> 2.11'
 gem 'bcrypt', '~> 3.1.17'
 
 gem 'jsbundling-rails'
+gem 'cssbundling-rails'
 gem 'sprockets-rails'
 
 # gem 'hotwire-rails'
