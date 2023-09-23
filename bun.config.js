@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const config = {
   sourcemap: "external",
@@ -9,6 +10,13 @@ const config = {
     './app/frontend/stylesheets/application.scss',
   ],
   outdir: path.join(process.cwd(), "app/assets/builds"),
+  plugin: [
+    // プラグインをインクルードする
+    new MiniCssExtractPlugin(),
+  ],
+  optimization: {
+    moduleIds: 'deterministic',
+  }
 };
 
 const build = async (config) => {
