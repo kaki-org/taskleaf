@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
-# require 'rspec'
 require 'rails_helper'
 
-describe 'Task' do
-  it '名前がないタスクは登録できない事' do
-    expect { create!(:default_task, name: nil).to raise_error(ActiveRecord::RecordInvalid) }
+RSpec.describe Task, type: :model do
+  describe 'validations' do
+    it 'is invalid without a name' do
+      task = build(:task, name: nil)
+      expect(task).to be_invalid
+      expect(task.errors[:name]).to include('を入力してください')
+    end
   end
-  it '一度に複数のタスクを持つことができる事' do
-    user = create(:user)
-    create(:default_task, user:)
-    mass_task = create(:mass_task, user:)
-    mass_task.valid?
-    expect(mass_task).to be_valid
+
+  describe 'associations' do
+    let!(:user) { create(:user) }
+    let!(:tasks) { create_list(:task, 2, user:, name: 'rspec test') }
+    it 'can have multiple tasks' do
+      expect(user.tasks.where(name: 'rspec test').count).to eq(2)
+    end
   end
 end
