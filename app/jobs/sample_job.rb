@@ -5,6 +5,6 @@ class SampleJob < ApplicationJob
 
   def perform(*_args)
     # Do something later
-    Sidekiq::Logging.logger.info 'サンプルジョブを実行しました'
+    logger.info 'サンプルジョブを実行しました'
   end
 end
