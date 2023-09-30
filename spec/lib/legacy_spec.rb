@@ -3,15 +3,13 @@
 require 'rails_helper'
 require 'legacy'
 
-describe Legacy do
-  let!(:users) do
-    10.times do
-      FactoryBot.create(:user)
+RSpec.describe Legacy, type: :model do
+  describe '#move_contact' do
+    let!(:users) { FactoryBot.create_list(:user, 10) }
+
+    it 'creates contacts from users' do
+      expect { Legacy.move_contact }.to change(Contact, :count).from(0).to(10)
+      expect(User.count).to eq(Contact.count)
     end
-  end
-  it 'userからcontactを作成すること' do
-    Legacy.move_contact
-    expect(User.count).to eq Contact.count
-    expect(Contact.count).to eq 10 # 10.timesで作成したので
   end
 end
