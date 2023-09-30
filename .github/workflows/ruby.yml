@@ -65,9 +65,7 @@ jobs:
       - name: Setup Database
         run: |
           cp config/database.yml.github-actions config/database.yml
-          bundle exec rails parallel:drop
-          bundle exec rails parallel:create
-          bundle exec rails parallel:prepare
+          bundle exec rails parallel:setup
         env:
           RAILS_ENV: test
           POSTGRES_USER: postgres
