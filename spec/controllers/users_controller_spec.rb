@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Admin::UsersController do
   shared_examples 'public access to users' do
     describe 'GET #index' do
-      context '参照しようとする' do
+      context '参照しようとするとき' do
         it 'ルートへリダイレクト' do
           get :index
           expect(response).to redirect_to root_path
@@ -58,7 +58,7 @@ describe Admin::UsersController do
     describe 'GET #index' do
       let!(:users) { FactoryBot.create_list(:user, 2) }
 
-      context 'params[:limit]がある場合' do
+      context 'params[:limit]があるとき' do
         # FIXME: ここのテストはおそらく正しい検証ができていない
         it '与えられた件数のみ表示する事' do
           get :index, params: { limit: 1 }
@@ -71,7 +71,7 @@ describe Admin::UsersController do
         end
       end
 
-      context 'params[:limit]がない場合' do
+      context 'params[:limit]がないとき' do
         # すべてのユーザが表示される事
         it 'displays all users' do
           get :index
@@ -115,7 +115,7 @@ describe Admin::UsersController do
       end
 
       # 有効な属性の場合
-      context 'valid attributes' do
+      context 'when valid attributes' do
         # 要求された @user を取得すること
         it 'locates the requested @user' do
           patch :update, params: { id: user, user: attributes_for(:user) }
@@ -137,7 +137,7 @@ describe Admin::UsersController do
       end
 
       # 無効な属性の場合
-      context 'with invalid attributes' do
+      context 'when invalid attributes' do
         # ユーザーの属性を変更しないこと
         it "does not change the user's attributes" do
           patch :update, params: { id: user, user: attributes_for(:user, name: nil) }

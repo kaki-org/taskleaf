@@ -5,14 +5,14 @@ require 'rails_helper'
 describe Task, type: :request do
   describe 'GET /tasks' do
     context 'ログインしている場合' do
-      include_context 'userでログイン済み'
+      include_context 'userでログイン済みの時'
       let(:user) { FactoryBot.create(:user, admin: true, email: 'test@example.com', password: 'password') }
       let(:other_user) { FactoryBot.create(:user, email: 'test2@example.com', password: 'password') }
       let!(:task_a) { create(:task, name: '最初のタスク', user:) }
       let!(:task_b) { create(:task, name: '次のタスク', user:) }
       let!(:task_c) { create(:task, name: '最後のタスク', user:) }
 
-      context '通常のタスク一覧' do
+      context '通常のタスク一覧の場合' do
         before { get '/tasks' }
 
         it 'タスクの一覧が取得できる事' do
@@ -27,7 +27,7 @@ describe Task, type: :request do
         end
       end
 
-      context '特別な日の判定' do
+      context '特別な日の判定をする場合' do
         before do
           travel_to(Time.parse('2020-03-13')) do
             get '/tasks'
@@ -52,7 +52,7 @@ describe Task, type: :request do
     end
 
     context '他人でログインしている場合' do
-      include_context 'other_userでログイン済み'
+      include_context 'other_userでログイン済みの時'
       let(:other_user) { FactoryBot.create(:user, admin: true, email: 'other@example.com', password: 'password') }
       let(:user) { FactoryBot.create(:user, admin: true, email: 'test@example.com', password: 'password') }
       let!(:other_task) { create(:task, name: '他人のタスク', user: other_user) }
@@ -73,7 +73,7 @@ describe Task, type: :request do
   end
 
   describe '新規作成画面' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
 
     before { get '/tasks/new' }
@@ -85,11 +85,11 @@ describe Task, type: :request do
   end
 
   describe '新規作成機能' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let(:task_params) { FactoryBot.attributes_for(:task) }
 
-    context '正しいパラメータを送信' do
+    context '正しいパラメータを送信するとき' do
       before do
         post tasks_path, params: { task: task_params }
       end
@@ -109,7 +109,7 @@ describe Task, type: :request do
       end
     end
 
-    context '不正なパラメータを送信' do
+    context '不正なパラメータを送信するとき' do
       let(:task_params) { FactoryBot.attributes_for(:task, name: '') }
 
       before do
@@ -127,7 +127,7 @@ describe Task, type: :request do
   end
 
   describe '詳細表示機能' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let(:task) { FactoryBot.create(:task, user:) }
 
@@ -142,7 +142,7 @@ describe Task, type: :request do
   end
 
   describe '編集機能' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let(:task) { FactoryBot.create(:task, user:) }
     let(:new_task_name) { '新しいタスク名' }
@@ -158,7 +158,7 @@ describe Task, type: :request do
   end
 
   describe '編集機能で失敗' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let(:task) { FactoryBot.create(:task, user:) }
     let(:new_task_name) { '' }
@@ -174,7 +174,7 @@ describe Task, type: :request do
   end
 
   describe '検索機能' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let(:other_user) { FactoryBot.create(:user, admin: true) }
 
@@ -201,7 +201,7 @@ describe Task, type: :request do
   end
 
   describe '削除確認画面' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let!(:task) { FactoryBot.create(:task, user:) }
 
@@ -217,7 +217,7 @@ describe Task, type: :request do
   end
 
   describe '削除機能' do
-    include_context 'userでログイン済み'
+    include_context 'userでログイン済みの時'
     let(:user) { FactoryBot.create(:user, admin: true, email: 'admin@example.com', password: 'password') }
     let!(:task) { FactoryBot.create(:task, user:) }
 

@@ -18,3 +18,4 @@ RSpec/ContextWording:
     # Suffix pattern for japanese
     - "時$"
     - "とき$"
+    - "場合$"

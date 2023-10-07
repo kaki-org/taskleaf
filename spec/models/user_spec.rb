@@ -24,13 +24,13 @@ RSpec.describe User, type: :model do
       @johnson = create(:user, name: 'Johnson')
     end
 
-    context 'matching letters' do
+    context 'when matching letters' do
       it 'returns a sorted array of results that match' do
         expect(User.by_letter('J')).to eq [@johnson, @jones]
       end
     end
 
-    context 'non-matching letters' do
+    context 'when non-matching letters' do
       it 'does not return users that do not match' do
         expect(User.by_letter('J')).not_to include @smith
       end

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'admin/users', type: :request do
-  include_context 'userでログイン済み'
+  include_context 'userでログイン済みの時'
   let(:user) { FactoryBot.create(:user, admin: true, email: 'test@example.com', password: 'password') }
   let(:user2) { FactoryBot.create(:user, email: 'test2@example.com', password: 'password') }
 

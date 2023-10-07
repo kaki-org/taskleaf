@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'タスクAPI', type: :request do
-  context '作成したタスク' do
+  context '作成したタスクの場合' do
     let!(:task) { FactoryBot.create(:task, name: 'メイラーSpecを書く', description: '送信したメールの内容を確認します') }
     let(:params) do
       {
