@@ -24,6 +24,8 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit; end
+
   def create
     # @task = Task.new(task_params.merge(user_id: current_user.id))
     @task = current_user.tasks.new(task_params)
@@ -36,8 +38,6 @@ class TasksController < ApplicationController
       render :new
     end
   end
-
-  def edit; end
 
   def update
     if @task.update(task_params)

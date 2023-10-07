@@ -70,7 +70,6 @@ Metrics/PerceivedComplexity:
 # SupportedStyles: nested, compact
 Style/ClassAndModuleChildren:
   Exclude:
-    - 'app/controllers/admin/users_controller.rb'
     - 'app/controllers/api/v1/tasks_controller.rb'
     - 'app/helpers/admin/users_helper.rb'
 

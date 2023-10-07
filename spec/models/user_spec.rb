@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'filter name by letter' do
-    before :each do
+    before do
       @smith = create(:user, name: 'Smith')
       @jones = create(:user, name: 'Jones')
       @johnson = create(:user, name: 'Johnson')

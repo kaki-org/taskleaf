@@ -13,6 +13,7 @@ describe 'タスクAPI', type: :request do
         }, 'HTTP_ACCEPT' => 'application/vnd.tasks.v1'
       }
     end
+
     it '作成したタスクが返却される事' do
       get "/api/v1/tasks/#{task.id}", params: { 'HTTP_ACCEPT' => 'application/vnd.tasks.v1' }
 
@@ -22,6 +23,7 @@ describe 'タスクAPI', type: :request do
       expect(json['name']).to eq task.name
       expect(json['description']).to eq task.description
     end
+
     it '作成したタスクを更新できる事' do
       put("/api/v1/tasks/#{task.id}", params:)
       expect(response).to have_http_status(:success)

@@ -15,7 +15,7 @@ FactoryBot.define do
       description { Faker::Lorem.sentence }
     end
     factory :task_with_avatar do
-      avatar { File.new("#{Rails.root}/spec/factories/redkaki.png") }
+      avatar { File.new("#{Rails.root.join('spec/factories/redkaki.png')}") }
     end
   end
 end

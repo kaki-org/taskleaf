@@ -15,14 +15,17 @@ describe 'admin/users', type: :request do
         expect(response.status).to eq 200
         expect(response.body).to include(user.name)
       end
+
       it 'ユーザーの詳細画面に遷移できる事' do
         get "/admin/users/#{user.id}"
         expect(response.status).to eq 200
       end
+
       it 'ユーザ作成画面に遷移できる事' do
         get '/admin/users/new'
         expect(response.status).to eq 200
       end
+
       it 'ユーザーを作成できる事' do
         params = {
           user: {
@@ -38,6 +41,7 @@ describe 'admin/users', type: :request do
         expect(User.last.name).to eq 'ユーザーB'
         expect(User.last.email).to eq 'test2@example.com'
       end
+
       it 'ユーザーの作成に失敗する事' do
         params = {
           user: {
@@ -47,12 +51,14 @@ describe 'admin/users', type: :request do
             password_confirmation: 'password'
           }
         }
-        expect { post('/admin/users', params:) }.to change(User, :count).by(0)
+        expect { post('/admin/users', params:) }.not_to change(User, :count)
       end
+
       it 'ユーザー編集画面に遷移できる事' do
         get "/admin/users/#{user2.id}/edit"
         expect(response.status).to eq 200
       end
+
       it 'ユーザーを更新できる事' do
         params = {
           user: {
@@ -65,6 +71,7 @@ describe 'admin/users', type: :request do
         expect(User.last.name).to eq 'ユーザーBB'
         expect(User.last.email).to eq 'test22@example.com'
       end
+
       it 'ユーザーの更新に失敗する事' do
         params = {
           user: {
@@ -76,10 +83,12 @@ describe 'admin/users', type: :request do
         expect(response.status).to eq 200
         expect(User.last.email).to eq 'test2@example.com'
       end
+
       it 'ユーザの削除確認画面に遷移できる事' do
         get "/admin/users/#{user2.id}/confirm_destroy"
         expect(response.status).to eq 200
       end
+
       it 'ユーザーを削除できる事' do
         delete "/admin/users/#{user2.id}"
         expect(response.status).to eq 302
