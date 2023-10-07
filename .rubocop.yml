@@ -10,3 +10,11 @@ Metrics/BlockLength:
 AllCops:
   NewCops: enable
   SuggestExtensions: false
+
+RSpec/ContextWording:
+  AllowedPatterns:
+    - "^when"
+    - "^if"
+    # Suffix pattern for japanese
+    - "時$"
+    - "とき$"
