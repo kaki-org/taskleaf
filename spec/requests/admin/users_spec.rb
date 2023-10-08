@@ -11,8 +11,11 @@ describe 'admin/users' do
     before  { get '/admin/users' }
 
     context 'ログインしている場合' do
-      it 'ユーザーの一覧が取得できる事' do
+      it 'okがかえってくること' do
         expect(response).to have_http_status :ok
+      end
+
+      it 'ユーザーの一覧が取得できる事' do
         expect(response.body).to include(user.name)
       end
 
@@ -26,7 +29,7 @@ describe 'admin/users' do
         expect(response).to have_http_status :ok
       end
 
-      it 'ユーザーを作成できる事' do
+      it 'ユーザー作成時にfoundがかえってくること' do
         params = {
           user: {
             name: 'ユーザーB',
@@ -38,7 +41,33 @@ describe 'admin/users' do
         post('/admin/users', params:)
 
         expect(response).to have_http_status :found
+      end
+
+      it 'ユーザーを作成でき、nameがただしい事' do
+        params = {
+          user: {
+            name: 'ユーザーB',
+            email: 'test2@example.com',
+            password: 'password',
+            password_confirmation: 'password'
+          }
+        }
+        post('/admin/users', params:)
+
         expect(User.last.name).to eq 'ユーザーB'
+      end
+
+      it 'ユーザーを作成できemailが正しい事' do
+        params = {
+          user: {
+            name: 'ユーザーB',
+            email: 'test2@example.com',
+            password: 'password',
+            password_confirmation: 'password'
+          }
+        }
+        post('/admin/users', params:)
+
         expect(User.last.email).to eq 'test2@example.com'
       end
 
@@ -59,7 +88,7 @@ describe 'admin/users' do
         expect(response).to have_http_status :ok
       end
 
-      it 'ユーザーを更新できる事' do
+      it 'ユーザーを更新できfoundがかえってくる事' do
         params = {
           user: {
             name: 'ユーザーBB',
@@ -68,8 +97,39 @@ describe 'admin/users' do
         }
         patch("/admin/users/#{user2.id}", params:)
         expect(response).to have_http_status :found
+      end
+
+      it 'ユーザーを更新でき、nameが正しい事' do
+        params = {
+          user: {
+            name: 'ユーザーBB',
+            email: 'test22@example.com'
+          }
+        }
+        patch("/admin/users/#{user2.id}", params:)
         expect(User.last.name).to eq 'ユーザーBB'
+      end
+
+      it 'ユーザーを更新でき、emailが正しい事' do
+        params = {
+          user: {
+            name: 'ユーザーBB',
+            email: 'test22@example.com'
+          }
+        }
+        patch("/admin/users/#{user2.id}", params:)
         expect(User.last.email).to eq 'test22@example.com'
+      end
+
+      it 'ユーザーの更新に失敗してもokが返ってくること' do
+        params = {
+          user: {
+            name: 'ユーザーBB',
+            email: ''
+          }
+        }
+        patch("/admin/users/#{user2.id}", params:)
+        expect(response).to have_http_status :ok
       end
 
       it 'ユーザーの更新に失敗する事' do
@@ -80,7 +140,6 @@ describe 'admin/users' do
           }
         }
         patch("/admin/users/#{user2.id}", params:)
-        expect(response).to have_http_status :ok
         expect(User.last.email).to eq 'test2@example.com'
       end
 
@@ -89,9 +148,13 @@ describe 'admin/users' do
         expect(response).to have_http_status :ok
       end
 
-      it 'ユーザーを削除できる事' do
+      it 'ユーザー削除時のレスポンスがfoundであること' do
         delete "/admin/users/#{user2.id}"
         expect(response).to have_http_status :found
+      end
+
+      it 'ユーザーを削除できる事' do
+        delete "/admin/users/#{user2.id}"
         expect(User.last.email).to eq 'test@example.com'
       end
     end

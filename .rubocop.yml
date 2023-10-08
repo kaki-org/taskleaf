@@ -19,3 +19,6 @@ RSpec/ContextWording:
     - "時$"
     - "とき$"
     - "場合$"
+
+RSpec/ExampleLength:
+  Enabled: false
