@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+RSpec.describe Task do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_length_of(:name).is_at_most(30) }
 
     it 'is invalid without a name' do
       task = build(:task, name: nil)
-      expect(task).to be_invalid
+      expect(task).not_to be_valid
       expect(task.errors[:name]).to include('を入力してください')
     end
 

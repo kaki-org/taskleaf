@@ -56,7 +56,7 @@ describe Admin::UsersController do
 
   shared_examples 'full access to users' do
     describe 'GET #index' do
-      let!(:users) { FactoryBot.create_list(:user, 2) }
+      let!(:users) { create_list(:user, 2) }
 
       context 'params[:limit]があるとき' do
         # FIXME: ここのテストはおそらく正しい検証ができていない
@@ -91,10 +91,9 @@ describe Admin::UsersController do
 
       # FIXME: p.105より。なるほど、よくわからん。
       before do
-        allow(user1).to receive(:persisted?).and_return(true)
         allow(User).to receive(:order).with('name').and_return([user1])
         allow(User).to receive(:find).with(user1.id.to_s).and_return(user1)
-        allow(user1).to receive(:save).and_return(true)
+        allow(user1).to receive_messages(persisted?: true, save: true)
       end
 
       it '@user に要求されたを割り当てる事' do

@@ -8,7 +8,7 @@ module Admin
       @users = if params[:limit].blank?
                  User.all
                else
-                 User.all.limit(params[:limit])
+                 User.limit(params[:limit])
                end
     end
 

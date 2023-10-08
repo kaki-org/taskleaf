@@ -7,7 +7,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-puts 'Executing seeds.rb...'
+Rails.logger.debug 'Executing seeds.rb...'
 User.find_or_create_by!(email: 'admin@example.com') do |user|
   user.name = 'admin'
   user.admin = true
@@ -23,7 +23,7 @@ end
 end
 20.times do |n|
   Task.find_by(name: "テストタスク#{n + 1}").image.attach(
-    io: File.open(Rails.root.join('app/assets/images/onamae02.png')), filename: 'onamae02.png'
+    io: Rails.root.join('app/assets/images/onamae02.png').open, filename: 'onamae02.png'
   )
 end
 5.times do |n|

@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-describe 'タスクAPI', type: :request do
+describe 'タスクAPI' do
   context '作成したタスクの場合' do
-    let!(:task) { FactoryBot.create(:task, name: 'メイラーSpecを書く', description: '送信したメールの内容を確認します') }
+    let!(:task) { create(:task, name: 'メイラーSpecを書く', description: '送信したメールの内容を確認します') }
     let(:params) do
       {
         task: {
@@ -19,7 +19,7 @@ describe 'タスクAPI', type: :request do
 
       expect(response).to have_http_status(:success)
 
-      json = JSON.parse(response.body)
+      json = response.parsed_body
       expect(json['name']).to eq task.name
       expect(json['description']).to eq task.description
     end
@@ -27,7 +27,7 @@ describe 'タスクAPI', type: :request do
     it '作成したタスクを更新できる事' do
       put("/api/v1/tasks/#{task.id}", params:)
       expect(response).to have_http_status(:success)
-      json = JSON.parse(response.body)
+      json = response.parsed_body
       expect(json['id']).to eq task.id
       expect(json['name']).to eq 'MailerSpecを書く'
       expect(json['description']).to eq '送信したMailの内容を確認します'
@@ -36,7 +36,7 @@ describe 'タスクAPI', type: :request do
     it '作成したタスクを削除できる事' do
       delete "/api/v1/tasks/#{task.id}"
       expect(response).to have_http_status(:success)
-      expect(Task.find_by(id: task.id)).to eq nil
+      expect(Task.find_by(id: task.id)).to be_nil
     end
   end
 end
