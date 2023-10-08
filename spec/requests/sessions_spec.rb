@@ -6,8 +6,11 @@ RSpec.describe 'Sessions' do
   describe 'GET /sessions/new' do
     before { get '/login' }
 
-    it 'ログイン画面が表示されること' do
+    it 'okが表示されること' do
       expect(response).to have_http_status :ok
+    end
+
+    it 'ログイン画面が表示されること' do
       expect(response.body).to include 'ログイン'
     end
   end
@@ -18,8 +21,11 @@ RSpec.describe 'Sessions' do
     context 'パラメータが正常な場合' do
       before { post '/login', params: { session: { email: user.email, password: user.password } } }
 
-      it 'ログインできること' do
+      it 'root_pathへリダイレクトされること' do
         expect(response).to redirect_to root_path
+      end
+
+      it 'ログインできること' do
         expect(session[:user_id]).to eq user.id
       end
     end
@@ -27,8 +33,11 @@ RSpec.describe 'Sessions' do
     context 'パラメータが異常な場合' do
       before { post '/login', params: { session: { email: user.email, password: 'invalid_password' } } }
 
-      it 'ログインできないこと' do
+      it 'unprocessable_entityがかえってくること' do
         expect(response).to have_http_status :unprocessable_entity
+      end
+
+      it 'ログインできないこと' do
         expect(session[:user_id]).to be_nil
       end
     end
@@ -42,8 +51,11 @@ RSpec.describe 'Sessions' do
       delete '/logout'
     end
 
-    it 'ログアウトできること' do
+    it 'root_pathへリダイレクトされること' do
       expect(response).to redirect_to root_path
+    end
+
+    it 'ログアウトできること' do
       expect(session[:user_id]).to be_nil
     end
   end
