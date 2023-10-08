@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Contact, type: :model do
+RSpec.describe Contact do
   describe 'create contact' do
-    let(:contact) { Contact.create(name: 'test', email: 'test@example.com') }
+    let(:contact) { described_class.create(name: 'test', email: 'test@example.com') }
 
-    it 'should create contact' do
+    it 'creates contact' do
       expect(contact).to be_valid
     end
   end

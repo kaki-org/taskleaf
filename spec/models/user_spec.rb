@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   describe 'validations' do
     subject { build(:user) }
 
@@ -18,21 +18,19 @@ RSpec.describe User, type: :model do
   end
 
   describe 'filter name by letter' do
-    before :each do
-      @smith = create(:user, name: 'Smith')
-      @jones = create(:user, name: 'Jones')
-      @johnson = create(:user, name: 'Johnson')
-    end
+    let(:smith) { create(:user, name: 'Smith') }
+    let(:jones) { create(:user, name: 'Jones') }
+    let(:johnson) { create(:user, name: 'Johnson') }
 
-    context 'matching letters' do
+    context 'when matching letters' do
       it 'returns a sorted array of results that match' do
-        expect(User.by_letter('J')).to eq [@johnson, @jones]
+        expect(described_class.by_letter('J')).to eq [johnson, jones]
       end
     end
 
-    context 'non-matching letters' do
+    context 'when non-matching letters' do
       it 'does not return users that do not match' do
-        expect(User.by_letter('J')).not_to include @smith
+        expect(described_class.by_letter('J')).not_to include smith
       end
     end
   end

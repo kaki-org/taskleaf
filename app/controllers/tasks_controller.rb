@@ -24,6 +24,8 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit; end
+
   def create
     # @task = Task.new(task_params.merge(user_id: current_user.id))
     @task = current_user.tasks.new(task_params)
@@ -36,8 +38,6 @@ class TasksController < ApplicationController
       render :new
     end
   end
-
-  def edit; end
 
   def update
     if @task.update(task_params)
@@ -67,6 +67,6 @@ class TasksController < ApplicationController
   end
 
   def special_time
-    Time.current.all_day.cover?(Time.parse('2020-03-13'))
+    Time.current.all_day.cover?(Time.zone.parse('2020-03-13'))
   end
 end
