@@ -44,6 +44,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 6.0'
   gem 'rubocop'
+  gem 'rubocop-rspec'
+  gem 'rubocop-rails'
   gem 'spring-commands-rspec'
 end
 

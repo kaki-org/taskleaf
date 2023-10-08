@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe TaskMailer, type: :mailer do
+RSpec.describe TaskMailer do
   describe '#creation_email' do
     let(:task) { create(:task, name: 'メイラーSpecを書く', description: '送信したメールの内容を確認します') }
-    let(:mail) { TaskMailer.creation_email(task) }
+    let(:mail) { described_class.creation_email(task) }
     let(:text_body) { mail.text_part.body.raw_source }
     let(:html_body) { mail.html_part.body.raw_source }
 

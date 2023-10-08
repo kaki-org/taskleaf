@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :task do
-    association :user
+    user
     name { 'テストを書く' }
 
     factory :default_task do
@@ -15,7 +15,7 @@ FactoryBot.define do
       description { Faker::Lorem.sentence }
     end
     factory :task_with_avatar do
-      avatar { File.new("#{Rails.root}/spec/factories/redkaki.png") }
+      avatar { File.new(Rails.root.join('spec/factories/redkaki.png').to_s) }
     end
   end
 end

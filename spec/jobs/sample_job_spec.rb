@@ -13,18 +13,18 @@ require 'rails_helper'
 #   end
 # end
 
-RSpec.describe SampleJob, type: :job do
+RSpec.describe SampleJob do
   describe '#perform_later' do
     it 'queues the job' do
       expect do
-        SampleJob.perform_later
-      end.to have_enqueued_job(SampleJob)
+        described_class.perform_later
+      end.to have_enqueued_job(described_class)
     end
 
     describe '#perform_later' do
       it 'executes perform' do
-        expect_any_instance_of(SampleJob).to receive(:perform)
-        perform_enqueued_jobs { SampleJob.perform_later }
+        expect_any_instance_of(described_class).to receive(:perform)
+        perform_enqueued_jobs { described_class.perform_later }
       end
     end
   end
@@ -32,7 +32,7 @@ RSpec.describe SampleJob, type: :job do
   describe '#perform' do
     it 'logs a message' do
       expect(Rails.logger).to receive(:info).with('サンプルジョブを実行しました')
-      SampleJob.new.perform
+      described_class.new.perform
     end
   end
 end
