@@ -1,4 +1,7 @@
 inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-rspec
+  - rubocop-rails
 Style/AsciiComments:
       Enabled: false
 Metrics/BlockLength:
@@ -7,3 +10,15 @@ Metrics/BlockLength:
 AllCops:
   NewCops: enable
   SuggestExtensions: false
+
+RSpec/ContextWording:
+  AllowedPatterns:
+    - "^when"
+    - "^if"
+    # Suffix pattern for japanese
+    - "時$"
+    - "とき$"
+    - "場合$"
+
+RSpec/ExampleLength:
+  Enabled: false

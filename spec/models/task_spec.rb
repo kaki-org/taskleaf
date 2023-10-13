@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+RSpec.describe Task do
   describe 'validations' do
-    it { should validate_presence_of(:name) }
-    it { should validate_length_of(:name).is_at_most(30) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_most(30) }
 
     it 'is invalid without a name' do
       task = build(:task, name: nil)
-      expect(task).to be_invalid
+      expect(task).not_to be_valid
       expect(task.errors[:name]).to include('を入力してください')
     end
 
@@ -26,11 +26,13 @@ RSpec.describe Task, type: :model do
   describe 'associations' do
     let!(:user) { create(:user) }
     let!(:tasks) { create_list(:task, 2, user:, name: 'rspec test') }
+
     it 'can have multiple tasks' do
       expect(user.tasks.where(name: 'rspec test').count).to eq(2)
     end
-    it { should belong_to(:user) }
-    it { should have_one_attached(:image) }
+
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_one_attached(:image) }
   end
 
   describe 'scopes' do
@@ -43,6 +45,7 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
   describe '.csv_attributes' do
     it 'returns an array of attribute names' do
       expect(described_class.csv_attributes).to eq(%w[name description created_at updated_at])
