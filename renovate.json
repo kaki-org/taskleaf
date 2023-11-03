@@ -30,6 +30,20 @@
       "patch": {
         "enabled": true
       },
+      "matchPackagePatterns": [
+        "^@types",
+        "^@nuxtjs/eslint",
+        "^crawler$",
+        "^eslint",
+        "^jest",
+        "^ts-jest$",
+        "^playwright",
+        "^http-server$",
+        "^actions/checkout$",
+        "^release-drafter/release-drafter$",
+        "^ruby/setup-ruby$",
+        "^toshimaru/backlog-pr-link-action$"
+      ],
       "automerge": true,
       "platformAutomerge": true
     }
