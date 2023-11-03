@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["before 9am"],
+  "automerge": false,
+  "automergeStrategy": "merge-commit",
+  "separateMajorMinor": false,
+  "labels": ["dependencies"],
+  "patch": {
+    "enabled": false
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["bundler"],
+      "assignees": ["kakikubo"]
+    },
+    {
+      "matchManagers": ["bun"],
+      "assignees": ["kakikubo"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "assignees": [
+        "kakikubo"
+      ]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "patch": {
+        "enabled": true
+      },
+      "automerge": true,
+      "platformAutomerge": true
+    }
+  ]
+}
