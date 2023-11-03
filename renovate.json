@@ -4,6 +4,7 @@
   "timezone": "Asia/Tokyo",
   "schedule": ["before 9am"],
   "automerge": false,
+  "automergeStrategy": "merge-commit",
   "separateMajorMinor": false,
   "labels": ["dependencies"],
   "patch": {
@@ -12,6 +13,10 @@
   "packageRules": [
     {
       "matchManagers": ["bundler"],
+      "assignees": ["kakikubo"]
+    },
+    {
+      "matchManagers": ["bun"],
       "assignees": ["kakikubo"]
     },
     {
