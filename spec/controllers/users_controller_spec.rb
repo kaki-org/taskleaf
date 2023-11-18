@@ -146,7 +146,7 @@ describe Admin::UsersController do
 
         # edit テンプレートを再表示する事
         it 're-renders the edit template' do
-          post :update, params: { id: user, user: attributes_for(:user, :invalid_user) }
+          post :update, params: {id: user,user: attributes_for(:user, name: nil, email: nil)}
           # FIXME: 本当は edit_admin_user_path(@user) としたかったが。。
           expect(response).to render_template 'admin/users/edit'
         end
