@@ -88,6 +88,15 @@ test:
 #
 production:
   <<: *default
-  database: taskleaf_production
-  username: taskleaf
-  password: <%= ENV['TASKLEAF_DATABASE_PASSWORD'] %>
+  host: <%= Rails.application.credentials.supabase&.fetch(:host) %>
+  database: postgres
+  username: postgres
+  password: <%= Rails.application.credentials.supabase&.fetch(:password) %>
+  ssl_mode: verify-full
+  sslcert: prod-ca-2021.crt
+    #ssl_mode: verify_identity
+    #sslca: "/etc/ssl/cert.pem"
+    #sslca: "/etc/ssl/certs/ca-certificates.crt"
+    # database: taskleaf_production
+    # username: taskleaf
+    # password: <%= ENV['TASKLEAF_DATABASE_PASSWORD'] %>
