@@ -89,6 +89,7 @@ test:
 production:
   <<: *default
   adapter: mysql2
+  encoding: utf8mb4
   host: <%= Rails.application.credentials.planetscale&.fetch(:host) %>
   database: <%= Rails.application.credentials.planetscale&.fetch(:database) %>
   username: <%= Rails.application.credentials.planetscale&.fetch(:username) %>
