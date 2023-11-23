@@ -111,8 +111,7 @@ dipも取り込んでみた。以下のように使う
 dip rails s
 ```
 
-## 久しぶりにメンテナンス中
+## render.comへのデプロイ
 
-テスト
-テスト
-テスト
+PaaSとして<render.com>を、さらにDaaSとして<supabase.io>を使っている。
+masterにマージする事でデプロイが走るようになっている。
