@@ -204,6 +204,7 @@ GEM
     minitest (5.20.0)
     msgpack (1.7.2)
     mutex_m (0.2.0)
+    mysql2 (0.5.5)
     nenv (0.3.0)
     net-imap (0.4.3)
       date
@@ -452,6 +453,7 @@ DEPENDENCIES
   kaminari
   launchy
   listen (>= 3.0.5, < 3.9)
+  mysql2
   net-smtp
   pg (~> 1.5)
   pry-byebug

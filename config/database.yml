@@ -88,6 +88,13 @@ test:
 #
 production:
   <<: *default
-  database: taskleaf_production
-  username: taskleaf
-  password: <%= ENV['TASKLEAF_DATABASE_PASSWORD'] %>
+  adapter: mysql2
+  host: <%= Rails.application.credentials.planetscale&.fetch(:host) %>
+  database: <%= Rails.application.credentials.planetscale&.fetch(:database) %>
+  username: <%= Rails.application.credentials.planetscale&.fetch(:username) %>
+  password: <%= Rails.application.credentials.planetscale&.fetch(:password) %>
+  ssl_mode: verify_identity
+  sslca: "/etc/ssl/cert.pem"
+    # database: taskleaf_production
+    # username: taskleaf
+    # password: <%= ENV['TASKLEAF_DATABASE_PASSWORD'] %>
