@@ -1,5 +1,27 @@
 # README
 
+## 概要
+
+<https://taskleaf-spc0.onrender.com/>
+
+[現場で使える Ruby on Rails 5速習実践ガイド](https://book.mynavi.jp/ec/products/detail/id=93905)の成果物をどんどんアップデートしていく学習用リポジトリ。
+タスク管理サイト。
+
+## Stack
+
+[![Ruby](https://img.shields.io/badge/ruby-3.2.2-blue.svg)](https://www.ruby-lang.org/)
+[![Rails](https://img.shields.io/badge/rails-7.1.1-blue.svg)](https://rubyonrails.org/)
+[![Redis](https://img.shields.io/badge/redis-7.2.1-blue.svg)](https://github.com/docker-library/redis)
+[![PostgreSQL](https://img.shields.io/badge/postgresql-16.1-blue.svg)](https://www.postgresql.org)
+
+## Environments
+
+- PaaS <https://render.com>
+- DaaS <https://supabase.io>
+
+PaaSとして<render.com>を、さらにDaaSとして<supabase.io>を使っている。
+masterにマージする事でデプロイが走るようになっている。
+
 ## ローカル開発環境の整備
 
 Dockerを使わない場合は以下の通り
@@ -110,8 +132,3 @@ dipも取り込んでみた。以下のように使う
 ```bash
 dip rails s
 ```
-
-## render.comへのデプロイ
-
-PaaSとして<render.com>を、さらにDaaSとして<supabase.io>を使っている。
-masterにマージする事でデプロイが走るようになっている。
