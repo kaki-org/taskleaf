@@ -59,10 +59,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.1.0'
 end
 
-group :production do
-  gem 'mysql2'
-end
-
 group :test do
   gem 'capybara'
   gem 'capybara-playwright-driver'
