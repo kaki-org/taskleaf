@@ -12,49 +12,55 @@ export REDIS_URL='redis://redis.lvh.me:16379'
 ```
 
 dbとredisは起動しておく
+
 ```bash
 docker compose up -d db redis
 ```
+
 初回は`bin/setup`を叩く
+
 ```bash
 bin/setup
 ```
 
 起動してみる
+
 ```bash
 bundle exec rails s
 ```
 
 rubymineの場合は環境変数に以下を指定しておく
+
 ```plain
 REDIS_PORT=16379;PGSQL_HOST=pgsql.lvh.me
 ```
 
-
-* その他
+## その他
 
 erbではなくslimを使う為にhtml2slimを使用。デフォルトのerbファイルは以下のコマンドで変換済み
-```
+
+```bash
 bundle exec erb2slim app/views/layouts/ --delete
 ```
 
-# rspecのインストール
+## rspecのインストール
 
-```
+```bash
 bundle
 bin/rails g rspec:install
 ```
 
 テストを実行するサンプル
-```
+
+```bash
 bundle exec rspec --dry-run spec/system/tasks_spec.rb -f d
 ```
 
-# sandboxモード
-
+## sandboxモード
 
 `-s`をつけるとsandboxモードで起動出来る。DBの変更はすべてロールバックされる
-```
+
+```bash
 kakikubo@kair ~/Documents/learning-rails/taskleaf % bin/rails c -s
 Running via Spring preloader in process 2985
 Loading development environment in sandbox (Rails 5.2.3)
@@ -69,10 +75,9 @@ irb(main):003:0> task.valid?
 irb(main):004:0> #ここでCtrl-Dを押してexitする
    (0.5ms)  ROLLBACK
 kakikubo@kair ~/Documents/learning-rails/taskleaf %
-
 ```
 
-# mail送信テスト
+## mail送信テスト
 
 mailcatcher用のコンテナを起動しているので、
 
@@ -82,30 +87,31 @@ mailcatcher用のコンテナを起動しているので、
 
 ※ [参考リンク](https://qiita.com/pocari/items/de0436c39ffc65647cf0)
 
-
-# kaminari
+## kaminari
 
 paginationでkaminariを使用している。スタイルを適用するために以下を実行してます。
-```
+
+```bash
 bin/rails g kaminari:views bootstrap4
 ```
 
-# guard-rspec
+## guard-rspec
 
-```
+```bash
 make guard
 ```
 
 したあとでテストファイルを編集していると自動でテスト実行を再開してくれる
 
-# dip
+## dip
 
 dipも取り込んでみた。以下のように使う
-```
+
+```bash
 dip rails s
 ```
 
-# 久しぶりにメンテナンス中
+## 久しぶりにメンテナンス中
 
 テスト
 テスト
