@@ -9,10 +9,10 @@
 
 ## Stack
 
-[![Ruby](https://img.shields.io/badge/ruby-3.2.2-blue.svg)](https://www.ruby-lang.org/)
-[![Rails](https://img.shields.io/badge/rails-7.1.1-blue.svg)](https://rubyonrails.org/)
-[![Redis](https://img.shields.io/badge/redis-7.2.1-blue.svg)](https://github.com/docker-library/redis)
-[![PostgreSQL](https://img.shields.io/badge/postgresql-16.1-blue.svg)](https://www.postgresql.org)
+[![Ruby](https://img.shields.io/badge/-Ruby%203.2.2-CC342D.svg?logo=ruby&style=plastic)](https://www.ruby-lang.org/)
+[![Rails](https://img.shields.io/badge/-Rails%207.1.1-CC0000.svg?logo=Ruby%20on%20Rails&style=plastic)](https://rubyonrails.org/)
+[![Redis](https://img.shields.io/badge/-Redis%207.2.1-D82C20.svg?logo=redis&style=plastic)](https://github.com/docker-library/redis)
+[![PostgreSQL](https://img.shields.io/badge/-Postgresql%2016.1-336791.svg?logo=postgresql&style=plastic)](https://www.postgresql.org)
 
 ## Environments
 
