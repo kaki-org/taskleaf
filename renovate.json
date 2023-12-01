@@ -32,6 +32,8 @@
       },
       "matchPackagePatterns": [
         "^@types",
+        "^rubocop*",
+        "^rspec*",
         "^@nuxtjs/eslint",
         "^crawler$",
         "^eslint",
