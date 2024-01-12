@@ -34,7 +34,7 @@ describe 'ログイン機能', :js do
     end
 
     it 'エラー画面が表示される' do
-      click_button 'ログインする'
+      click_link_or_button 'ログインする'
       expect(page).to have_content('ログインに失敗しました')
     end
   end
@@ -47,7 +47,7 @@ describe 'ログイン機能', :js do
     end
 
     it 'トップ画面に遷移する' do
-      click_button 'ログインする'
+      click_link_or_button 'ログインする'
       expect(page).to have_current_path root_path
     end
   end
@@ -57,12 +57,12 @@ describe 'ログイン機能', :js do
       visit login_path
       fill_in 'メールアドレス', with: user.email
       fill_in 'パスワード', with: user.password
-      click_button 'ログインする'
+      click_link_or_button 'ログインする'
       visit root_path
     end
 
     it 'ログアウトしました表示が出る' do
-      click_button 'ログアウト'
+      click_link_or_button 'ログアウト'
       expect(page).to have_content('ログアウトしました')
     end
   end
