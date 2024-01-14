@@ -111,15 +111,6 @@ Rails/SkipsModelValidations:
   Exclude:
     - 'db/migrate/20210111023112_add_service_name_to_active_storage_blobs.active_storage.rb'
 
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: nested, compact
-Style/ClassAndModuleChildren:
-  Exclude:
-    - 'app/controllers/api/v1/tasks_controller.rb'
-    - 'app/helpers/admin/users_helper.rb'
-
 # Offense count: 22
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
