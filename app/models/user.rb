@@ -9,6 +9,6 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   def self.by_letter(letter)
-    where("name LIKE ?", "#{letter}%").order(:name)
+    where('name LIKE ?', "#{letter}%").order(:name)
   end
 end
