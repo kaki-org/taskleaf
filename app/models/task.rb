@@ -11,24 +11,34 @@ class Task < ApplicationRecord
 
   scope :recent, -> { order(created_at: :desc) }
 
-  def self.csv_attributes
-    %w[name description created_at updated_at]
-  end
+  class << self
+    def csv_attributes
+      %w[name description created_at updated_at]
+    end
 
-  def self.generate_csv
-    CSV.generate(headers: true) do |csv|
-      csv << csv_attributes
-      find_each do |task|
-        csv << csv_attributes.map { |attr| task.send(attr) }
+    def generate_csv
+      CSV.generate(headers: true) do |csv|
+        csv << csv_attributes
+        find_each do |task|
+          csv << csv_attributes.map { |attr| task.send(attr) }
+        end
       end
     end
-  end
 
-  def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
-      task = new
-      task.attributes = row.to_hash.slice(*csv_attributes)
-      task.save!
+    def import(file)
+      CSV.foreach(file.path, headers: true) do |row|
+        task = new
+        task.attributes = row.to_hash.slice(*csv_attributes)
+        task.save!
+      end
+    end
+
+    def ransackable_attributes(_auth_object = nil)
+      %w[name created_at]
+    end
+
+    def ransackable_associations(_auth_object = nil)
+      []
     end
   end
 
@@ -37,16 +47,4 @@ class Task < ApplicationRecord
   def validate_name_not_including_comma
     errors.add(:name, 'にカンマを含める事はできません') if name&.include?(',')
   end
-
-  def self.ransackable_attributes(_auth_object = nil)
-    %w[name created_at]
-  end
-
-  def self.ransackable_associations(_auth_object = nil)
-    []
-  end
-
-  # def set_nameless_name
-  #  self.name = '名前なし' if name.blank?
-  # end
 end
