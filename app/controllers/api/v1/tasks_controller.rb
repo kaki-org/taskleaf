@@ -1,26 +1,30 @@
 # frozen_string_literal: true
 
-class Api::V1::TasksController < ApplicationController
-  skip_before_action :login_required
+module Api
+  module V1
+    class TasksController < ApplicationController
+      skip_before_action :login_required
 
-  def show
-    render json: Task.find(params[:id])
-  end
+      def show
+        render json: Task.find(params[:id])
+      end
 
-  def update
-    task = Task.find(params[:id])
-    render json: task if task.update(attributes: task_params)
-  end
+      def update
+        task = Task.find(params[:id])
+        render json: task if task.update(attributes: task_params)
+      end
 
-  def destroy
-    task = Task.find(params[:id])
-    task.destroy!
-    render json: task
-  end
+      def destroy
+        task = Task.find(params[:id])
+        task.destroy!
+        render json: task
+      end
 
-  private
+      private
 
-  def task_params
-    params.require(:task).permit(:name, :description, :image)
+      def task_params
+        params.require(:task).permit(:name, :description, :image)
+      end
+    end
   end
 end

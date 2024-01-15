@@ -17,8 +17,8 @@ gem 'jbuilder', '~> 2.11'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.17'
 
-gem 'jsbundling-rails'
 gem 'cssbundling-rails'
+gem 'jsbundling-rails'
 gem 'sprockets-rails'
 
 # gem 'hotwire-rails'
@@ -44,8 +44,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 6.0'
   gem 'rubocop'
-  gem 'rubocop-rspec'
   gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'spring-commands-rspec'
 end
 
@@ -84,8 +84,8 @@ gem 'html2slim'
 gem 'kaminari'
 gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
+gem 'sass-rails'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'sass-rails'
 
 gem 'pg', '~> 1.5'
