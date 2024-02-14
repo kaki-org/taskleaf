@@ -63,7 +63,7 @@ services:
     ports:
       - 50080:1080
   pgsql:
-    image: postgres:16.1-alpine
+    image: postgres:16.2-alpine
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
