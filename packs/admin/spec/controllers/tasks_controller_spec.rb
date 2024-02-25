@@ -15,6 +15,7 @@ describe TasksController do
 
     it '中身を返すこと' do
       create(:task, name: 'title')
+      expect(Task.last.name).to eq 'title'
     end
   end
 
