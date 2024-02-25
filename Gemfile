@@ -66,14 +66,10 @@ group :test do
   gem 'faker'
 
   gem 'launchy'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  # gem 'chromedriver-helper' # 2019/03/31?あたりからこいつは非推奨(Capybaraとかでコケまくる。webdriversを利用する)
-  # gem 'webdrivers', require: !ENV['SELENIUM_DRIVER_URL']
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 6.0'
   gem 'simplecov', require: false
   gem 'simplecov-lcov', require: false
-  # gem 'codecov'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

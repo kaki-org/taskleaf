@@ -19,7 +19,6 @@ services:
       HISTFILE: '/work/app/log/.bash_history'
       TZ: 'Asia/Tokyo'
       RAILS_ENV: ${RAILS_ENV:-development}
-      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub    #追加、どのコンテナのブラウザを使用するか指定
     volumes:
       - .:/work/app:cached
       - rails_cache:/work/app/tmp/cache
