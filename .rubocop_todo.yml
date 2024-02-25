@@ -79,7 +79,7 @@ RSpec/SpecFilePathFormat:
 # Offense count: 7
 Rails/I18nLocaleTexts:
   Exclude:
-    - 'app/controllers/admin/users_controller.rb'
+    - 'packs/admin/app/controllers/admin/users_controller.rb'
     - 'app/controllers/sessions_controller.rb'
     - 'app/controllers/tasks_controller.rb'
     - 'app/mailers/task_mailer.rb'
