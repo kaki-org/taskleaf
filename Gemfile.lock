@@ -89,7 +89,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.6)
+    bigdecimal (3.1.7)
     bindex (0.8.1)
     bootsnap (1.18.1)
       msgpack (~> 1.2)
@@ -164,7 +164,7 @@ GEM
     html2slim (0.2.0)
       hpricot
     htmlentities (4.3.4)
-    i18n (1.14.1)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.1)
       actionpack (>= 6.0.0)
@@ -215,7 +215,7 @@ GEM
     mime-types-data (3.2023.1003)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.22.2)
+    minitest (5.22.3)
     msgpack (1.7.2)
     mutex_m (0.2.0)
     nenv (0.3.0)
@@ -415,7 +415,7 @@ GEM
       sprockets-rails
       tilt
     shellany (0.0.1)
-    shoulda-matchers (6.1.0)
+    shoulda-matchers (6.2.0)
       activesupport (>= 5.2.0)
     sidekiq (7.2.0)
       concurrent-ruby (< 2)
