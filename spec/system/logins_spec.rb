@@ -15,7 +15,7 @@ describe 'ログイン機能', :js do
     end
 
     it 'こんにちわとでている' do
-      page.save_screenshot 'page.png'
+      # page.save_screenshot 'page.png'
       expect(page).to have_content('こんにちわ')
     end
   end
