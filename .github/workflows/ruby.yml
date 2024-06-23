@@ -41,7 +41,7 @@ jobs:
         with:
           ruby-version: 3.3.0
           bundler-cache: true
-      - uses: oven-sh/setup-bun@v1
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.0.2
       - name: Setup bundler
