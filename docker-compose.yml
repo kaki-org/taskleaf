@@ -1,4 +1,3 @@
-version: '3'
 services:
   web: &app_base
     #image: 'cimg/ruby:3.0.3-browsers'
