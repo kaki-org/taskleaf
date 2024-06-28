@@ -132,7 +132,7 @@ GEM
       htmlentities (~> 4.3.3)
       launchy (~> 2.1)
       mail (~> 2.7)
-    erubi (1.12.0)
+    erubi (1.13.0)
     execjs (2.8.1)
     factory_bot (6.4.0)
       activesupport (>= 5.0.0)
@@ -215,7 +215,7 @@ GEM
     mime-types-data (3.2023.1003)
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
-    minitest (5.23.1)
+    minitest (5.24.0)
     msgpack (1.7.2)
     mutex_m (0.2.0)
     nenv (0.3.0)
@@ -252,7 +252,7 @@ GEM
       railties
     packs-specification (0.0.10)
       sorbet-runtime
-    packwerk (3.2.0)
+    packwerk (3.2.1)
       activesupport (>= 6.0)
       ast
       better_html
@@ -260,10 +260,10 @@ GEM
       constant_resolver (>= 0.2.0)
       parallel
       parser
-      prism (>= 0.24.0)
+      prism (>= 0.25.0)
       sorbet-runtime (>= 0.5.9914)
       zeitwerk (>= 2.6.1)
-    packwerk-extensions (0.2.0)
+    packwerk-extensions (0.3.0)
       packwerk (>= 2.2.1)
       railties (>= 6.0.0)
       sorbet-runtime
@@ -271,7 +271,7 @@ GEM
     parallel (1.25.1)
     parse_packwerk (0.22.0)
       sorbet-runtime
-    parser (3.3.2.0)
+    parser (3.3.3.0)
       ast (~> 2.4.1)
       racc
     pastel (0.8.0)
@@ -281,7 +281,7 @@ GEM
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
     popper_js (2.11.8)
-    prism (0.28.0)
+    prism (0.30.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -294,7 +294,7 @@ GEM
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.8.0)
-    rack (3.0.11)
+    rack (3.1.4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -348,7 +348,7 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.6.3.1)
+    rdoc (6.7.0)
       psych (>= 4.0.0)
     redis-client (0.22.1)
       connection_pool
@@ -432,7 +432,7 @@ GEM
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
     smart_properties (1.17.0)
-    sorbet-runtime (0.5.11368)
+    sorbet-runtime (0.5.11460)
     spring (4.2.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
