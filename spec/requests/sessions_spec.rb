@@ -34,7 +34,7 @@ RSpec.describe 'Sessions' do
       before { post '/login', params: { session: { email: user.email, password: 'invalid_password' } } }
 
       it 'unprocessable_entityがかえってくること' do
-        expect(response).to have_http_status :unprocessable_entity
+        expect(response).to be_unprocessable
       end
 
       it 'ログインできないこと' do
