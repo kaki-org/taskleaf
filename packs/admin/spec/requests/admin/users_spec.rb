@@ -19,6 +19,12 @@ describe 'admin/users' do
         expect(response.body).to include(admin_user.name)
       end
 
+      it 'limitパラメータを使ってユーザーの一覧が制限されて取得できる事' do
+        create_list(:user, 3)
+        get '/admin/users', params: { limit: 2 }
+        expect(assigns(:users).count).to eq(2)
+      end
+
       it 'ユーザーの詳細画面に遷移できる事' do
         get "/admin/users/#{admin_user.id}"
         expect(response).to have_http_status :ok
