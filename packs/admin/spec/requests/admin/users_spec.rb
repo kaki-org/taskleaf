@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'admin/users' do
   include_context 'admin_userでログイン済みの時'
   let(:admin_user) { create(:user, admin: true, email: 'test@example.com', password: 'password') }
-  let(:user2) { create(:user, admin: false, email: 'test2@example.com', password: 'password') }
+  let(:user) { create(:user, admin: false, email: 'test2@example.com', password: 'password') }
 
   describe 'GET /admin/users' do
     before  { get '/admin/users' }
@@ -84,7 +84,7 @@ describe 'admin/users' do
       end
 
       it 'ユーザー編集画面に遷移できる事' do
-        get "/admin/users/#{user2.id}/edit"
+        get "/admin/users/#{user.id}/edit"
         expect(response).to have_http_status :ok
       end
 
@@ -95,7 +95,7 @@ describe 'admin/users' do
             email: 'test22@example.com'
           }
         }
-        patch("/admin/users/#{user2.id}", params:)
+        patch("/admin/users/#{user.id}", params:)
         expect(response).to have_http_status :found
       end
 
@@ -106,7 +106,7 @@ describe 'admin/users' do
             email: 'test22@example.com'
           }
         }
-        patch("/admin/users/#{user2.id}", params:)
+        patch("/admin/users/#{user.id}", params:)
         expect(User.last.name).to eq 'ユーザーBB'
       end
 
@@ -117,7 +117,7 @@ describe 'admin/users' do
             email: 'test22@example.com'
           }
         }
-        patch("/admin/users/#{user2.id}", params:)
+        patch("/admin/users/#{user.id}", params:)
         expect(User.last.email).to eq 'test22@example.com'
       end
 
@@ -128,7 +128,7 @@ describe 'admin/users' do
             email: ''
           }
         }
-        patch("/admin/users/#{user2.id}", params:)
+        patch("/admin/users/#{user.id}", params:)
         expect(response).to have_http_status :ok
       end
 
@@ -139,22 +139,22 @@ describe 'admin/users' do
             email: ''
           }
         }
-        patch("/admin/users/#{user2.id}", params:)
+        patch("/admin/users/#{user.id}", params:)
         expect(User.last.email).to eq 'test2@example.com'
       end
 
       it 'ユーザの削除確認画面に遷移できる事' do
-        get "/admin/users/#{user2.id}/confirm_destroy"
+        get "/admin/users/#{user.id}/confirm_destroy"
         expect(response).to have_http_status :ok
       end
 
       it 'ユーザー削除時のレスポンスがfoundであること' do
-        delete "/admin/users/#{user2.id}"
+        delete "/admin/users/#{user.id}"
         expect(response).to have_http_status :found
       end
 
       it 'ユーザーを削除できる事' do
-        delete "/admin/users/#{user2.id}"
+        delete "/admin/users/#{user.id}"
         expect(User.last.email).to eq 'test@example.com'
       end
     end
