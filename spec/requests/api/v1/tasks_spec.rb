@@ -48,6 +48,16 @@ describe 'タスクAPI' do
       expect(json['name']).to eq 'MailerSpecを書く'
     end
 
+    it '400 Bad Requestが返却されること' do
+      put "/api/v1/tasks/#{task.id}", params: { task: { name: '' } } # 名前が空のパラメータを送信
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it '404 Not Foundが返却されること' do
+      put '/api/v1/tasks/999999', params: { task: { name: '無効なタスク' } }
+      expect(response).to have_http_status(:not_found)
+    end
+
     it '作成したタスクの説明を更新できる事' do
       put("/api/v1/tasks/#{task.id}", params: { task: { description: '送信したMailの内容を確認します' } })
       expect(response).to have_http_status(:success)
@@ -73,6 +83,11 @@ describe 'タスクAPI' do
     it '作成したタスクが削除される事' do
       delete "/api/v1/tasks/#{task.id}"
       expect(Task.find_by(id: task.id)).to be_nil
+    end
+
+    it '404 Not Foundが返却されること' do
+      delete '/api/v1/tasks/999999'
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

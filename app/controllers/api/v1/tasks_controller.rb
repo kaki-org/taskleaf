@@ -12,7 +12,11 @@ module Api
 
       def update
         task = Task.find(params[:id])
-        render json: task if task.update(attributes: task_params)
+        if task.update(task_params) # attributes: の指定を削除
+          render json: task
+        else
+          render json: { errors: task.errors.full_messages }, status: :bad_request
+        end
       end
 
       def destroy
