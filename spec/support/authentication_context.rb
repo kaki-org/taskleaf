@@ -6,6 +6,12 @@ RSpec.shared_context 'userでログイン済みの時' do
   end
 end
 
+RSpec.shared_context 'admin_userでログイン済みの時' do
+  before do
+    login_as(admin_user.email, 'password')
+  end
+end
+
 RSpec.shared_context 'other_userでログイン済みの時' do
   before do
     login_as(other_user.email, 'password')
