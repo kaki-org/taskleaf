@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe 'admin/users' do
-  include_context 'userでログイン済みの時'
-  let(:user) { create(:user, admin: true, email: 'test@example.com', password: 'password') }
-  let(:user2) { create(:user, email: 'test2@example.com', password: 'password') }
+  include_context 'admin_userでログイン済みの時'
+  let(:admin_user) { create(:user, admin: true, email: 'test@example.com', password: 'password') }
+  let(:user2) { create(:user, admin: false, email: 'test2@example.com', password: 'password') }
 
   describe 'GET /admin/users' do
     before  { get '/admin/users' }
@@ -16,11 +16,11 @@ describe 'admin/users' do
       end
 
       it 'ユーザーの一覧が取得できる事' do
-        expect(response.body).to include(user.name)
+        expect(response.body).to include(admin_user.name)
       end
 
       it 'ユーザーの詳細画面に遷移できる事' do
-        get "/admin/users/#{user.id}"
+        get "/admin/users/#{admin_user.id}"
         expect(response).to have_http_status :ok
       end
 
