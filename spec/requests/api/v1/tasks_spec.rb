@@ -20,6 +20,11 @@ describe 'タスクAPI' do
       expect(response).to have_http_status(:success)
     end
 
+    it '404 Not Foundが返却されること' do
+      get '/api/v1/tasks/999999', params: { 'HTTP_ACCEPT' => 'application/vnd.tasks.v1' }
+      expect(response).to have_http_status(:not_found)
+    end
+
     it '作成したタスク名が返却される事' do
       get "/api/v1/tasks/#{task.id}", params: { 'HTTP_ACCEPT' => 'application/vnd.tasks.v1' }
       json = response.parsed_body

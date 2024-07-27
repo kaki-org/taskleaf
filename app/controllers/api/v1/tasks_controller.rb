@@ -4,6 +4,7 @@ module Api
   module V1
     class TasksController < ApplicationController
       skip_before_action :login_required
+      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       def show
         render json: Task.find(params[:id])
@@ -24,6 +25,10 @@ module Api
 
       def task_params
         params.require(:task).permit(:name, :description, :image)
+      end
+
+      def record_not_found
+        render json: { error: 'Task not found' }, status: :not_found
       end
     end
   end
