@@ -432,7 +432,7 @@ GEM
       sprockets-rails
       tilt
     shellany (0.0.1)
-    shoulda-matchers (6.2.0)
+    shoulda-matchers (6.3.0)
       activesupport (>= 5.2.0)
     sidekiq (7.3.0)
       concurrent-ruby (< 2)
