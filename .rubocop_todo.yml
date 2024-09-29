@@ -35,13 +35,6 @@ RSpec/AnyInstance:
     - 'spec/jobs/sample_job_spec.rb'
 
 # Offense count: 1
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, SpecSuffixOnly.
-# Include: **/*_spec*rb*, **/spec/**/*
-RSpec/FilePath:
-  Exclude:
-    - 'spec/controllers/users_controller_spec.rb'
-
-# Offense count: 1
 # Configuration parameters: .
 # SupportedStyles: have_received, receive
 RSpec/MessageSpies:
@@ -62,13 +55,6 @@ RSpec/NoExpectationExample:
 RSpec/PendingWithoutReason:
   Exclude:
     - 'spec/models/task_spec.rb'
-
-# Offense count: 1
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, IgnoreMetadata.
-# Include: **/*_spec.rb
-RSpec/SpecFilePathFormat:
-  Exclude:
-    - 'spec/controllers/users_controller_spec.rb'
 
 # Offense count: 7
 Rails/I18nLocaleTexts:
