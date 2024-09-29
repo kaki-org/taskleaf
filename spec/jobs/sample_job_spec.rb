@@ -23,7 +23,9 @@ RSpec.describe SampleJob do
 
     describe '#perform_later' do
       it 'executes perform' do
-        expect_any_instance_of(described_class).to receive(:perform)
+        job_instance = described_class.new
+        allow(described_class).to receive(:new).and_return(job_instance)
+        expect(job_instance).to receive(:perform)
         perform_enqueued_jobs { described_class.perform_later }
       end
     end

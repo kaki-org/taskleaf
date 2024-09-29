@@ -7,11 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-RSpec/AnyInstance:
-  Exclude:
-    - 'spec/jobs/sample_job_spec.rb'
-
-# Offense count: 1
 # Configuration parameters: .
 # SupportedStyles: have_received, receive
 RSpec/MessageSpies:
