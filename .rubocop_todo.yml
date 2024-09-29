@@ -63,13 +63,6 @@ RSpec/PendingWithoutReason:
   Exclude:
     - 'spec/models/task_spec.rb'
 
-# Offense count: 1
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, IgnoreMetadata.
-# Include: **/*_spec.rb
-RSpec/SpecFilePathFormat:
-  Exclude:
-    - 'spec/controllers/users_controller_spec.rb'
-
 # Offense count: 7
 Rails/I18nLocaleTexts:
   Exclude:
