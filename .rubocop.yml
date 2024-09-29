@@ -51,3 +51,10 @@ Style/Documentation:
 
 Layout/LineLength:
   Max: 190
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/MultipleExpectations:
+  Max: 9
+
