@@ -42,3 +42,7 @@ Rails/NotNullColumn:
   Exclude:
     - 'db/migrate/20190612123743_add_user_id_to_tasks.rb'
 
+Style/GuardClause:
+  Exclude:
+    - 'db/migrate/20210111023112_add_service_name_to_active_storage_blobs.active_storage.rb'
+
