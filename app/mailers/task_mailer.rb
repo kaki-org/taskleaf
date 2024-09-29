@@ -6,7 +6,7 @@ class TaskMailer < ApplicationMailer
   def creation_email(task)
     @task = task
     mail(
-      subject: 'タスク作成完了メール',
+      subject: I18n.t('task_created_subject'),
       to: 'user@example.com'
     )
   end

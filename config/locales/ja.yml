@@ -1,6 +1,13 @@
 ---
 ja:
   hello: 'こんにちわ'
+  login_success: 'ログインしました'
+  login_failed: 'ログインに失敗しました'
+  logout_success: 'ログアウトしました'
+  task_created: 'タスクを追加しました'
+  task_created_subject: 'タスク作成完了メール'
+  cannot_delete_yourself: '自分自身は削除できません'
+
   activerecord:
     errors:
       messages:
