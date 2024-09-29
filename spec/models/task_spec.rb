@@ -24,10 +24,11 @@ RSpec.describe Task do
   end
 
   describe 'associations' do
-    let!(:user) { create(:user) }
-    let!(:tasks) { create_list(:task, 2, user:, name: 'rspec test') }
+    let(:user) { create(:user) }
+    let(:tasks) { create_list(:task, 2, user:, name: 'rspec test') }
 
     it 'can have multiple tasks' do
+      expect(tasks.count).to eq(2)
       expect(user.tasks.where(name: 'rspec test').count).to eq(2)
     end
 

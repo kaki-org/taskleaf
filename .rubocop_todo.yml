@@ -41,12 +41,6 @@ RSpec/FilePath:
   Exclude:
     - 'spec/controllers/users_controller_spec.rb'
 
-# Offense count: 2
-RSpec/LetSetup:
-  Exclude:
-    - 'spec/lib/legacy_spec.rb'
-    - 'spec/models/task_spec.rb'
-
 # Offense count: 1
 # Configuration parameters: .
 # SupportedStyles: have_received, receive
