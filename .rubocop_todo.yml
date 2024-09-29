@@ -41,13 +41,6 @@ Rails/I18nLocaleTexts:
     - 'app/controllers/tasks_controller.rb'
     - 'app/mailers/task_mailer.rb'
 
-# Offense count: 1
-# Configuration parameters: Include.
-# Include: db/**/*.rb
-Rails/NotNullColumn:
-  Exclude:
-    - 'db/migrate/20190612123743_add_user_id_to_tasks.rb'
-
 # Offense count: 22
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
