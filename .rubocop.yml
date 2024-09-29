@@ -34,3 +34,8 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 18
 
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'db/migrate/20210111023112_add_service_name_to_active_storage_blobs.active_storage.rb'
+
+
