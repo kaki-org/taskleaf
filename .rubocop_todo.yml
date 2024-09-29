@@ -16,11 +16,6 @@ RSpec/MessageSpies:
 RSpec/MultipleExpectations:
   Max: 9
 
-# Offense count: 3
-RSpec/PendingWithoutReason:
-  Exclude:
-    - 'spec/models/task_spec.rb'
-
 # Offense count: 7
 Rails/I18nLocaleTexts:
   Exclude:

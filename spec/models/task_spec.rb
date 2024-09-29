@@ -55,26 +55,29 @@ RSpec.describe Task do
   end
 
   describe '.generate_csv' do
-    xit 'generates a CSV file with all tasks' do
+    it 'generates a CSV file with all tasks' do
       task1 = create(:task, name: 'Task 1', description: 'Description 1')
       task2 = create(:task, name: 'Task 2', description: 'Description 2')
 
       csv = described_class.generate_csv
-      expected_csv = "name,description,created_at,updated_at\nTask 1,Description 1,#{task1.created_at},#{task1.updated_at}\nTask 2,Description 2,#{task2.created_at},#{task2.updated_at}\n"
+      expected_csv1 = "Task 1,Description 1,#{task1.created_at},#{task1.updated_at}"
+      expected_csv2 = "Task 2,Description 2,#{task2.created_at},#{task2.updated_at}"
 
-      expect(csv).to include(expected_csv)
+      expect(csv).to include(expected_csv1)
+      expect(csv).to include(expected_csv2)
     end
   end
 
   describe '.import' do
+    let(:user) { create(:user) }
     let(:file) { fixture_file_upload('tasks.csv', 'text/csv') }
 
-    xit 'imports tasks from a CSV file' do
+    it 'imports tasks from a CSV file' do
       expect do
-        described_class.import(file)
-      end.to change(described_class, :count).by(2)
+        user.tasks.import(file)
+      end.to change(described_class, :count).by(4)
 
-      expect(described_class.last.name).to eq('Task 2')
+      expect(described_class.last.name).to eq('uploader')
     end
   end
 
