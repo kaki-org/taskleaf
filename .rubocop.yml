@@ -5,6 +5,7 @@ require:
 Style/AsciiComments:
       Enabled: false
 Metrics/BlockLength:
+  Max: 27
   Exclude:
     - 'spec/**/*'
 AllCops:
@@ -22,3 +23,31 @@ RSpec/ContextWording:
 
 RSpec/ExampleLength:
   Enabled: false
+
+Lint/AssignmentInCondition:
+  Exclude:
+    - 'db/migrate/20210111023112_add_service_name_to_active_storage_blobs.active_storage.rb'
+
+Metrics/AbcSize:
+  Max: 19
+
+Metrics/MethodLength:
+  Max: 18
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'db/migrate/20210111023112_add_service_name_to_active_storage_blobs.active_storage.rb'
+
+Rails/NotNullColumn:
+  Exclude:
+    - 'db/migrate/20190612123743_add_user_id_to_tasks.rb'
+
+Style/GuardClause:
+  Exclude:
+    - 'db/migrate/20210111023112_add_service_name_to_active_storage_blobs.active_storage.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 190

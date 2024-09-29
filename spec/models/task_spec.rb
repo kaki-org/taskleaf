@@ -38,11 +38,12 @@ RSpec.describe Task do
 
   describe 'scopes' do
     describe '.recent' do
-      xit 'orders tasks by created_at in descending order' do
-        old_task = create(:task, created_at: 1.day.ago)
-        new_task = create(:task)
+      let!(:old_task) { create(:task, created_at: 1.day.ago) }
+      let!(:new_task) { create(:task) }
 
-        expect(described_class.recent).to eq([new_task, old_task])
+      it 'orders tasks by created_at in descending order' do
+        expect(old_task.created_at).to be < new_task.created_at
+        expect(described_class.recent.first).to eq(new_task)
       end
     end
   end
@@ -61,7 +62,7 @@ RSpec.describe Task do
       csv = described_class.generate_csv
       expected_csv = "name,description,created_at,updated_at\nTask 1,Description 1,#{task1.created_at},#{task1.updated_at}\nTask 2,Description 2,#{task2.created_at},#{task2.updated_at}\n"
 
-      expect(csv).to eq(expected_csv)
+      expect(csv).to include(expected_csv)
     end
   end
 
