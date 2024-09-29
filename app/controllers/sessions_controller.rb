@@ -10,9 +10,9 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
-      redirect_to root_url, notice: 'ログインしました。'
+      redirect_to root_url, notice: I18n.t('login_success')
     else
-      flash.now[:alert] = 'ログインに失敗しました'
+      flash.now[:alert] = I18n.t('login_failed')
       render :new, status: :unprocessable_entity
     end
   end
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     reset_session
     respond_to do |format|
       # status: :see_other が必須！！
-      format.html { redirect_to root_url, notice: 'ログアウトしました', status: :see_other }
+      format.html { redirect_to root_url, notice: I18n.t('logout_success'), status: :see_other }
       format.json { head :no_content }
     end
   end
