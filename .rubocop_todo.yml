@@ -16,13 +16,6 @@ RSpec/MessageSpies:
 RSpec/MultipleExpectations:
   Max: 9
 
-# Offense count: 1
-# Configuration parameters: AllowedPatterns.
-# AllowedPatterns: ^expect_, ^assert_
-RSpec/NoExpectationExample:
-  Exclude:
-    - 'spec/controllers/tasks_controller_spec.rb'
-
 # Offense count: 3
 RSpec/PendingWithoutReason:
   Exclude:
