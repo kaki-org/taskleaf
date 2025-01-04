@@ -132,6 +132,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.0)
       railties (>= 6.0.0)
+    csv (3.3.2)
     date (3.4.1)
     diff-lcs (1.5.1)
     docile (1.4.1)
@@ -531,6 +532,7 @@ DEPENDENCIES
   capybara
   capybara-playwright-driver
   cssbundling-rails
+  csv
   email_spec
   factory_bot_rails (~> 6.2)
   faker
