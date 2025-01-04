@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/slim-template/html2slim.git
+  revision: e92e6bb80570dce0c413a6ff01b858754845df24
+  specs:
+    html2slim (0.2.0)
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -142,16 +149,7 @@ GEM
       railties (>= 5.0.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-aarch64-linux-musl)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm-linux-musl)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86-linux-musl)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
-    ffi (1.17.0-x86_64-linux-musl)
+    ffi (1.17.0)
     foreman (0.88.1)
     formatador (1.1.0)
     globalid (1.2.1)
@@ -170,9 +168,6 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    hpricot (0.8.6)
-    html2slim (0.2.0)
-      hpricot
     htmlentities (4.3.4)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
@@ -541,7 +536,7 @@ DEPENDENCIES
   faker
   foreman
   guard-rspec
-  html2slim
+  html2slim!
   importmap-rails
   jbuilder (~> 2.11)
   jsbundling-rails
