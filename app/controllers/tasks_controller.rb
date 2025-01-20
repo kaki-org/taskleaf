@@ -63,7 +63,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :image)
+    params.expect(task: %i[name description image])
   end
 
   def special_time
