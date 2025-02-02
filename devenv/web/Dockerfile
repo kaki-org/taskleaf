@@ -1,6 +1,6 @@
 # ビルド用コンテナ
 ARG IMAGE_FILE
-FROM --platform=$BUILDPLATFORM oven/bun:1.1.42-alpine AS bun
+FROM --platform=$BUILDPLATFORM oven/bun:1.2.2-alpine AS bun
 FROM $IMAGE_FILE:3.4.1-alpine3.20 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
