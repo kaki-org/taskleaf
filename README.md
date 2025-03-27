@@ -1,5 +1,9 @@
 # README
 
+## 2025/03/27
+
+古い内容ですが、github actionsの利用量カウントから除外させたいので一旦publicにします。
+
 ## 概要
 
 <https://taskleaf-spc0.onrender.com/>
