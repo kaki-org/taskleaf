@@ -3,10 +3,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.3.4'
+ruby '3.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.0.0'
 # Use postgresql as the database for Active Record
 # Use Puma as the app server
 gem 'puma', '~> 6.4'
@@ -16,6 +16,7 @@ gem 'jbuilder', '~> 2.11'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.17'
+gem 'csv'
 
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
@@ -81,7 +82,7 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'bootstrap'
-gem 'html2slim'
+gem 'html2slim', github: 'slim-template/html2slim'
 gem 'kaminari'
 gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'

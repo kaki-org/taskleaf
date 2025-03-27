@@ -19,7 +19,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:17.0-alpine
+        image: postgres:17.4-alpine
         ports:
           - 5432:5432
         env:
@@ -43,11 +43,11 @@ jobs:
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.3.4
+          ruby-version: .tool-versions
           bundler-cache: true
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.0.2
+          bun-version: 1.1.42
       - name: Setup bundler
         run: gem install bundler
 
