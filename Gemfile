@@ -47,7 +47,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
   gem 'guard-rspec'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 7.0'
+  gem 'rspec-rails', '~> 7.1'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
