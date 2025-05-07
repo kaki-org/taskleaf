@@ -50,7 +50,7 @@ services:
       - '4444:4444'
 
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     ports:
       - "16379:6379"
     command: redis-server --appendonly yes
