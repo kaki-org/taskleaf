@@ -17,7 +17,7 @@
 [![Ruby](https://img.shields.io/badge/ruby-3.4.1-blue.svg)](https://www.ruby-lang.org/)
 [![Rails](https://img.shields.io/badge/rails-8.0.0-blue.svg)](https://rubyonrails.org/)
 [![Valkey](https://img.shields.io/badge/valkey-8.1.1-blue.svg)](https://github.com/valkey-io/valkey)
-[![PostgreSQL](https://img.shields.io/badge/postgresql-16.2-blue.svg)](https://www.postgresql.org)
+[![PostgreSQL](https://img.shields.io/badge/postgresql-17.5-blue.svg)](https://www.postgresql.org)
 
 ## Environments
 
