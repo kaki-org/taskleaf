@@ -19,6 +19,11 @@ describe 'admin/users' do
         expect(response.body).to include(admin_user.name)
       end
 
+      it 'limitパラメータが空の場合、全てのユーザーが取得できる事' do
+        create_list(:user, 3)
+        expect(assigns(:users).count).to eq(User.count)
+      end
+
       it 'limitパラメータを使ってユーザーの一覧が制限されて取得できる事' do
         create_list(:user, 3)
         get '/admin/users', params: { limit: 2 }
@@ -28,6 +33,22 @@ describe 'admin/users' do
       it 'ユーザーの詳細画面に遷移できる事' do
         get "/admin/users/#{admin_user.id}"
         expect(response).to have_http_status :ok
+      end
+
+      it '指定したIDのユーザーが正しく取得できる事' do
+        get "/admin/users/#{user.id}"
+        expect(assigns(:user)).to eq(user)
+      end
+
+      it 'ユーザーの詳細情報がレスポンスに含まれている事' do
+        get "/admin/users/#{user.id}"
+        expect(response.body).to include(user.name)
+        expect(response.body).to include(user.email)
+      end
+
+      it '存在しないユーザIDを指定すると404が返ること' do
+        get "/admin/users/#{User.last.id + 1}"
+        expect(response.status).to eq 404
       end
 
       it 'ユーザ作成画面に遷移できる事' do
