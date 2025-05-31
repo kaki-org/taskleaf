@@ -19,6 +19,11 @@ describe 'admin/users' do
         expect(response.body).to include(admin_user.name)
       end
 
+      it 'limitパラメータが空の場合、全てのユーザーが取得できる事' do
+        create_list(:user, 3)
+        expect(assigns(:users).count).to eq(User.count)
+      end
+
       it 'limitパラメータを使ってユーザーの一覧が制限されて取得できる事' do
         create_list(:user, 3)
         get '/admin/users', params: { limit: 2 }
