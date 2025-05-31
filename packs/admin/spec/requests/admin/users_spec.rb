@@ -56,6 +56,20 @@ describe 'admin/users' do
         expect(response).to have_http_status :ok
       end
 
+      it '新しいユーザーオブジェクトが作成されること' do
+        get '/admin/users/new'
+        expect(assigns(:user)).to be_a_new(User)
+      end
+
+      it 'ユーザー作成フォームが表示されること' do
+        get '/admin/users/new'
+        expect(response.body).to include('ユーザー登録')
+        expect(response.body).to include('名前')
+        expect(response.body).to include('メールアドレス')
+        expect(response.body).to include('パスワード')
+        expect(response.body).to include('パスワード(確認)')
+      end
+
       it 'ユーザー作成時にfoundがかえってくること' do
         params = {
           user: {
