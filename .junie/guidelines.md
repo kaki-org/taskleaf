@@ -237,7 +237,7 @@ make rubocop ARG="--auto-correct"
 - jsbundling-railsによるJavaScriptバンドル
 - フロントエンドのインタラクティブ性のためのHotwire（TurboとStimulus）
 
-### モジュラーモノリス
+#### モジュラーモノリス
 
 このプロジェクトは以下を使用したモジュラーモノリスとして構成されています：
 - packs-rails
