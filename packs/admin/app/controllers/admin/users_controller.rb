@@ -41,7 +41,6 @@ module Admin
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
       else
         render :edit
-        # redirect_to edit_admin_user_path, params: params
       end
     end
 
