@@ -34,6 +34,8 @@ class Task < ApplicationRecord
     end
 
     def import(file)
+      return unless file
+
       CSV.foreach(file.path, headers: true) do |row|
         task = new
         task.attributes = row.to_hash.slice(*csv_attributes)
