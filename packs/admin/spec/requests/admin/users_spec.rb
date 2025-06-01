@@ -8,7 +8,7 @@ describe 'admin/users' do
   let(:user) { create(:user, admin: false, email: 'test2@example.com', password: 'password') }
 
   describe 'GET /admin/users' do
-    context 'ユーザー一覧' do
+    context 'ユーザー一覧に遷移したとき' do
       before { get '/admin/users' }
 
       it 'okがかえってくること' do
@@ -31,7 +31,7 @@ describe 'admin/users' do
       end
     end
 
-    context 'ユーザー詳細' do
+    context 'ユーザー詳細画面に遷移したとき' do
       context '存在するユーザーの場合' do
         before { get "/admin/users/#{user.id}" }
 
@@ -57,7 +57,7 @@ describe 'admin/users' do
       end
     end
 
-    context 'ユーザー新規作成画面' do
+    context 'ユーザー新規作成画面に遷移したとき' do
       before { get '/admin/users/new' }
 
       it 'okがかえってくること' do
@@ -77,7 +77,7 @@ describe 'admin/users' do
       end
     end
 
-    context 'ユーザー編集画面' do
+    context 'ユーザー編集画面に遷移したとき' do
       before { get "/admin/users/#{user.id}/edit" }
 
       it 'okがかえってくること' do
@@ -99,7 +99,7 @@ describe 'admin/users' do
       end
     end
 
-    context 'ユーザー削除確認画面' do
+    context 'ユーザー削除確認画面に遷移したとき' do
       before { get "/admin/users/#{user.id}/confirm_destroy" }
 
       it 'okがかえってくること' do
@@ -162,7 +162,7 @@ describe 'admin/users' do
       end
 
       it '正しいフラッシュメッセージが表示されること' do
-        expect(flash[:notice]).to eq "ユーザー「ユーザーC」を登録しました"
+        expect(flash[:notice]).to eq 'ユーザー「ユーザーC」を登録しました'
       end
     end
 
@@ -227,7 +227,7 @@ describe 'admin/users' do
       end
 
       it '正しいフラッシュメッセージが表示されること' do
-        expect(flash[:notice]).to eq "ユーザー「ユーザーBB」を更新しました"
+        expect(flash[:notice]).to eq 'ユーザー「ユーザーBB」を更新しました'
       end
     end
 
