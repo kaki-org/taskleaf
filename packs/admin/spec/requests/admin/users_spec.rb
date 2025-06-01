@@ -129,6 +129,22 @@ describe 'admin/users' do
         expect(response).to have_http_status :ok
       end
 
+      it '指定したIDのユーザーが正しく取得されること' do
+        get "/admin/users/#{user.id}/edit"
+        expect(assigns(:user)).to eq(user)
+      end
+
+      it 'ユーザー編集フォームが表示されること' do
+        get "/admin/users/#{user.id}/edit"
+        expect(response.body).to include('ユーザー編集')
+        expect(response.body).to include('名前')
+        expect(response.body).to include('メールアドレス')
+        expect(response.body).to include('管理者権限')
+        expect(response.body).to include('パスワード')
+        expect(response.body).to include('パスワード(確認)')
+        expect(response.body).to include('登録する')
+      end
+
       it 'ユーザーを更新できfoundがかえってくる事' do
         params = {
           user: {
