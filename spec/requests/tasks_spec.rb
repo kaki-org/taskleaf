@@ -370,7 +370,7 @@ describe Task do
       it 'タスクが増加すること' do
         expect do
           post import_tasks_path, params: { file: file }
-        end.to change(Task, :count)
+        end.to change(described_class, :count)
       end
 
       it 'タスク一覧画面にリダイレクトされること' do
@@ -388,7 +388,7 @@ describe Task do
       it 'タスクが増加しないこと' do
         expect do
           post import_tasks_path
-        end.not_to change(Task, :count)
+        end.not_to change(described_class, :count)
       end
 
       it 'タスク一覧画面にリダイレクトされること' do
