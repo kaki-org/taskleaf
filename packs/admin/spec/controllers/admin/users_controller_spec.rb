@@ -199,7 +199,7 @@ describe Admin::UsersController do
 
       it '許可されたパラメータを返すこと' do
         # params.expectメソッドの動作を模倣するモックを作成
-        params_double = instance_double('ActionController::Parameters')
+        params_double = instance_double(ActionController::Parameters)
         user_params_double = {
           name: 'テストユーザー',
           email: 'test@example.com',
@@ -224,7 +224,7 @@ describe Admin::UsersController do
 
       it '正しいパラメータでexpectメソッドが呼ばれること' do
         # params.expectメソッドの動作を模倣するモックを作成
-        params_double = instance_double('ActionController::Parameters')
+        params_double = instance_double(ActionController::Parameters)
 
         # paramsのモックを設定
         allow(controller).to receive(:params).and_return(params_double)
