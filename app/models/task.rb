@@ -9,6 +9,14 @@ class Task < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  def display_name
+    if name.length > 20
+      "#{name[0...17]}..."
+    else
+      name
+    end
+  end
+
   scope :recent, -> { order(created_at: :desc) }
 
   class << self
