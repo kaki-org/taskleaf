@@ -124,6 +124,59 @@ describe 'admin/users' do
         expect { post('/admin/users', params:) }.not_to change(User, :count)
       end
 
+      it 'ユーザー作成成功時に詳細ページにリダイレクトすること' do
+        params = {
+          user: {
+            name: 'ユーザーC',
+            email: 'test3@example.com',
+            password: 'password',
+            password_confirmation: 'password'
+          }
+        }
+        post('/admin/users', params:)
+        expect(response).to redirect_to(admin_user_path(User.last))
+      end
+
+      it 'ユーザー作成成功時に正しいフラッシュメッセージが表示されること' do
+        params = {
+          user: {
+            name: 'ユーザーC',
+            email: 'test3@example.com',
+            password: 'password',
+            password_confirmation: 'password'
+          }
+        }
+        post('/admin/users', params:)
+        expect(flash[:notice]).to eq "ユーザー「ユーザーC」を登録しました"
+      end
+
+      it 'ユーザー作成失敗時に新規作成フォームが再表示されること' do
+        params = {
+          user: {
+            name: '',
+            email: 'test3@example.com',
+            password: 'password',
+            password_confirmation: 'password'
+          }
+        }
+        post('/admin/users', params:)
+        expect(response).to have_http_status :ok
+        expect(response.body).to include('ユーザー登録')
+      end
+
+      it 'ユーザー作成失敗時にエラーメッセージが表示されること' do
+        params = {
+          user: {
+            name: '',
+            email: 'test3@example.com',
+            password: 'password',
+            password_confirmation: 'password'
+          }
+        }
+        post('/admin/users', params:)
+        expect(response.body).to include('名前を入力してください')
+      end
+
       it 'ユーザー編集画面に遷移できる事' do
         get "/admin/users/#{user.id}/edit"
         expect(response).to have_http_status :ok
