@@ -303,6 +303,7 @@ describe Task do
       # expect(response.body).to include "「#{task.name}」を削除しました"
     end
   end
+
   describe '他ユーザーのタスクへのアクセス制限' do
     include_context 'userでログイン済みの時'
     let(:user) { create(:user, admin: true, email: 'admin@example.com', password: 'password') }
