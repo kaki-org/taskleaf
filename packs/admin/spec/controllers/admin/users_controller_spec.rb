@@ -190,4 +190,51 @@ describe Admin::UsersController do
   describe 'ゲストユーザでのアクセス' do
     it_behaves_like 'public access to guests'
   end
+
+  describe '#user_params' do
+    context '管理者ユーザーでログインしている場合' do
+      before do
+        save_user_session create(:admin)
+      end
+
+      it '許可されたパラメータを返すこと' do
+        # params.expectメソッドの動作を模倣するモックを作成
+        params_double = instance_double('ActionController::Parameters')
+        user_params_double = {
+          name: 'テストユーザー',
+          email: 'test@example.com',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+
+        # paramsのモックを設定
+        allow(controller).to receive(:params).and_return(params_double)
+        allow(params_double).to receive(:expect).with(user: %i[name email password password_confirmation]).and_return(user_params_double)
+
+        # privateメソッドを呼び出す
+        result = controller.send(:user_params)
+
+        # 結果を検証
+        expect(result).to eq user_params_double
+        expect(result[:name]).to eq 'テストユーザー'
+        expect(result[:email]).to eq 'test@example.com'
+        expect(result[:password]).to eq 'password'
+        expect(result[:password_confirmation]).to eq 'password'
+      end
+
+      it '正しいパラメータでexpectメソッドが呼ばれること' do
+        # params.expectメソッドの動作を模倣するモックを作成
+        params_double = instance_double('ActionController::Parameters')
+
+        # paramsのモックを設定
+        allow(controller).to receive(:params).and_return(params_double)
+
+        # expectメソッドが正しいパラメータで呼ばれることを確認
+        expect(params_double).to receive(:expect).with(user: %i[name email password password_confirmation])
+
+        # privateメソッドを呼び出す
+        controller.send(:user_params)
+      end
+    end
+  end
 end
