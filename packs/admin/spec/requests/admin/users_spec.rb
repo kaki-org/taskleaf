@@ -100,10 +100,28 @@ describe 'admin/users' do
     end
 
     context 'ユーザー削除確認画面に遷移したとき' do
-      before { get "/admin/users/#{user.id}/confirm_destroy" }
+      context '他のユーザーを削除しようとする場合' do
+        before { get "/admin/users/#{user.id}/confirm_destroy", params: { user_id: user.id } }
 
-      it 'okがかえってくること' do
-        expect(response).to have_http_status :ok
+        it 'okがかえってくること' do
+          expect(response).to have_http_status :ok
+        end
+
+        it '指定したIDのユーザーが正しく取得されること' do
+          expect(assigns(:user)).to eq(user)
+        end
+      end
+
+      context '自分自身を削除しようとする場合' do
+        before { get "/admin/users/#{admin_user.id}/confirm_destroy", params: { user_id: admin_user.id } }
+
+        it 'ユーザー一覧にリダイレクトされること' do
+          expect(response).to redirect_to(admin_users_url)
+        end
+
+        it '適切なフラッシュメッセージが表示されること' do
+          expect(flash[:notice]).to eq(I18n.t('cannot_delete_yourself'))
+        end
       end
     end
   end
@@ -253,14 +271,36 @@ describe 'admin/users' do
   end
 
   describe 'DELETE /admin/users/:id' do
-    before { delete "/admin/users/#{user.id}" }
+    context '他のユーザーを削除する場合' do
+      before { delete "/admin/users/#{user.id}" }
 
-    it 'foundがかえってくること' do
-      expect(response).to have_http_status :found
+      it 'foundがかえってくること' do
+        expect(response).to have_http_status :found
+      end
+
+      it 'ユーザーが削除されること' do
+        expect(User.last.email).to eq 'test@example.com'
+      end
+
+      it '正しいフラッシュメッセージが表示されること' do
+        expect(flash[:notice]).to eq "ユーザー「#{user.name}」を削除しました"
+      end
     end
 
-    it 'ユーザーが削除されること' do
-      expect(User.last.email).to eq 'test@example.com'
+    context '自分自身を削除しようとする場合' do
+      before { delete "/admin/users/#{admin_user.id}" }
+
+      it 'ユーザー一覧にリダイレクトされること' do
+        expect(response).to redirect_to(admin_users_url)
+      end
+
+      it '適切なフラッシュメッセージが表示されること' do
+        expect(flash[:notice]).to eq(I18n.t('cannot_delete_yourself'))
+      end
+
+      it 'ユーザーが削除されないこと' do
+        expect(User.find_by(id: admin_user.id)).to be_present
+      end
     end
   end
 end
