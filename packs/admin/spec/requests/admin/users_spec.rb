@@ -221,6 +221,14 @@ describe 'admin/users' do
       it 'ユーザーが更新され、emailが正しいこと' do
         expect(User.last.email).to eq 'test22@example.com'
       end
+
+      it '詳細ページにリダイレクトすること' do
+        expect(response).to redirect_to(admin_user_path(user))
+      end
+
+      it '正しいフラッシュメッセージが表示されること' do
+        expect(flash[:notice]).to eq "ユーザー「ユーザーBB」を更新しました"
+      end
     end
 
     context '不正なパラメータの場合' do
@@ -232,6 +240,14 @@ describe 'admin/users' do
 
       it 'ユーザーが更新されないこと' do
         expect(User.last.email).to eq 'test2@example.com'
+      end
+
+      it '編集フォームが再表示されること' do
+        expect(response.body).to include('ユーザー編集')
+      end
+
+      it 'エラーメッセージが表示されること' do
+        expect(response.body).to include('メールアドレスを入力してください')
       end
     end
   end
