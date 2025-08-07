@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/slim-template/html2slim.git
-  revision: e92e6bb80570dce0c413a6ff01b858754845df24
+  revision: 4c3526d36c5bcc2de37a04603ee90c374bff3e99
   specs:
     html2slim (0.2.0)
       nokogiri
