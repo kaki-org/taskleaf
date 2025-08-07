@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/slim-template/html2slim.git
-  revision: e92e6bb80570dce0c413a6ff01b858754845df24
+  revision: 4c3526d36c5bcc2de37a04603ee90c374bff3e99
   specs:
     html2slim (0.2.0)
       nokogiri
@@ -426,7 +426,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.4)
-    rubocop (1.79.1)
+    rubocop (1.79.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -486,7 +486,7 @@ GEM
       slim (>= 3.0, < 6.0, != 5.0.0)
     smart_properties (1.17.0)
     sorbet-runtime (0.5.11711)
-    spring (4.3.0)
+    spring (4.4.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     spring-watcher-listen (2.1.0)
