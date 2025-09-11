@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'タスクAPI' do
   let(:user) { create(:user) }
-  
+
   before do
     # APIテスト用の認証設定
     allow_any_instance_of(Api::V1::TasksController).to receive(:current_user).and_return(user)
