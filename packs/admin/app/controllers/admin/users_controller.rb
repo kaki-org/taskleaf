@@ -45,13 +45,13 @@ module Admin
     end
 
     def confirm_destroy
-      validate_user_own_request
+      return if validate_user_own_request
 
       @user = User.find(params[:user_id])
     end
 
     def destroy
-      validate_user_own_request
+      return if validate_user_own_request
 
       @user = User.find(params[:id])
       @user.destroy
@@ -62,7 +62,11 @@ module Admin
 
     def validate_user_own_request
       user_id = params[:id] || params[:user_id]
-      redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself') and return if current_user.id == user_id.to_i
+      if current_user.id == user_id.to_i
+        redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself')
+        return true
+      end
+      false
     end
 
     def user_params
