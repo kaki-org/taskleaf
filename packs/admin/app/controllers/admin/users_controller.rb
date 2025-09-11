@@ -45,13 +45,13 @@ module Admin
     end
 
     def confirm_destroy
-      redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself') and return if current_user.id == params[:user_id].to_i
+      validate_user_own_request
 
       @user = User.find(params[:user_id])
     end
 
     def destroy
-      redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself') and return if current_user.id == params[:id].to_i
+      validate_user_own_request
 
       @user = User.find(params[:id])
       @user.destroy
@@ -59,6 +59,11 @@ module Admin
     end
 
     private
+
+    def validate_user_own_request
+      user_id = params[:id] || params[:user_id]
+      redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself') and return if current_user.id == user_id.to_i
+    end
 
     def user_params
       params.expect(user: %i[name email password password_confirmation])
