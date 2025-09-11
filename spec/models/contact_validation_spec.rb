@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
   describe 'validations' do
-    context 'name validation' do
+    context 'when validating name' do
       it 'is valid with a name' do
         contact = build(:contact, name: 'John Doe')
         expect(contact).to be_valid
@@ -23,7 +23,7 @@ RSpec.describe Contact, type: :model do
       end
     end
 
-    context 'email validation' do
+    context 'when validating email' do
       it 'is valid with a proper email format' do
         contact = build(:contact, email: 'test@example.com')
         expect(contact).to be_valid

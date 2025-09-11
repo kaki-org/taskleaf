@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Users Controller Missing Coverage', type: :request do
-  let(:admin_user) { create(:admin) }
+  let(:admin_user) { create(:admin, password: 'password') }
 
   before do
-    allow_any_instance_of(Admin::UsersController).to receive(:current_user).and_return(admin_user)
-    allow_any_instance_of(Admin::UsersController).to receive(:session).and_return({ user_id: admin_user.id })
+    # セッションを通じて管理者ユーザーとしてログイン
+    post '/login', params: { session: { email: admin_user.email, password: 'password' } }
   end
 
   describe 'GET /admin/users (index)' do
