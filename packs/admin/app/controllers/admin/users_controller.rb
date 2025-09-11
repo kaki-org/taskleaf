@@ -30,7 +30,7 @@ module Admin
       if @user.save
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を登録しました"
       else
-        render :new
+        render :new, status: :unprocessable_content
       end
     end
 
@@ -40,7 +40,7 @@ module Admin
       if @user.update(user_params)
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
       else
-        render :edit
+        render :edit, status: :unprocessable_content
       end
     end
 

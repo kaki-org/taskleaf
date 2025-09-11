@@ -144,7 +144,7 @@ describe Task do
       end
 
       it 'タスクの作成に失敗する事' do
-        expect(response).to have_http_status :ok
+        expect(response).to have_http_status :unprocessable_content
       end
 
       it 'エラーメッセージが表示される事' do
@@ -218,8 +218,8 @@ describe Task do
       patch task_path(task.id), params: { task: { name: new_task_name } }
     end
 
-    it 'okでレスポンスがかえってくること' do
-      expect(response).to have_http_status :ok
+    it 'unprocessable_contentでレスポンスがかえってくること' do
+      expect(response).to have_http_status :unprocessable_content
     end
 
     it 'タスクの編集ができる事' do

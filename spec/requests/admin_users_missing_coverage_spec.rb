@@ -55,7 +55,7 @@ RSpec.describe 'Admin Users Controller Missing Coverage', type: :request do
         patch "/admin/users/#{user.id}", params: {
           user: { name: '', email: 'invalid-email' }
         }
-        expect(response).to have_http_status(:ok) # renders :edit template
+        expect(response).to have_http_status(:unprocessable_content) # renders :edit template with validation errors
       end
     end
   end

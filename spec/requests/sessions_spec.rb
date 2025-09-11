@@ -33,7 +33,7 @@ RSpec.describe 'Sessions' do
     context 'パラメータが異常な場合' do
       before { post '/login', params: { session: { email: user.email, password: 'invalid_password' } } }
 
-      it 'unprocessable_entityがかえってくること' do
+      it 'unprocessable_contentがかえってくること' do
         expect(response).to be_unprocessable
       end
 

@@ -37,7 +37,7 @@ class TasksController < ApplicationController
       SampleJob.perform_later
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました。"
     else
-      render :edit, task: @task.errors
+      render :edit, task: @task.errors, status: :unprocessable_content
     end
   end
 
