@@ -3,9 +3,16 @@
 require 'rails_helper'
 
 describe 'タスクAPI' do
+  let(:user) { create(:user) }
+  
+  before do
+    # APIテスト用の認証設定
+    allow_any_instance_of(Api::V1::TasksController).to receive(:current_user).and_return(user)
+  end
+
   describe 'GET /api/v1/tasks/:id' do
     context '作成したタスクの場合' do
-      let!(:task) { create(:task, name: 'メイラーSpecを書く', description: '送信したメールの内容を確認します') }
+      let!(:task) { create(:task, name: 'メイラーSpecを書く', description: '送信したメールの内容を確認します', user:) }
       let(:params) do
         {
           task: {
@@ -40,7 +47,7 @@ describe 'タスクAPI' do
     end
 
     describe 'PUT /api/v1/tasks/:id' do
-      let(:task) { create(:task) }
+      let(:task) { create(:task, user:) }
 
       it '作成したタスクの名前を更新すると200がかえってくること' do
         put("/api/v1/tasks/#{task.id}", params: { task: { name: 'MailerSpecを書く' } })
@@ -82,7 +89,7 @@ describe 'タスクAPI' do
     end
 
     describe 'DELETE /api/v1/tasks/:id' do
-      let(:task) { create(:task) }
+      let(:task) { create(:task, user:) }
 
       it '作成したタスクを削除できる事' do
         delete "/api/v1/tasks/#{task.id}"
