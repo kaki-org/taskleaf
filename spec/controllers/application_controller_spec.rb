@@ -35,7 +35,7 @@ RSpec.describe ApplicationController, type: :controller do
 
     context 'when user_id in session does not exist in database' do
       before do
-        session[:user_id] = 999999  # non-existent user id
+        session[:user_id] = 999_999 # non-existent user id
       end
 
       it 'returns nil' do

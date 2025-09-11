@@ -48,19 +48,19 @@ RSpec.describe Task, type: :model do
       it 'is invalid with nil name' do
         task = build(:task, name: nil, user: user)
         expect(task).not_to be_valid
-        expect(task.errors[:name]).to include("を入力してください")
+        expect(task.errors[:name]).to include('を入力してください')
       end
 
       it 'is invalid with empty string name' do
         task = build(:task, name: '', user: user)
         expect(task).not_to be_valid
-        expect(task.errors[:name]).to include("を入力してください")
+        expect(task.errors[:name]).to include('を入力してください')
       end
 
       it 'is invalid with whitespace-only name' do
         task = build(:task, name: '   ', user: user)
         expect(task).not_to be_valid
-        expect(task.errors[:name]).to include("を入力してください")
+        expect(task.errors[:name]).to include('を入力してください')
       end
     end
   end
@@ -76,7 +76,7 @@ RSpec.describe Task, type: :model do
     context 'when name is exactly 21 characters' do
       it 'returns truncated name with ellipsis' do
         task = build(:task, name: 'a' * 21)
-        expect(task.display_name).to eq('a' * 17 + '...')
+        expect(task.display_name).to eq("#{'a' * 17}...")
       end
     end
 
@@ -92,34 +92,34 @@ RSpec.describe Task, type: :model do
     let(:user) { build(:user) }
 
     before do
-      user.tasks.clear  # Clear any tasks created by factory
+      user.tasks.clear # Clear any tasks created by factory
       user.save!
     end
 
     context 'when importing with nil file' do
       it 'returns early without creating tasks' do
-        expect { user.tasks.import(nil) }.not_to change(Task, :count)
+        expect { user.tasks.import(nil) }.not_to change(described_class, :count)
       end
     end
   end
 
   describe 'ransack configuration' do
     it 'allows searching by name' do
-      expect(Task.ransackable_attributes).to include('name')
+      expect(described_class.ransackable_attributes).to include('name')
     end
 
     it 'allows searching by created_at' do
-      expect(Task.ransackable_attributes).to include('created_at')
+      expect(described_class.ransackable_attributes).to include('created_at')
     end
 
     it 'does not allow searching by other attributes' do
-      ransackable = Task.ransackable_attributes
+      ransackable = described_class.ransackable_attributes
       expect(ransackable).not_to include('description')
       expect(ransackable).not_to include('user_id')
     end
 
     it 'has empty ransackable associations' do
-      expect(Task.ransackable_associations).to eq([])
+      expect(described_class.ransackable_associations).to eq([])
     end
   end
 end
