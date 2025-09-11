@@ -7,7 +7,8 @@ describe 'タスクAPI' do
 
   before do
     # APIテスト用の認証設定
-    allow_any_instance_of(Api::V1::TasksController).to receive(:current_user).and_return(user)
+    controller_class = Api::V1::TasksController
+    allow_any_instance_of(controller_class).to receive(:current_user).and_return(user) # rubocop:disable RSpec/AnyInstance
   end
 
   describe 'GET /api/v1/tasks/:id' do
