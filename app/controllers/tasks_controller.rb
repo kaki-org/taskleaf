@@ -3,6 +3,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
+  ANNIVERSARY_DATE = Date.new(2020, 3, 13)
+
   def index
     @q = current_user.tasks.ransack(params[:q])
     @tasks = @q.result(distinct: true).page(params[:page])
@@ -67,6 +69,6 @@ class TasksController < ApplicationController
   end
 
   def special_time?
-    Time.current.all_day.cover?(Time.zone.parse('2020-03-13'))
+    Time.current.all_day.cover?(ANNIVERSARY_DATE)
   end
 end
