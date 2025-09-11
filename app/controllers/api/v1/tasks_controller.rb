@@ -3,15 +3,14 @@
 module Api
   module V1
     class TasksController < ApplicationController
-      skip_before_action :login_required
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       def show
-        render json: Task.find(params[:id])
+        render json: current_user.tasks.find(params[:id])
       end
 
       def update
-        task = Task.find(params[:id])
+        task = current_user.tasks.find(params[:id])
         if task.update(task_params) # attributes: の指定を削除
           render json: task
         else
@@ -20,7 +19,7 @@ module Api
       end
 
       def destroy
-        task = Task.find(params[:id])
+        task = current_user.tasks.find(params[:id])
         task.destroy!
         render json: task
       end
@@ -28,7 +27,7 @@ module Api
       private
 
       def task_params
-        params.require(:task).permit(:name, :description, :image)
+        params.expect(task: %i[name description image])
       end
 
       def record_not_found

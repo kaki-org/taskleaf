@@ -144,7 +144,7 @@ describe Task do
       end
 
       it 'タスクの作成に失敗する事' do
-        expect(response).to have_http_status :ok
+        expect(response).to have_http_status :unprocessable_content
       end
 
       it 'エラーメッセージが表示される事' do
@@ -165,6 +165,26 @@ describe Task do
     end
 
     it 'タスクの詳細が表示される事' do
+      expect(response.body).to include task.name
+    end
+  end
+
+  describe '編集画面表示' do
+    include_context 'userでログイン済みの時'
+    let(:user) { create(:user, admin: true, email: 'admin@example.com', password: 'password') }
+    let(:task) { create(:task, user: user) }
+
+    before { get edit_task_path(task) }
+
+    it 'okレスポンスがかえってくること' do
+      expect(response).to have_http_status :ok
+    end
+
+    it '編集画面が表示されること' do
+      expect(response.body).to include 'タスクの編集'
+    end
+
+    it 'タスク名が表示されていること' do
       expect(response.body).to include task.name
     end
   end
@@ -198,8 +218,8 @@ describe Task do
       patch task_path(task.id), params: { task: { name: new_task_name } }
     end
 
-    it 'okでレスポンスがかえってくること' do
-      expect(response).to have_http_status :ok
+    it 'unprocessable_contentでレスポンスがかえってくること' do
+      expect(response).to have_http_status :unprocessable_content
     end
 
     it 'タスクの編集ができる事' do
@@ -281,6 +301,100 @@ describe Task do
     it 'タスク一覧画面にリダイレクトされること' do
       expect(response).to redirect_to tasks_path
       # expect(response.body).to include "「#{task.name}」を削除しました"
+    end
+  end
+
+  describe '他ユーザーのタスクへのアクセス制限' do
+    include_context 'userでログイン済みの時'
+    let(:user) { create(:user, admin: true, email: 'admin@example.com', password: 'password') }
+    let(:other_user) { create(:user, admin: false, email: 'other@example.com', password: 'password') }
+    let!(:other_task) { create(:task, user: other_user) }
+
+    context '他ユーザーのタスク詳細ページにアクセスする場合' do
+      it 'ステータスコードが404であること' do
+        get task_path(other_task)
+        expect(response).to have_http_status :not_found
+      end
+    end
+
+    context '他ユーザーのタスク編集ページにアクセスする場合' do
+      it 'ステータスコードが404であること' do
+        get edit_task_path(other_task)
+        expect(response).to have_http_status :not_found
+      end
+    end
+
+    context '他ユーザーのタスクを更新しようとする場合' do
+      it 'ステータスコードが404であること' do
+        patch task_path(other_task), params: { task: { name: '更新テスト' } }
+        expect(response).to have_http_status :not_found
+      end
+    end
+
+    context '他ユーザーのタスクを削除しようとする場合' do
+      it 'ステータスコードが404であること' do
+        delete task_path(other_task)
+        expect(response).to have_http_status :not_found
+      end
+    end
+  end
+
+  describe 'CSV出力機能' do
+    include_context 'userでログイン済みの時'
+    let(:user) { create(:user, admin: true, email: 'admin@example.com', password: 'password') }
+
+    before do
+      create(:task, name: 'CSVテスト用タスク', user: user)
+      get tasks_path(format: :csv)
+    end
+
+    it 'ステータスコードが200であること' do
+      expect(response).to have_http_status :ok
+    end
+
+    it 'Content-Typeがtext/csvであること' do
+      expect(response.headers['Content-Type']).to include 'text/csv'
+    end
+
+    it 'CSVデータにタスク名が含まれていること' do
+      expect(response.body).to include 'CSVテスト用タスク'
+    end
+  end
+
+  describe 'CSVインポート機能' do
+    include_context 'userでログイン済みの時'
+    let(:user) { create(:user, admin: true, email: 'admin@example.com', password: 'password') }
+    let(:file) { fixture_file_upload('spec/fixtures/files/tasks.csv', 'text/csv') }
+
+    context '正しいCSVファイルをアップロードする場合' do
+      it 'タスクが増加すること' do
+        expect do
+          post import_tasks_path, params: { file: file }
+        end.to change(described_class, :count)
+      end
+
+      it 'タスク一覧画面にリダイレクトされること' do
+        post import_tasks_path, params: { file: file }
+        expect(response).to redirect_to tasks_path
+      end
+
+      it '正しいフラッシュメッセージが表示されること' do
+        post import_tasks_path, params: { file: file }
+        expect(flash[:notice]).to eq I18n.t('task_created')
+      end
+    end
+
+    context 'ファイルを選択せずにインポートする場合' do
+      it 'タスクが増加しないこと' do
+        expect do
+          post import_tasks_path
+        end.not_to change(described_class, :count)
+      end
+
+      it 'タスク一覧画面にリダイレクトされること' do
+        post import_tasks_path
+        expect(response).to redirect_to tasks_path
+      end
     end
   end
 end

@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       redirect_to root_url, notice: I18n.t('login_success')
     else
       flash.now[:alert] = I18n.t('login_failed')
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -29,6 +29,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:email, :password)
+    params.expect(session: %i[email password])
   end
 end

@@ -1,5 +1,9 @@
 # README
 
+## 2025/03/27
+
+古い内容ですが、github actionsの利用量カウントから除外させたいので一旦publicにします。
+
 ## 概要
 
 <https://taskleaf-spc0.onrender.com/>
@@ -10,10 +14,10 @@
 ## Stack
 
 [![codecov](https://codecov.io/gh/kakikubo/taskleaf/graph/badge.svg?token=JXU7YSO6G1)](https://codecov.io/gh/kakikubo/taskleaf)
-[![Ruby](https://img.shields.io/badge/ruby-3.3.4-blue.svg)](https://www.ruby-lang.org/)
-[![Rails](https://img.shields.io/badge/rails-7.1.1-blue.svg)](https://rubyonrails.org/)
-[![Redis](https://img.shields.io/badge/redis-7.2.1-blue.svg)](https://github.com/docker-library/redis)
-[![PostgreSQL](https://img.shields.io/badge/postgresql-16.2-blue.svg)](https://www.postgresql.org)
+[![Ruby](https://img.shields.io/badge/ruby-3.4.4-blue.svg)](https://www.ruby-lang.org/)
+[![Rails](https://img.shields.io/badge/rails-8.0.0-blue.svg)](https://rubyonrails.org/)
+[![Valkey](https://img.shields.io/badge/valkey-8.1.1-blue.svg)](https://github.com/valkey-io/valkey)
+[![PostgreSQL](https://img.shields.io/badge/postgresql-17.5-blue.svg)](https://www.postgresql.org)
 
 ## Environments
 

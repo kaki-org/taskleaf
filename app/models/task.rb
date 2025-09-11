@@ -9,6 +9,14 @@ class Task < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  def display_name
+    if name.length > 20
+      "#{name[0...17]}..."
+    else
+      name
+    end
+  end
+
   scope :recent, -> { order(created_at: :desc) }
 
   class << self
@@ -26,6 +34,8 @@ class Task < ApplicationRecord
     end
 
     def import(file)
+      return unless file
+
       CSV.foreach(file.path, headers: true) do |row|
         task = new
         task.attributes = row.to_hash.slice(*csv_attributes)

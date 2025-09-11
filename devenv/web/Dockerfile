@@ -1,6 +1,7 @@
 # ビルド用コンテナ
 ARG IMAGE_FILE
-FROM $IMAGE_FILE:3.3.4-alpine3.20 AS builder
+FROM --platform=$BUILDPLATFORM oven/bun:1.2.21-alpine AS bun
+FROM $IMAGE_FILE:3.4.4-alpine3.22 AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -16,7 +17,6 @@ RUN apk --no-cache add --virtual build-dependencies \
     postgresql-dev
 RUN apk --no-cache add \
     bash \
-    yarn \
     postgresql-client \
     imagemagick \
     tzdata
@@ -28,13 +28,12 @@ COPY Gemfile.lock $APP_PATH
 RUN gem update bundler \
     && bundle config set force_ruby_platform true \
     && bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3 \
-    && apk del build-dependencies # --virtual でグルーピングしたpackageを削除
+    && apk del build-dependencies
+    # --virtual でグルーピングしたpackageを削除
 RUN rm -rf /usr/local/bundle/cache/*
 
-# mainコンテナ
-#    ${BROWSER} \
 
-FROM ${IMAGE_FILE}:3.3.4-alpine3.20
+FROM ${IMAGE_FILE}:3.4.4-alpine3.22
 RUN apk --no-cache add \
     build-base \
     bash \
@@ -44,7 +43,6 @@ RUN apk --no-cache add \
     gcompat \
     gcc \
     libffi-dev \
-    yarn \
     readline-dev \
     libxml2-dev \
     libxslt-dev \
@@ -56,6 +54,8 @@ RUN apk --no-cache add \
     imagemagick  \
     tzdata
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+# bun installしてます
+COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
 
 ENV APP_PATH /work/app
 WORKDIR $APP_PATH

@@ -50,7 +50,7 @@ services:
       - '4444:4444'
 
   redis:
-    image: redis:7-alpine
+    image: valkey/valkey:8.1.1-alpine3.21
     ports:
       - "16379:6379"
     command: redis-server --appendonly yes
@@ -61,7 +61,7 @@ services:
     ports:
       - 50080:1080
   pgsql:
-    image: postgres:17.0-alpine
+    image: postgres:17.6-alpine
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
