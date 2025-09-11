@@ -30,7 +30,7 @@ module Admin
       if @user.save
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を登録しました"
       else
-        render :new
+        render :new, status: :unprocessable_content
       end
     end
 
@@ -40,18 +40,18 @@ module Admin
       if @user.update(user_params)
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
       else
-        render :edit
+        render :edit, status: :unprocessable_content
       end
     end
 
     def confirm_destroy
-      redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself') and return if current_user.id == params[:user_id].to_i
+      return if user_own_request?
 
       @user = User.find(params[:user_id])
     end
 
     def destroy
-      redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself') and return if current_user.id == params[:id].to_i
+      return if user_own_request?
 
       @user = User.find(params[:id])
       @user.destroy
@@ -59,6 +59,15 @@ module Admin
     end
 
     private
+
+    def user_own_request?
+      user_id = params[:id] || params[:user_id]
+      if current_user.id == user_id.to_i
+        redirect_to admin_users_url, notice: I18n.t('cannot_delete_yourself')
+        return true
+      end
+      false
+    end
 
     def user_params
       params.expect(user: %i[name email password password_confirmation])

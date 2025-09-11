@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :contact do
-    name { 'MyString' }
-    email { 'MyString' }
+    name { 'Sample Contact' }
+    email { 'contact@example.com' }
   end
 end
