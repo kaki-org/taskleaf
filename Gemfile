@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.0.3'
 # Use postgresql as the database for Active Record
 # Use Puma as the app server
 gem 'puma', '~> 7.0'
@@ -18,16 +18,16 @@ gem 'jbuilder', '~> 2.11'
 gem 'bcrypt', '~> 3.1.17'
 gem 'csv'
 
-gem 'cssbundling-rails'
+gem 'cssbundling-rails', '>= 1.4.2'
 gem 'jsbundling-rails'
 gem 'sprockets-rails'
 
 # gem 'hotwire-rails'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
+gem 'importmap-rails', '>= 2.2.1'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails'
+gem 'turbo-rails', '>= 2.0.12'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
@@ -45,7 +45,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'brakeman', require: false
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails', '~> 6.2'
+  gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'guard-rspec'
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 8.0'
@@ -67,7 +67,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'capybara-playwright-driver'
+  gem 'capybara-playwright-driver', '>= 0.5.5'
   gem 'email_spec'
   gem 'faker'
 
@@ -87,7 +87,7 @@ gem 'kaminari'
 gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
 gem 'sass-rails'
-gem 'sidekiq'
+gem 'sidekiq', '>= 8.0.1'
 gem 'slim-rails'
 
 gem 'pg', '~> 1.5'
