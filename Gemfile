@@ -73,7 +73,7 @@ group :test do
 
   gem 'launchy'
   gem 'rails-controller-testing'
-  gem 'shoulda-matchers', '~> 6.0'
+  gem 'shoulda-matchers', '~> 7.0'
   gem 'simplecov', require: false
   gem 'simplecov-lcov', require: false
 end
