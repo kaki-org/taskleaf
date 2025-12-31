@@ -55,6 +55,8 @@ jobs:
         run: |
           bundle config set path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
+        env:
+          BUNDLE_FORCE_RUBY_PLATFORM: "true"
       - name: bun install
         run: bun install --check-files
       - name: Install Playwright
