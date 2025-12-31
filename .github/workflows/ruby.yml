@@ -48,6 +48,15 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.0
+      - name: Setup bundler
+        run: gem install bundler
+
+      - name: bundle install
+        run: |
+          bundle config set path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
+        env:
+          BUNDLE_FORCE_RUBY_PLATFORM: "true"
       - name: bun install
         run: bun install --check-files
       - name: Install Playwright
