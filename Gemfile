@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.4'
+ruby '4.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.1.0'
@@ -42,12 +42,11 @@ gem 'packwerk'
 gem 'packwerk-extensions'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Use debug gem instead of byebug (Ruby 3.1+ standard debugger)
   gem 'brakeman', require: false
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
+  gem 'debug', platforms: %i[mri windows]
+  gem 'factory_bot_rails', '~> 6.2'
   gem 'guard-rspec'
-  gem 'pry-byebug'
   gem 'rspec-rails', '~> 8.0'
   gem 'rubocop'
   gem 'rubocop-rails'

@@ -65,10 +65,11 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - ./pgsql-data:/var/lib/postgresql/data
+      - pgsql-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 volumes:
+  pgsql-data:
   bundler:
   rails_cache:
   redis-data:
