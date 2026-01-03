@@ -11,23 +11,23 @@ gem 'rails', '~> 8.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 7.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11'
+gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.17'
 gem 'csv'
 
-gem 'cssbundling-rails'
+gem 'cssbundling-rails', '>= 1.4.2'
 gem 'jsbundling-rails'
 gem 'sprockets-rails'
 
 # gem 'hotwire-rails'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
+gem 'importmap-rails', '>= 2.2.1'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails'
+gem 'turbo-rails', '>= 2.0.12'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
@@ -38,14 +38,14 @@ gem 'net-smtp', require: false
 
 # modular monolith support tool
 gem 'packs-rails'
-gem 'packwerk'
+gem 'packwerk', '>= 3.2.3'
 gem 'packwerk-extensions'
 
 group :development, :test do
   # Use debug gem instead of byebug (Ruby 3.1+ standard debugger)
   gem 'brakeman', require: false
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails', '~> 6.2'
+  gem 'debug', platforms: %i[mri windows]
+  gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'guard-rspec'
   gem 'rspec-rails', '~> 8.0'
   gem 'rubocop'
@@ -66,7 +66,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'capybara-playwright-driver'
+  gem 'capybara-playwright-driver', '>= 0.5.5'
   gem 'email_spec'
   gem 'faker'
 
@@ -86,7 +86,7 @@ gem 'kaminari'
 gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
 gem 'sass-rails'
-gem 'sidekiq'
+gem 'sidekiq', '>= 8.0.1'
 gem 'slim-rails'
 
 gem 'pg', '~> 1.5'
