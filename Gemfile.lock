@@ -82,8 +82,8 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.7)
-      public_suffix (>= 2.0.2, < 7.0)
+    addressable (2.8.8)
+      public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
     autoprefixer-rails (10.4.19.0)
       execjs (~> 2)
@@ -130,7 +130,7 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
-    constant_resolver (0.2.0)
+    constant_resolver (0.3.0)
     crass (1.0.6)
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
@@ -200,7 +200,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.14.0)
+    jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jsbundling-rails (1.3.1)
@@ -299,12 +299,12 @@ GEM
       railties
     packs-specification (0.0.10)
       sorbet-runtime
-    packwerk (3.2.2)
+    packwerk (3.2.3)
       activesupport (>= 6.0)
       ast
       better_html
       bundler
-      constant_resolver (>= 0.2.0)
+      constant_resolver (>= 0.3)
       parallel
       parser
       prism (>= 0.25.0)
@@ -331,7 +331,8 @@ GEM
     pg (1.6.3-x86_64-darwin)
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
-    playwright-ruby-client (1.55.0)
+    playwright-ruby-client (1.57.1)
+      base64
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
     popper_js (2.11.8)
@@ -345,7 +346,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (6.0.2)
+    public_suffix (7.0.0)
     puma (7.1.0)
       nio4r (~> 2.0)
     racc (1.8.1)
@@ -493,7 +494,7 @@ GEM
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
     smart_properties (1.17.0)
-    sorbet-runtime (0.5.11711)
+    sorbet-runtime (0.6.12632)
     spring (4.4.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -573,20 +574,20 @@ DEPENDENCIES
   csv
   debug
   email_spec
-  factory_bot_rails (~> 6.2)
+  factory_bot_rails (~> 6.5, >= 6.5.1)
   faker
   foreman
   guard-rspec
   html2slim!
   importmap-rails (>= 2.2.1)
-  jbuilder (~> 2.11)
+  jbuilder (~> 2.14, >= 2.14.1)
   jsbundling-rails
   kaminari
   launchy
   listen (>= 3.0.5, < 3.10)
   net-smtp
   packs-rails
-  packwerk
+  packwerk (>= 3.2.3)
   packwerk-extensions
   pg (~> 1.5)
   puma (~> 7.0)
@@ -614,7 +615,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 4.0.0p0
+  ruby 4.0.0p0
 
 BUNDLED WITH
-   2.6.9
+  4.0.3

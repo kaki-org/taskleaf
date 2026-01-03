@@ -11,7 +11,7 @@ gem 'rails', '~> 8.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 7.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11'
+gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -38,14 +38,14 @@ gem 'net-smtp', require: false
 
 # modular monolith support tool
 gem 'packs-rails'
-gem 'packwerk'
+gem 'packwerk', '>= 3.2.3'
 gem 'packwerk-extensions'
 
 group :development, :test do
   # Use debug gem instead of byebug (Ruby 3.1+ standard debugger)
   gem 'brakeman', require: false
   gem 'debug', platforms: %i[mri windows]
-  gem 'factory_bot_rails', '~> 6.2'
+  gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'guard-rspec'
   gem 'rspec-rails', '~> 8.0'
   gem 'rubocop'
