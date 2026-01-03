@@ -19,7 +19,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:18.0-alpine
+        image: postgres:18.1-alpine
         ports:
           - 5432:5432
         env:
@@ -34,10 +34,10 @@ jobs:
           show-waiting-runner: true
       - name: checkout
         if: ${{ github.event_name != 'pull_request' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: checkout pr
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup Ruby version
@@ -47,7 +47,7 @@ jobs:
           bundler-cache: true
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.1.42
+          bun-version: 1.3.0
       - name: Setup bundler
         run: gem install bundler
 
@@ -55,6 +55,8 @@ jobs:
         run: |
           bundle config set path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
+        env:
+          BUNDLE_FORCE_RUBY_PLATFORM: "true"
       - name: bun install
         run: bun install --check-files
       - name: Install Playwright
@@ -88,7 +90,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           PLAYWRIGHT_CHROMIUM_CHANNEL: 'chromium'
       - name: Codecov
-        uses: codecov/codecov-action@v5.5.1
+        uses: codecov/codecov-action@v5.5.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: coverage # このディレクトリに、テスティングツールによるカバレッジレポートファイルが出力される想定
