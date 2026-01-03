@@ -44,7 +44,7 @@ gem 'packwerk-extensions'
 group :development, :test do
   # Use debug gem instead of byebug (Ruby 3.1+ standard debugger)
   gem 'brakeman', require: false
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', platforms: %i[mri windows]
   gem 'factory_bot_rails', '~> 6.5', '>= 6.5.1'
   gem 'guard-rspec'
   gem 'rspec-rails', '~> 8.0'
