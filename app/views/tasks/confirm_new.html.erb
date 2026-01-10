@@ -1,0 +1,19 @@
+<h1>登録内容の確認</h1>
+
+<%= form_with model: @task, local: true do |f| %>
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <th><%= Task.human_attribute_name(:name) %></th>
+        <td><%= @task.name %></td>
+        <%= f.hidden_field :name %>
+      </tr>
+      <tr>
+        <th><%= Task.human_attribute_name(:description) %></th>
+        <td><%= simple_format(@task.description) %></td>
+        <%= f.hidden_field :description %>
+      </tr>
+    </tbody>
+  </table>
+  <%= f.submit '登録', class: 'btn btn-primary' %>
+<% end %>

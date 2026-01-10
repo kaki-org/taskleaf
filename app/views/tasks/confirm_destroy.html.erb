@@ -1,0 +1,36 @@
+<h1>タスクの削除確認</h1>
+
+<div class="nav justify-content-end">
+  <%= link_to '一覧', tasks_path, class: 'nav-link' %>
+</div>
+<table class="table table-hover">
+  <tbody>
+    <div class="alert alert-danger">削除します。よろしいですか？</div>
+    <tr>
+      <th><%= Task.human_attribute_name(:id) %></th>
+      <td><%= @task.id %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:name) %></th>
+      <td><%= @task.name %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:description) %></th>
+      <td><%= auto_link(simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div")) %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:image) %></th>
+      <td><%= image_tag @task.image if @task.image.attached? %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:created_at) %></th>
+      <td><%= @task.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= Task.human_attribute_name(:updated_at) %></th>
+      <td><%= @task.updated_at %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= button_to '削除', task_path(@task.id), method: :delete, class: 'btn btn-danger' %>
