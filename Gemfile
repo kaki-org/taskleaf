@@ -78,7 +78,7 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mswin windows jruby]
+gem 'tzinfo-data', platforms: %i[windows jruby]
 
 gem 'bootstrap'
 gem 'html2slim', github: 'slim-template/html2slim'
