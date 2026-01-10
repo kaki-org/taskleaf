@@ -81,12 +81,10 @@ end
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 gem 'bootstrap'
-gem 'html2slim', github: 'slim-template/html2slim'
 gem 'kaminari'
 gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
 gem 'sass-rails'
 gem 'sidekiq', '>= 8.0.1'
-gem 'slim-rails'
 
 gem 'pg', '~> 1.5'
