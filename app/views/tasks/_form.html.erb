@@ -1,0 +1,24 @@
+<% if task.errors.present? %>
+  <ul id="error_explanation">
+    <% task.errors.full_messages.each do |message| %>
+      <div class="alert alert-danger">
+        <li><%= message %></li>
+      </div>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_with model: task, local: true, data: { turbo: false } do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', id: 'task_name' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 5, class: 'form-control', id: 'task_description' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: 'form-control' %>
+  </div>
+  <%= f.submit nil, class: 'btn btn-primary' %>
+<% end %>
