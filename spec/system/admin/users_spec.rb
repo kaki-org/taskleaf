@@ -22,7 +22,7 @@ describe 'Admin Users管理機能', :js do
 
     context 'ユーザー一覧から削除確認画面に遷移したとき' do
       before do
-        within("tr", text: target_user.name) do
+        within('tr', text: target_user.name) do
           click_link '削除'
         end
       end
@@ -35,10 +35,10 @@ describe 'Admin Users管理機能', :js do
       end
 
       it '削除ボタンをクリックするとユーザーが削除される' do
-        expect {
+        expect do
           click_link_or_button '削除'
           expect(page).to have_content('ユーザー一覧')
-        }.to change(User, :count).by(-1)
+        end.to change(User, :count).by(-1)
       end
 
       it '削除後に一覧画面にリダイレクトされる' do
