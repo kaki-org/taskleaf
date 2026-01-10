@@ -97,7 +97,7 @@ bundle exec rubocop -A
 - **国際化**: 日本語ロケールサポート
 
 ### フロントエンド
-- **テンプレートエンジン**: ERBの代わりにSlim
+- **テンプレートエンジン**: ERB
 - **CSSフレームワーク**: カスタムSCSSを含むBootstrap 5
 - **JavaScript**: TurboとStimulusコントローラー
 - **ビルドツール**: アセットコンパイル用のBun、CSS処理用のPostCSS
@@ -141,7 +141,7 @@ bundle exec rubocop -A
 - 明示的なpermitリストを持つストロングパラメータ
 
 ### ビューパターン
-- アプリケーション全体でのSlimテンプレート
+- アプリケーション全体でのERBテンプレート
 - 統一されたUI用のBootstrapコンポーネント
 - ページネーション用にカスタマイズされたKaminariビュー
 - Rails規約を使ったフォームヘルパー
