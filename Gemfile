@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '4.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.1.0'
+gem 'rails', '~> 8.1.2'
 # Use postgresql as the database for Active Record
 # Use Puma as the app server
 gem 'puma', '~> 7.0'
