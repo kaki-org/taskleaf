@@ -1,7 +1,7 @@
 <h1>タスク一覧</h1>
 
-<%= turbo_frame_tag "tasks" do %>
-  <%= search_form_for @q, class: 'mb-5', data: { turbo_frame: "tasks" } do |f| %>
+<%= turbo_frame_tag "tasks", data: { turbo_action: "advance" } do %>
+  <%= search_form_for @q, url: tasks_path, class: 'mb-5', data: { turbo_frame: "tasks" } do |f| %>
     <div class="form-group row">
       <%= f.label :name_cont, '名称', class: 'col-sm-2 col-form-label' %>
       <div class="col-sm-10">
