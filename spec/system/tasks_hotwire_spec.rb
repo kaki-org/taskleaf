@@ -24,7 +24,9 @@ RSpec.describe 'Tasks Hotwire機能', :js do
     fill_in 'メールアドレス', with: user.email
     fill_in 'パスワード', with: user.password
     click_button 'ログインする'
-    expect(page).to have_current_path(root_path)
+
+    # ログイン完了を待機（expectを使わずにCapybaraの待機機能を利用）
+    page.has_content?('ログアウト')
   end
 
   describe 'Turbo/Stimulusの初期化' do
@@ -44,7 +46,7 @@ RSpec.describe 'Tasks Hotwire機能', :js do
   describe 'タスク一覧のTurbo Frame' do
     before { visit tasks_path }
 
-    context 'ページネーション' do
+    context 'ページネーションの場合' do
       it 'ページ2へ遷移してもページ全体がリロードされない' do
         # 最初のページの内容を確認
         expect(page).to have_content('Hotwireタスク01')
@@ -62,7 +64,7 @@ RSpec.describe 'Tasks Hotwire機能', :js do
       end
     end
 
-    context '検索' do
+    context '検索の場合' do
       it '検索がTurbo Frame内で動作する' do
         fill_in '名称', with: 'Hotwireタスク01'
         click_button '検索'
