@@ -58,7 +58,9 @@ describe 'ログイン機能', :js do
       fill_in 'メールアドレス', with: user.email
       fill_in 'パスワード', with: user.password
       click_link_or_button 'ログインする'
-      visit root_path
+
+      # ログイン完了を待機（Turbo対応）
+      page.has_content?('ログアウト')
     end
 
     it 'ログアウトしました表示が出る' do

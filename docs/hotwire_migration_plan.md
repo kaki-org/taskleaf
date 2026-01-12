@@ -7,10 +7,10 @@
 | turbo-rails gem | ✅ インストール済み (`>= 2.0.12`) |
 | stimulus-rails gem | ✅ インストール済み |
 | Turbo Drive | ✅ 有効化済み |
-| Turbo Frames | ❌ 未使用 |
-| Turbo Streams | ❌ 未使用 |
-| Stimulusコントローラー | ✅ セットアップ済み（hello_controller.js） |
-| 古い.js.erb | ⚠️ `destroy.js.erb`が残存 |
+| Turbo Frames | ✅ タスク一覧で使用中 |
+| Turbo Streams | ✅ タスク削除で使用中 |
+| Stimulusコントローラー | ✅ flash, form, hello |
+| 古い.js.erb | ✅ 削除済み |
 
 ---
 
@@ -102,9 +102,9 @@ Phase 4（UX改善）
 - [x] Phase 1.1: Stimulusセットアップ
 - [x] Phase 1.2: Turbo Drive有効化
 - [x] Phase 1.3: レガシーコード整理
-- [ ] Phase 2.1: タスク一覧Turbo Frame化
-- [ ] Phase 2.2: タスクCRUD Turbo Streams化
-- [ ] Phase 2.3: Stimulusコントローラー追加
+- [x] Phase 2.1: タスク一覧Turbo Frame化
+- [x] Phase 2.2: タスクCRUD Turbo Streams化
+- [x] Phase 2.3: Stimulusコントローラー追加
 - [ ] Phase 3.1: ユーザー一覧Turbo Frame化
 - [ ] Phase 3.2: ユーザー管理Turbo Streams化
 - [ ] Phase 4.1: 共通Stimulusコントローラー
