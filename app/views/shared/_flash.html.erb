@@ -1,0 +1,10 @@
+<% if flash.notice.present? %>
+  <div class="alert alert-success" data-controller="flash" data-flash-delay-value="5000">
+    <%= flash.notice %>
+  </div>
+<% end %>
+<% if flash.alert.present? %>
+  <div class="alert alert-danger" data-controller="flash" data-flash-delay-value="5000">
+    <%= flash.alert %>
+  </div>
+<% end %>

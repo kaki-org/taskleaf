@@ -33,4 +33,4 @@
   </tbody>
 </table>
 
-<%= button_to '削除', task_path(@task.id), method: :delete, class: 'btn btn-danger' %>
+<%= button_to '削除', task_path(@task.id), method: :delete, class: 'btn btn-danger', data: { turbo: false } %>

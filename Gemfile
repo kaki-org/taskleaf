@@ -9,7 +9,7 @@ ruby '4.0.0'
 gem 'rails', '~> 8.1.2'
 # Use postgresql as the database for Active Record
 # Use Puma as the app server
-gem 'puma', '~> 7.0'
+gem 'puma', '~> 7.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # Use Redis adapter to run Action Cable in production
@@ -57,7 +57,7 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'foreman'
-  gem 'listen', '>= 3.0.5', '< 3.10'
+  gem 'listen', '>= 3.0.5', '< 3.11'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
