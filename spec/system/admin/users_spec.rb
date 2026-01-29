@@ -11,7 +11,10 @@ describe 'Admin Users管理機能', :js do
     visit login_path
     fill_in 'メールアドレス', with: admin_user.email
     fill_in 'パスワード', with: admin_user.password
-    click_link_or_button 'ログインする'
+    click_button 'ログインする'
+
+    # ログイン完了を待機（Turbo対応）
+    page.has_content?('ログアウト')
   end
 
   describe 'ユーザー削除機能' do

@@ -1,0 +1,11 @@
+<tr id="<%= dom_id(user) %>">
+  <td><%= link_to user.name, [:admin, user], data: { turbo_frame: "_top" } %></td>
+  <td><%= user.email %></td>
+  <td><%= user.admin? ? 'あり' : 'なし' %></td>
+  <td><%= user.created_at %></td>
+  <td><%= user.updated_at %></td>
+  <td>
+    <%= link_to '編集', edit_admin_user_path(user), class: 'btn btn-primary', data: { turbo_frame: "_top" } %>
+    <%= link_to '削除', admin_user_confirm_destroy_path(user), class: 'btn btn-danger', data: { turbo_frame: "_top" } %>
+  </td>
+</tr>

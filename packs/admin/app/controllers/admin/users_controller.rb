@@ -55,7 +55,10 @@ module Admin
 
       @user = User.find(params[:id])
       @user.destroy
-      redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました"
+      respond_to do |format|
+        format.html { redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました" }
+        format.turbo_stream { flash.now[:notice] = "ユーザー「#{@user.name}」を削除しました" }
+      end
     end
 
     private
