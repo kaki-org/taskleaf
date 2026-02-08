@@ -105,7 +105,7 @@ Phase 4（UX改善）
 - [x] Phase 2.1: タスク一覧Turbo Frame化
 - [x] Phase 2.2: タスクCRUD Turbo Streams化
 - [x] Phase 2.3: Stimulusコントローラー追加
-- [ ] Phase 3.1: ユーザー一覧Turbo Frame化
-- [ ] Phase 3.2: ユーザー管理Turbo Streams化
+- [x] Phase 3.1: ユーザー一覧Turbo Frame化
+- [x] Phase 3.2: ユーザー管理Turbo Streams化
 - [ ] Phase 4.1: 共通Stimulusコントローラー
 - [ ] Phase 4.2: リアルタイム更新
