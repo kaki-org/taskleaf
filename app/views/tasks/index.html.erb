@@ -1,51 +1,44 @@
 <h1>タスク一覧</h1>
 
-<%= search_form_for @q, class: 'mb-5' do |f| %>
-  <div class="form-group row">
-    <%= f.label :name_cont, '名称', class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10">
-      <%= f.search_field :name_cont, class: 'form-control' %>
+<%= turbo_frame_tag "tasks", data: { turbo_action: "advance" } do %>
+  <%= search_form_for @q, url: tasks_path, class: 'mb-5', data: { turbo_frame: "tasks" } do |f| %>
+    <div class="form-group row">
+      <%= f.label :name_cont, '名称', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= f.search_field :name_cont, class: 'form-control' %>
+      </div>
     </div>
-  </div>
-  <div class="form-group row">
-    <%= f.label :created_at_gteq, '登録日時', class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10">
-      <%= f.search_field :created_at_gteq, class: 'form-control' %>
+    <div class="form-group row">
+      <%= f.label :created_at_gteq, '登録日時', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= f.search_field :created_at_gteq, class: 'form-control' %>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.submit class: 'btn btn-outline-primary' %>
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
+
+  <%= link_to '新規登録', new_task_path, class: 'btn btn-primary', data: { turbo_frame: "_top" } %>
+
+  <div class="mb-3">
+    <%= paginate @tasks %>
+    <%= page_entries_info @tasks %>
+
+    <table class="table table-hover">
+      <thead class="thead-default">
+        <tr>
+          <th><%= sort_link(@q, :name, default_order: :desc) %></th>
+          <th><%= sort_link(@q, :created_at, default_order: :desc) %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tasks-list">
+        <%= render @tasks %>
+      </tbody>
+    </table>
   </div>
 <% end %>
-
-<%= link_to '新規登録', new_task_path, class: 'btn btn-primary' %>
-
-<div class="mb-3">
-  <%= paginate @tasks %>
-  <%= page_entries_info @tasks %>
-
-  <table class="table table-hover">
-    <thead class="thead-default">
-      <tr>
-        <th><%= sort_link(@q, :name, default_order: :desc) %></th>
-        <th><%= sort_link(@q, :created_at, default_order: :desc) %></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-        <tr id="task-<%= task.id %>">
-          <td><%= link_to task.name, task %></td>
-          <td><%= task.created_at %></td>
-          <td>
-            <%= link_to '編集', edit_task_path(task), class: 'btn btn-primary' %>
-            <%= link_to '削除', task_confirm_destroy_path(task), class: 'btn btn-danger delete' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
 <%= link_to 'エクスポート', tasks_path(format: :csv), class: 'btn btn-primary mb-3' %>
 
 <%= form_tag import_tasks_path, multipart: true, class: 'mb-3' do %>

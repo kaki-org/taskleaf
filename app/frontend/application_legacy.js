@@ -12,5 +12,4 @@
 //
 //= require_tree .
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails";
-Turbo.session.drive = false
+// Note: Turbo is now loaded via importmap in app/javascript/application.js
