@@ -184,7 +184,7 @@ GEM
     htmlentities (4.3.4)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    importmap-rails (2.2.2)
+    importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
@@ -515,7 +515,7 @@ GEM
       tty-screen (~> 0.8)
       wisper (~> 2.0)
     tty-screen (0.8.2)
-    turbo-rails (2.0.17)
+    turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
     tzinfo (2.0.6)
@@ -566,7 +566,7 @@ DEPENDENCIES
   faker
   foreman
   guard-rspec
-  importmap-rails (>= 2.2.1)
+  importmap-rails (>= 2.2.3)
   jbuilder (~> 2.14, >= 2.14.1)
   jsbundling-rails
   kaminari
@@ -596,7 +596,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.1.0)
   sprockets-rails
   stimulus-rails
-  turbo-rails (>= 2.0.12)
+  turbo-rails (>= 2.0.19)
   tzinfo-data
   web-console (>= 3.3.0)
 
