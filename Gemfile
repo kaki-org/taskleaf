@@ -15,7 +15,7 @@ gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.17'
+gem 'bcrypt', '~> 3.1.22'
 gem 'csv'
 
 gem 'cssbundling-rails', '>= 1.4.2'
