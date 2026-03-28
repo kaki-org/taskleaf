@@ -15,7 +15,7 @@ gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.17'
+gem 'bcrypt', '~> 3.1.22'
 gem 'csv'
 
 gem 'cssbundling-rails', '>= 1.4.2'
@@ -24,10 +24,10 @@ gem 'sprockets-rails'
 
 # gem 'hotwire-rails'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails', '>= 2.2.1'
+gem 'importmap-rails', '>= 2.2.3'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails', '>= 2.0.12'
+gem 'turbo-rails', '>= 2.0.19'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
