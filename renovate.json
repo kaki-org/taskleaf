@@ -55,6 +55,7 @@
         "/^@types/",
         "/^rubocop*/",
         "/^rspec*/",
+        "/^rack*/",
         "/^@nuxtjs/eslint/",
         "/^crawler$/",
         "/^eslint/",
