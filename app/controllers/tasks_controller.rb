@@ -50,7 +50,7 @@ class TasksController < ApplicationController
   end
 
   def confirm_destroy
-    @task = current_user.tasks.find_by(id: params.require(:task_id))
+    @task = current_user.tasks.find(params.require(:task_id))
   end
 
   def destroy
