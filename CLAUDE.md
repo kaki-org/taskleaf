@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-このファイルは、Claude Code (claude.ai/code) がこのリポジトリのコードで作業する際のガイダンスを提供します。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## プロジェクト概要
 
-TaskleafはRuby on Rails 7.2とPostgreSQLで構築されたタスク管理Webアプリケーションです。「現場で使える Ruby on Rails 5速習実践ガイド」をベースとした学習プロジェクトで、継続的にアップデートされています。このアプリケーションは、ユーザー認証、タスクのCRUD操作、CSV インポート/エクスポート、およびメール通知をサポートしています。
+TaskleafはRuby 4.0.0 / Rails 8.1（`config.load_defaults 8.0`）/ PostgreSQLで構築されたタスク管理Webアプリケーションです。「現場で使える Ruby on Rails 5速習実践ガイド」をベースとした学習プロジェクトで、継続的にアップデートされています。ユーザー認証、タスクのCRUD操作、CSV インポート/エクスポート、メール通知をサポートしています。
 
 ## 開発コマンド
 
@@ -71,6 +71,9 @@ bundle exec rubocop
 
 # 違反の自動修正
 bundle exec rubocop -A
+
+# セキュリティスキャン
+bundle exec brakeman
 ```
 
 ## アーキテクチャと主要コンポーネント
@@ -86,6 +89,11 @@ bundle exec rubocop -A
 - **Admin名前空間**: 管理者ユーザー向けのユーザー管理
 - **API::V1名前空間**: タスク用のJSON API
 
+### モジュラーモノリス（Packwerk）
+- `packs/admin/` — 管理者機能を独立パッケージとして分離
+- `packwerk check`で依存関係の違反を検出
+- 各パッケージの`package.yml`で`enforce_dependencies: true`を設定
+
 ### 主要機能
 - **認証**: Railsの`has_secure_password`を使用したセッションベース認証
 - **検索**: タスクフィルタリング用のRansack gem
@@ -94,7 +102,7 @@ bundle exec rubocop -A
 - **CSV操作**: Taskモデルでのカスタムインポート/エクスポート機能
 - **メール**: タスク作成通知付きのActionMailer
 - **バックグラウンドジョブ**: SampleJobとのSidekiq統合
-- **国際化**: 日本語ロケールサポート
+- **国際化**: 日本語ロケールサポート（`config.i18n.default_locale = :ja`）
 
 ### フロントエンド
 - **テンプレートエンジン**: ERB
@@ -145,6 +153,12 @@ bundle exec rubocop -A
 - 統一されたUI用のBootstrapコンポーネント
 - ページネーション用にカスタマイズされたKaminariビュー
 - Rails規約を使ったフォームヘルパー
+
+### RuboCopルール
+- `Style/AsciiComments: false` — 日本語コメントを許可
+- RSpecコンテキストで日本語パターン許可（`時$`, `とき$`, `場合$`）
+- `RSpec/MessageSpies: receive`スタイルを使用
+- `Layout/LineLength: 190`
 
 ### 設定
 - デフォルトロケールとしての日本語
