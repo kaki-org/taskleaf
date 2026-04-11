@@ -72,6 +72,7 @@ class TasksController < ApplicationController
   end
 
   def special_time?
-    Time.current.all_day.cover?(ANNIVERSARY_DATE)
+    today = Date.current
+    today.month == ANNIVERSARY_DATE.month && today.day == ANNIVERSARY_DATE.day
   end
 end
