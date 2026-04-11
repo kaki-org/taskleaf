@@ -40,6 +40,30 @@ describe Task do
         expect(response.body).to include 'お誕生日おめでとうございます'
       end
     end
+
+    context '記念日の年が異なる場合' do
+      before do
+        travel_to(Time.zone.parse('2026-03-13')) do
+          get '/tasks'
+        end
+      end
+
+      it '年が異なっても月日が同じならバースデーメッセージが出力される' do
+        expect(response.body).to include 'お誕生日おめでとうございます'
+      end
+    end
+
+    context '記念日でない日の場合' do
+      before do
+        travel_to(Time.zone.parse('2026-04-01')) do
+          get '/tasks'
+        end
+      end
+
+      it 'バースデーメッセージが出力されない' do
+        expect(response.body).not_to include 'お誕生日おめでとうございます'
+      end
+    end
   end
 
   context 'ログインしていない場合' do
