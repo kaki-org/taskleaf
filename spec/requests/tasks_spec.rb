@@ -408,6 +408,26 @@ describe Task do
       end
     end
 
+    context '不正な行を含むCSVファイルをアップロードする場合' do
+      let(:invalid_file) { fixture_file_upload('spec/fixtures/files/tasks_invalid.csv', 'text/csv') }
+
+      it 'タスクが増加しないこと（全件ロールバック）' do
+        expect do
+          post import_tasks_path, params: { file: invalid_file }
+        end.not_to change(described_class, :count)
+      end
+
+      it 'タスク一覧画面にリダイレクトされること' do
+        post import_tasks_path, params: { file: invalid_file }
+        expect(response).to redirect_to tasks_path
+      end
+
+      it 'エラー内容を含むフラッシュメッセージが表示されること' do
+        post import_tasks_path, params: { file: invalid_file }
+        expect(flash[:alert]).to include 'インポートに失敗しました'
+      end
+    end
+
     context 'ファイルを選択せずにインポートする場合' do
       it 'タスクが増加しないこと' do
         expect do

@@ -16,8 +16,12 @@ class TasksController < ApplicationController
   end
 
   def import
-    current_user.tasks.import(params[:file])
-    redirect_to tasks_url, notice: I18n.t('task_created')
+    errors = current_user.tasks.import(params[:file])
+    if errors.empty?
+      redirect_to tasks_url, notice: I18n.t('task_created')
+    else
+      redirect_to tasks_url, alert: "インポートに失敗しました: #{errors.join(' / ')}"
+    end
   end
 
   def show; end
