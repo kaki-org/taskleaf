@@ -144,7 +144,7 @@ describe Task do
       end
 
       it 'メールの宛先が正しいこと' do
-        expect(last_email).to be_delivered_to 'user@example.com'
+        expect(last_email).to be_delivered_to 'admin@example.com'
       end
 
       it 'メールの送信元が正しいこと' do

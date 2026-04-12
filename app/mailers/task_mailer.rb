@@ -7,7 +7,7 @@ class TaskMailer < ApplicationMailer
     @task = task
     mail(
       subject: I18n.t('task_created_subject'),
-      to: 'user@example.com'
+      to: @task.user.email
     )
   end
 end
