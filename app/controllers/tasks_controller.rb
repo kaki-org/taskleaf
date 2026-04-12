@@ -50,7 +50,7 @@ class TasksController < ApplicationController
   end
 
   def confirm_destroy
-    @task = current_user.tasks.find_by(id: params.require(:task_id))
+    @task = current_user.tasks.find(params.require(:task_id))
   end
 
   def destroy
@@ -72,6 +72,7 @@ class TasksController < ApplicationController
   end
 
   def special_time?
-    Time.current.all_day.cover?(ANNIVERSARY_DATE)
+    today = Date.current
+    today.month == ANNIVERSARY_DATE.month && today.day == ANNIVERSARY_DATE.day
   end
 end
