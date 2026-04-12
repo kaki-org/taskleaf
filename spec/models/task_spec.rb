@@ -79,6 +79,25 @@ RSpec.describe Task do
 
       expect(described_class.last.name).to eq('uploader')
     end
+
+    it 'returns an empty array on success' do
+      expect(user.tasks.import(file)).to eq([])
+    end
+
+    context 'when the CSV contains an invalid row' do
+      let!(:user) { create(:user) }
+      let(:invalid_file) { fixture_file_upload('tasks_invalid.csv', 'text/csv') }
+
+      it 'rolls back all rows and returns errors' do
+        result = nil
+        expect do
+          result = user.tasks.import(invalid_file)
+        end.not_to change(described_class, :count)
+
+        expect(result).not_to be_empty
+        expect(result.first).to include('行目')
+      end
+    end
   end
 
   describe '.ransackable_attributes' do

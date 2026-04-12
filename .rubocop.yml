@@ -3,13 +3,37 @@ plugins:
   - rubocop-rails
 Style/AsciiComments:
       Enabled: false
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'bin/bundle'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'bin/bundle'
+
+Layout/LineLength:
+  Max: 190
+  Exclude:
+    - 'bin/bundle'
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/update'
+
 Metrics/BlockLength:
   Max: 27
   Exclude:
     - 'spec/**/*'
-AllCops:
-  NewCops: enable
-  SuggestExtensions: false
+    - 'db/schema.rb'
+
+Rails/CreateTableWithTimestamps:
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/20210111023113_create_active_storage_variant_records.active_storage.rb'
 
 RSpec/ContextWording:
   AllowedPatterns:
@@ -47,9 +71,6 @@ Style/GuardClause:
 
 Style/Documentation:
   Enabled: false
-
-Layout/LineLength:
-  Max: 190
 
 RSpec/MessageSpies:
   EnforcedStyle: receive
