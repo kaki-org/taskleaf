@@ -63,6 +63,8 @@ jobs:
         run: bun playwright install chromium
       - name: Bun
         run: bundle exec rails assets:precompile
+      - name: Brakeman Security Scan
+        run: bundle exec brakeman --no-pager
       - name: rubocop
         run: bundle exec rubocop
       - name: tmp cache clear
