@@ -34,13 +34,20 @@ class Task < ApplicationRecord
     end
 
     def import(file)
-      return unless file
+      return [] unless file
 
-      CSV.foreach(file.path, headers: true) do |row|
-        task = new
-        task.attributes = row.to_hash.slice(*csv_attributes)
-        task.save!
+      errors = []
+      transaction do
+        CSV.foreach(file.path, headers: true).with_index(2) do |row, line|
+          task = new
+          task.attributes = row.to_hash.slice(*csv_attributes)
+          next if task.save
+
+          errors << "#{line}行目: #{task.errors.full_messages.join(', ')}"
+        end
+        raise ActiveRecord::Rollback if errors.any?
       end
+      errors
     end
 
     def ransackable_attributes(_auth_object = nil)
