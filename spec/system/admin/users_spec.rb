@@ -28,10 +28,10 @@ describe 'Admin Users管理機能', :js do
         within('tr', text: target_user.name) do
           click_link '削除'
         end
+        find('h1', text: 'ユーザ削除確認')
       end
 
       it '削除確認画面が表示される' do
-        expect(page).to have_content('ユーザ削除確認')
         expect(page).to have_content('削除します。よろしいですか？')
         expect(page).to have_content(target_user.name)
         expect(page).to have_content(target_user.email)
