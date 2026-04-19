@@ -28,6 +28,7 @@ describe 'Admin Users管理機能', :js do
         within('tr', text: target_user.name) do
           click_link '削除'
         end
+        expect(page).to have_content('ユーザ削除確認')
       end
 
       it '削除確認画面が表示される' do
