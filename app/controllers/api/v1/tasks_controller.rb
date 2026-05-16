@@ -6,11 +6,11 @@ module Api
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       def show
-        render json: current_user.tasks.find(params[:id])
+        render json: current_user.tasks.find(params.expect(:id))
       end
 
       def update
-        task = current_user.tasks.find(params[:id])
+        task = current_user.tasks.find(params.expect(:id))
         if task.update(task_params) # attributes: の指定を削除
           render json: task
         else
@@ -19,7 +19,7 @@ module Api
       end
 
       def destroy
-        task = current_user.tasks.find(params[:id])
+        task = current_user.tasks.find(params.expect(:id))
         task.destroy!
         render json: task
       end
