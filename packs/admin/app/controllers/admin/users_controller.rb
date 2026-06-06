@@ -13,7 +13,7 @@ module Admin
     end
 
     def show
-      @user = User.find(params[:id])
+      @user = User.find(params.expect(:id))
     end
 
     def new
@@ -21,7 +21,7 @@ module Admin
     end
 
     def edit
-      @user = User.find(params[:id])
+      @user = User.find(params.expect(:id))
     end
 
     def create
@@ -35,7 +35,7 @@ module Admin
     end
 
     def update
-      @user = User.find(params[:id])
+      @user = User.find(params.expect(:id))
 
       if @user.update(user_params)
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
@@ -47,13 +47,13 @@ module Admin
     def confirm_destroy
       return if user_own_request?
 
-      @user = User.find(params[:user_id])
+      @user = User.find(params.expect(:user_id))
     end
 
     def destroy
       return if user_own_request?
 
-      @user = User.find(params[:id])
+      @user = User.find(params.expect(:id))
       @user.destroy
       respond_to do |format|
         format.html { redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました" }
