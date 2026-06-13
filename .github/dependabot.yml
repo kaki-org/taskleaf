@@ -1,42 +1,13 @@
 version: 2
 updates:
-- package-ecosystem: docker
-  directory: "/devenv/web/"
-  schedule:
-    interval: weekly
-    time: "20:00"
-  open-pull-requests-limit: 10
-- package-ecosystem: bundler
-  directory: "/"
-  schedule:
-    interval: weekly
-    time: "20:00"
-  open-pull-requests-limit: 10
-  ignore:
-    - dependency-name: "*"
-      update-types: ["version-update:semver-patch"]
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    time: "20:00"
-  open-pull-requests-limit: 10
-  ignore:
-    - dependency-name: "*"
-      update-types: ["version-update:semver-patch"]
-- package-ecosystem: github-actions
-  directory: '/'
-  schedule:
-    interval: daily
-    time: "08:00"
-    timezone: Japan
-  open-pull-requests-limit: 10
-  assignees:
-    - kakikubo
-  commit-message:
-    prefix: fix
-    prefix-development: chore
-    include: scope
-  labels:
-    - "GH Actions"
-    - "dependencies"
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      # net-imap の major を除外
+      - dependency-name: "net-imap"
+        update-types: ["version-update:semver-major"]
