@@ -511,7 +511,7 @@ GEM
     simplecov-lcov (0.9.0)
     simplecov_json_formatter (0.1.4)
     smart_properties (1.17.0)
-    sorbet-runtime (0.6.13295)
+    sorbet-runtime (0.6.13297)
     spring (4.6.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
