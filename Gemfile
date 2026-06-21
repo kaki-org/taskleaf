@@ -49,7 +49,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'rspec-rails', '~> 8.0'
   gem 'rubocop'
-  gem 'rubocop-rails'
+  gem 'rubocop-rails', '>= 2.35.5'
   gem 'rubocop-rspec'
   gem 'spring-commands-rspec'
 end
