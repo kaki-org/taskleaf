@@ -143,7 +143,7 @@ GEM
     code_teams (1.3.0)
       sorbet-runtime
     coderay (1.1.3)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (3.0.2)
     constant_resolver (0.3.0)
     crass (1.0.6)
@@ -203,7 +203,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     htmlentities (4.4.2)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
@@ -467,7 +467,7 @@ GEM
     rubocop-ast (1.49.1)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
-    rubocop-rails (2.35.4)
+    rubocop-rails (2.35.5)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
@@ -506,8 +506,8 @@ GEM
     simplecov-lcov (0.9.0)
     simplecov_json_formatter (0.1.4)
     smart_properties (1.17.0)
-    sorbet-runtime (0.6.13297)
-    spring (4.6.0)
+    sorbet-runtime (0.6.13308)
+    spring (4.7.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     spring-watcher-listen (2.1.0)
@@ -607,7 +607,7 @@ DEPENDENCIES
   ransack
   rspec-rails (~> 8.0)
   rubocop
-  rubocop-rails
+  rubocop-rails (>= 2.35.5)
   rubocop-rspec
   sass-rails
   shoulda-matchers (~> 8.0)
