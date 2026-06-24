@@ -607,7 +607,7 @@ DEPENDENCIES
   ransack
   rspec-rails (~> 8.0)
   rubocop
-  rubocop-rails
+  rubocop-rails (>= 2.35.5)
   rubocop-rspec
   sass-rails
   shoulda-matchers (~> 8.0)
