@@ -11,7 +11,7 @@ gem 'rails', '~> 8.1.2'
 # Use Puma as the app server
 gem 'puma', '~> 8.0', '>= 8.0.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.14', '>= 2.14.1'
+gem 'jbuilder', '~> 2.15'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -49,7 +49,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'rspec-rails', '~> 8.0'
   gem 'rubocop'
-  gem 'rubocop-rails'
+  gem 'rubocop-rails', '>= 2.35.5'
   gem 'rubocop-rspec'
   gem 'spring-commands-rspec'
 end
