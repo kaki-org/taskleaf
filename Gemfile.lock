@@ -160,7 +160,7 @@ GEM
       htmlentities (~> 4.3)
       launchy (>= 2.1, < 4.0)
       mail (~> 2.7)
-    erb (6.0.4)
+    erb (6.0.5)
     erubi (1.13.1)
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
