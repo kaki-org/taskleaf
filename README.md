@@ -17,7 +17,7 @@
 [![Ruby](https://img.shields.io/badge/ruby-4.0.0-blue.svg)](https://www.ruby-lang.org/)
 [![Rails](https://img.shields.io/badge/rails-8.1.0-blue.svg)](https://rubyonrails.org/)
 [![Valkey](https://img.shields.io/badge/valkey-8.1.1-blue.svg)](https://github.com/valkey-io/valkey)
-[![PostgreSQL](https://img.shields.io/badge/postgresql-17.5-blue.svg)](https://www.postgresql.org)
+[![PostgreSQL](https://img.shields.io/badge/postgresql-18.4-blue.svg)](https://www.postgresql.org)
 
 ## Environments
 
@@ -60,6 +60,26 @@ rubymineの場合は環境変数に以下を指定しておく
 
 ```plain
 REDIS_PORT=16379;PGSQL_HOST=pgsql.lvh.me
+```
+
+## トラブルシューティング
+
+### pgsql コンテナが起動しない（PostgreSQL 18 移行）
+
+PostgreSQL 18 系イメージはデータをメジャーバージョン別サブディレクトリに配置する形式へ変更された（[docker-library/postgres#1259](https://github.com/docker-library/postgres/pull/1259)）。
+17 以前で初期化した `pgsql-data` ボリュームが残っていると、ログに以下が出て `pgsql` が起動しない。
+
+```plain
+Error: in 18+, these Docker images are configured to store database data in a
+       format which is compatible with "pg_ctlcluster" ...
+```
+
+ローカルの開発用データは seeds で再生成できるため、ボリュームを破棄して作り直す。
+
+```bash
+docker compose down -v            # pgsql-data を含むボリュームを破棄
+docker compose up -d pgsql redis
+RAILS_ENV=development bundle exec rails db:setup
 ```
 
 ## その他
