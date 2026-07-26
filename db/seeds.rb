@@ -7,19 +7,23 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+if Rails.env.production? && ENV['SEED_FORCE'] != 'true'
+  Rails.logger.warn 'Skipping seeds.rb in production (set SEED_FORCE=true to override).'
+  return
+end
+
 Rails.logger.debug 'Executing seeds.rb...'
-User.find_or_create_by!(email: 'admin@example.com') do |user|
+admin_password = ENV.fetch('SEED_ADMIN_PASSWORD', 'password')
+admin = User.find_or_create_by!(email: 'admin@example.com') do |user|
   user.name = 'admin'
   user.admin = true
-  user.password = 'password'
-  user.password_confirmation = 'password'
+  user.password = admin_password
+  user.password_confirmation = admin_password
 end
 50.times do |n|
-  Task.create!(
-    name: "テストタスク#{n + 1}",
-    description: "テストタスク#{n + 1}の詳細",
-    user_id: 1
-  )
+  Task.find_or_create_by!(name: "テストタスク#{n + 1}", user: admin) do |task|
+    task.description = "テストタスク#{n + 1}の詳細"
+  end
 end
 20.times do |n|
   Task.find_by(name: "テストタスク#{n + 1}").image.attach(
@@ -34,9 +38,8 @@ end
   end
 end
 100.times do |n|
-  Task.create!(
-    name: "テストタスク#{n + 1}",
-    description: "テストタスク#{n + 1}の詳細",
-    user_id: User.where(admin: false).ids.sample
-  )
+  Task.find_or_create_by!(name: "テストタスク#{n + 51}") do |task|
+    task.description = "テストタスク#{n + 51}の詳細"
+    task.user_id = User.where(admin: false).ids.sample
+  end
 end

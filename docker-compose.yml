@@ -65,7 +65,9 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - pgsql-data:/var/lib/postgresql/data
+      # postgres:18+ はデータをメジャーバージョン別サブディレクトリに配置するため
+      # /var/lib/postgresql をマウントする（docker-library/postgres#1259）
+      - pgsql-data:/var/lib/postgresql
     ports:
       - "5432:5432"
 volumes:

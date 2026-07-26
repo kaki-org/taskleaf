@@ -12,4 +12,3 @@ bundle exec rails assets:clean
 
 echo "db:migrate"
 bundle exec rails db:migrate
-bundle exec rails db:seed
