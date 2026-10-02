@@ -71,6 +71,8 @@ group :test do
   gem 'faker'
 
   gem 'launchy'
+  # @playwright/test (package.json) と揃えて更新するため直接依存にする（Renovate の playwright グループ対象）
+  gem 'playwright-ruby-client'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 8.0'
   gem 'simplecov', require: false
