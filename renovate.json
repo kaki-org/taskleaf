@@ -69,6 +69,16 @@
         "/^ruby/setup-ruby$/",
         "/^toshimaru/backlog-pr-link-action$/"
       ]
+    },
+    {
+      "description": "Ruby クライアントと Node ドライバのバージョン不一致を防ぐため同一 PR で更新する",
+      "matchPackageNames": [
+        "playwright-ruby-client",
+        "@playwright/test"
+      ],
+      "groupName": "playwright",
+      "minimumGroupSize": 2,
+      "rangeStrategy": "bump"
     }
   ]
 }

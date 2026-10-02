@@ -594,6 +594,7 @@ DEPENDENCIES
   packwerk (>= 3.2.3)
   packwerk-extensions
   pg (~> 1.5)
+  playwright-ruby-client
   puma (~> 8.0, >= 8.0.2)
   rails (~> 8.1.4)
   rails-controller-testing
