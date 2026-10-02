@@ -11,3 +11,5 @@ updates:
       # net-imap の major を除外
       - dependency-name: "net-imap"
         update-types: ["version-update:semver-major"]
+      # @playwright/test (bun) と揃える必要があるため Renovate の playwright グループで更新する
+      - dependency-name: "playwright-ruby-client"
