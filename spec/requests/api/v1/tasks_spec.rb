@@ -108,4 +108,30 @@ describe 'タスクAPI' do
       end
     end
   end
+
+  context '未ログインの場合' do
+    let(:task) { create(:task, user:) }
+
+    before do
+      allow_any_instance_of(Api::V1::TasksController).to receive(:current_user).and_return(nil) # rubocop:disable RSpec/AnyInstance
+    end
+
+    it 'GETで401とJSONのエラーが返却されること' do
+      get "/api/v1/tasks/#{task.id}"
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to eq('error' => 'Unauthorized')
+    end
+
+    it 'PUTで401が返却されタスクが更新されないこと' do
+      put "/api/v1/tasks/#{task.id}", params: { task: { name: '更新されない' } }
+      expect(response).to have_http_status(:unauthorized)
+      expect(task.reload.name).not_to eq '更新されない'
+    end
+
+    it 'DELETEで401が返却されタスクが削除されないこと' do
+      delete "/api/v1/tasks/#{task.id}"
+      expect(response).to have_http_status(:unauthorized)
+      expect(Task.exists?(task.id)).to be true
+    end
+  end
 end

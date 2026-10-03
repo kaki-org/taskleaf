@@ -30,6 +30,10 @@ module Api
         params.expect(task: %i[name description image])
       end
 
+      def login_required
+        render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user
+      end
+
       def record_not_found
         render json: { error: 'Task not found' }, status: :not_found
       end
