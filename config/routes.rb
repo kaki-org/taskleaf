@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   namespace :api do
     namespace :v1 do
-      resources :tasks
+      resources :tasks, only: %i[show update destroy]
     end
   end
   namespace :admin do
