@@ -3,6 +3,8 @@
 module Api
   module V1
     class TasksController < ApplicationController
+      # CSRF 検証より先に認証を確認し、未ログインの更新系にも 401 を返す
+      prepend_before_action :login_required
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       def show
@@ -28,6 +30,10 @@ module Api
 
       def task_params
         params.expect(task: %i[name description image])
+      end
+
+      def login_required
+        render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user
       end
 
       def record_not_found
