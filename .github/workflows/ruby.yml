@@ -6,6 +6,8 @@ on:
     types: [opened, reopened, synchronize]
   push:
     branches:
+      # develop で実行し、PR から復元できる default branch スコープのキャッシュを作る
+      - develop
       - staging
 
 concurrency:
