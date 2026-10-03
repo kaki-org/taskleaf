@@ -50,13 +50,6 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.2
-      - name: Setup bundler
-        run: gem install bundler
-
-      - name: bundle install
-        run: |
-          bundle config set path 'vendor/bundle'
-          bundle install --jobs 4 --retry 3
       - name: bun install
         run: bun install --check-files
       - name: Install Playwright
@@ -67,8 +60,6 @@ jobs:
         run: bundle exec brakeman --no-pager
       - name: rubocop
         run: bundle exec rubocop
-      - name: tmp cache clear
-        run: echo bundle exec rails tmp:cache:clear
 
       - name: Setup Database
         run: |
