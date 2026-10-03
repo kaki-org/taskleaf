@@ -63,8 +63,7 @@ jobs:
           key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
       - name: Install Playwright
         if: ${{ steps.playwright-cache.outputs.cache-hit != 'true' }}
-        # CI は PLAYWRIGHT_CHROMIUM_CHANNEL=chromium（new headless）で起動するため Headless Shell は不要
-        run: bun playwright install --no-shell chromium
+        run: bun playwright install chromium
       - name: Bun
         run: bundle exec rails assets:precompile
       - name: Brakeman Security Scan
