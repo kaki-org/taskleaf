@@ -112,6 +112,15 @@ describe 'タスクAPI' do
   context '未ログインの場合' do
     let(:task) { create(:task, user:) }
 
+    # development / production と同じく CSRF 検証を有効にし、認証チェックとの実行順を検証する
+    around do |example|
+      original = ActionController::Base.allow_forgery_protection
+      ActionController::Base.allow_forgery_protection = true
+      example.run
+    ensure
+      ActionController::Base.allow_forgery_protection = original
+    end
+
     before do
       allow_any_instance_of(Api::V1::TasksController).to receive(:current_user).and_return(nil) # rubocop:disable RSpec/AnyInstance
     end
@@ -122,15 +131,24 @@ describe 'タスクAPI' do
       expect(response.parsed_body).to eq('error' => 'Unauthorized')
     end
 
-    it 'PUTで401が返却されタスクが更新されないこと' do
+    it 'PUTで401とJSONのエラーが返却されタスクが更新されないこと' do
       put "/api/v1/tasks/#{task.id}", params: { task: { name: '更新されない' } }
       expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to eq('error' => 'Unauthorized')
       expect(task.reload.name).not_to eq '更新されない'
     end
 
-    it 'DELETEで401が返却されタスクが削除されないこと' do
+    it 'PATCHで401とJSONのエラーが返却されタスクが更新されないこと' do
+      patch "/api/v1/tasks/#{task.id}", params: { task: { name: '更新されない' } }
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to eq('error' => 'Unauthorized')
+      expect(task.reload.name).not_to eq '更新されない'
+    end
+
+    it 'DELETEで401とJSONのエラーが返却されタスクが削除されないこと' do
       delete "/api/v1/tasks/#{task.id}"
       expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to eq('error' => 'Unauthorized')
       expect(Task.exists?(task.id)).to be true
     end
   end
