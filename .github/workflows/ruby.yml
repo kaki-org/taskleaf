@@ -52,8 +52,19 @@ jobs:
           bun-version: 1.4.2
       - name: bun install
         run: bun install --check-files
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(jq -r .version node_modules/playwright-core/package.json)" >> "$GITHUB_OUTPUT"
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
       - name: Install Playwright
-        run: bun playwright install chromium
+        if: ${{ steps.playwright-cache.outputs.cache-hit != 'true' }}
+        # CI は PLAYWRIGHT_CHROMIUM_CHANNEL=chromium（new headless）で起動するため Headless Shell は不要
+        run: bun playwright install --no-shell chromium
       - name: Bun
         run: bundle exec rails assets:precompile
       - name: Brakeman Security Scan
