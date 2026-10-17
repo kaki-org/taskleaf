@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  layout 'inertia'
   helper_method :current_user
   before_action :login_required
 
