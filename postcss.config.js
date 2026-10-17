@@ -1,4 +1,4 @@
-// Vite が読み込む。build:css (postcss-cli) は --use=autoprefixer を指定するためこの設定は使わない
+// Vite が CSS のビルド時に読み込む
 module.exports = {
   plugins: [require('autoprefixer')]
 }

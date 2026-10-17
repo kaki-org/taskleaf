@@ -71,7 +71,7 @@ jobs:
       - name: Install Playwright
         if: ${{ steps.playwright-cache.outputs.cache-hit != 'true' }}
         run: bun playwright install chromium
-      - name: Bun
+      - name: Build assets
         run: bundle exec rails assets:precompile
       - name: Brakeman Security Scan
         run: bundle exec brakeman --no-pager
