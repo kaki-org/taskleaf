@@ -18,20 +18,6 @@ gem 'jbuilder', '~> 2.15'
 gem 'bcrypt', '~> 3.1.22'
 gem 'csv'
 
-gem 'cssbundling-rails', '>= 1.4.2'
-gem 'jsbundling-rails'
-gem 'sprockets-rails'
-
-# gem 'hotwire-rails'
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails', '>= 2.2.3'
-
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails', '>= 2.0.19'
-
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem 'stimulus-rails'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'net-smtp', require: false
@@ -82,15 +68,13 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
-gem 'bootstrap'
 gem 'kaminari'
 gem 'rails_autolink' # TODO : rinkuに置き換えたい
 gem 'ransack'
-gem 'sass-rails'
 gem 'sidekiq', '>= 8.0.1'
 
 gem 'pg', '~> 1.5'
 
-# React (TypeScript) で画面を描画する。ERB + Hotwire から段階的に移行中（#1838）
+# 画面は React (TypeScript) で描画し、Vite でビルドする（#1838）
 gem 'inertia_rails', '~> 3.23'
 gem 'vite_rails', '~> 3.11'
