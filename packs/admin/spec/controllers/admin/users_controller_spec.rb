@@ -65,9 +65,9 @@ describe Admin::UsersController do
           expect(assigns(:users)).not_to match_array(users.last)
         end
 
-        it ':indexテンプレートを表示する事' do
+        it 'ユーザー一覧のコンポーネントを表示する事' do
           get :index, params: { limit: 1 }
-          expect(response).to render_template :index
+          expect_inertia.to render_component 'Admin/Users/Index'
         end
       end
 
@@ -78,10 +78,10 @@ describe Admin::UsersController do
           expect(users.size).to eq(2)
         end
 
-        # :index テンプレートを表示する事
-        it 'renders the :index template' do
+        # ユーザー一覧のコンポーネントを表示する事
+        it 'renders the index component' do
           get :index
-          expect(response).to render_template :index
+          expect_inertia.to render_component 'Admin/Users/Index'
         end
       end
     end
@@ -101,10 +101,10 @@ describe Admin::UsersController do
         expect(assigns(:user)).to eq user1
       end
 
-      # :show テンプレートを表示すること
-      it 'renders the :show template' do
+      # ユーザー詳細のコンポーネントを表示すること
+      it 'renders the show component' do
         get :show, params: { id: user1 }
-        expect(response).to render_template :show
+        expect_inertia.to render_component 'Admin/Users/Show'
       end
     end
 
@@ -144,11 +144,10 @@ describe Admin::UsersController do
           expect(user.name).to eq('kakikubo')
         end
 
-        # edit テンプレートを再表示する事
-        it 're-renders the edit template' do
+        # 編集画面へリダイレクトする事
+        it 'redirects to the edit page' do
           post :update, params: { id: user, user: attributes_for(:user, name: nil, email: nil) }
-          # FIXME: 本当は edit_admin_user_path(@user) としたかったが。。
-          expect(response).to render_template 'admin/users/edit'
+          expect(response).to redirect_to edit_admin_user_url(user)
         end
       end
     end
