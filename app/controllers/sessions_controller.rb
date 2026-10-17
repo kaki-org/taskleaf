@@ -2,7 +2,6 @@
 
 class SessionsController < ApplicationController
   skip_before_action :login_required
-  layout 'inertia'
 
   def new
     render inertia: 'Sessions/New', props: { greeting: I18n.t('hello') }
