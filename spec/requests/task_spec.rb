@@ -21,11 +21,20 @@ describe Task do
       end
 
       it 'タスク一覧が表示されること' do
-        expect(response.body).to match(/最初のタスク|次のタスク|最後のタスク/)
+        expect_inertia.to render_component 'Tasks/Index'
+        expect(inertia.props[:tasks].pluck(:name)).to include('最初のタスク', '次のタスク', '最後のタスク')
+      end
+
+      it 'ページ情報を渡すこと' do
+        expect_inertia.to have_props(pagination: { current_page: 1, total_pages: 1 })
+      end
+
+      it '件数表示を HTML を含まない文字列で渡すこと' do
+        expect(inertia.props[:entries_info]).to match(/\A\d+件のtasksが表示されています\z/)
       end
 
       it '通常は画面上にバースデーメッセージが出力されない' do
-        expect(response.body).not_to include 'お誕生日おめでとうございます'
+        expect_inertia.to have_props(special_time: false)
       end
     end
 
@@ -37,7 +46,7 @@ describe Task do
       end
 
       it '誕生日には画面上にバースデーメッセージが出力される' do
-        expect(response.body).to include 'お誕生日おめでとうございます'
+        expect_inertia.to have_props(special_time: true)
       end
     end
 
@@ -49,7 +58,7 @@ describe Task do
       end
 
       it '年が異なっても月日が同じならバースデーメッセージが出力される' do
-        expect(response.body).to include 'お誕生日おめでとうございます'
+        expect_inertia.to have_props(special_time: true)
       end
     end
 
@@ -61,7 +70,7 @@ describe Task do
       end
 
       it 'バースデーメッセージが出力されない' do
-        expect(response.body).not_to include 'お誕生日おめでとうございます'
+        expect_inertia.to have_props(special_time: false)
       end
     end
   end
@@ -97,11 +106,11 @@ describe Task do
     end
 
     it '他人のタスクの一覧のみ取得できる事' do
-      expect(response.body).to include '他人のタスク'
+      expect(inertia.props[:tasks].pluck(:name)).to include '他人のタスク'
     end
 
     it '自分のタスクの一覧は取得できない事' do
-      expect(response.body).not_to match(/(最初のタスク|次のタスク|最後のタスク)/)
+      expect(inertia.props[:tasks].pluck(:name)).not_to include('最初のタスク', '次のタスク', '最後のタスク')
     end
   end
 
@@ -116,7 +125,7 @@ describe Task do
     end
 
     it '新規作成画面が表示される事' do
-      expect(response.body).to include 'タスクの新規登録'
+      expect_inertia.to render_component 'Tasks/New'
     end
   end
 
@@ -167,12 +176,13 @@ describe Task do
         post tasks_path, params: { task: task_params }
       end
 
-      it 'タスクの作成に失敗する事' do
-        expect(response).to have_http_status :unprocessable_content
+      it 'タスクの作成に失敗し新規作成画面へリダイレクトされる事' do
+        expect(response).to redirect_to new_task_path
       end
 
       it 'エラーメッセージが表示される事' do
-        expect(response.body).to include '名称を入力してください'
+        follow_redirect!
+        expect_inertia.to have_props(errors: { name: ['名称を入力してください'] })
       end
     end
   end
@@ -189,7 +199,8 @@ describe Task do
     end
 
     it 'タスクの詳細が表示される事' do
-      expect(response.body).to include task.name
+      expect_inertia.to render_component 'Tasks/Show'
+      expect(inertia.props[:task]).to include(id: task.id, name: task.name)
     end
   end
 
@@ -205,11 +216,11 @@ describe Task do
     end
 
     it '編集画面が表示されること' do
-      expect(response.body).to include 'タスクの編集'
+      expect_inertia.to render_component 'Tasks/Edit'
     end
 
     it 'タスク名が表示されていること' do
-      expect(response.body).to include task.name
+      expect_inertia.to have_props(task: { id: task.id, name: task.name, description: task.description })
     end
   end
 
@@ -242,12 +253,13 @@ describe Task do
       patch task_path(task.id), params: { task: { name: new_task_name } }
     end
 
-    it 'unprocessable_contentでレスポンスがかえってくること' do
-      expect(response).to have_http_status :unprocessable_content
+    it '編集画面へリダイレクトされること' do
+      expect(response).to redirect_to edit_task_path(task)
     end
 
-    it 'タスクの編集ができる事' do
-      expect(response.body).to include '名称を入力してください'
+    it 'エラーメッセージが表示される事' do
+      follow_redirect!
+      expect_inertia.to have_props(errors: { name: ['名称を入力してください'] })
     end
   end
 
@@ -265,20 +277,12 @@ describe Task do
         get '/tasks', params: { q: { name_cont: '最初のタスク' } }
       end
 
-      it '検索キーワードによる絞り込みで最初のタスクが表示されること' do
-        expect(response.body).to include '最初のタスク'
+      it '検索キーワードに一致する自分のタスクだけが表示されること' do
+        expect(inertia.props[:tasks].pluck(:name)).to eq ['最初のタスク']
       end
 
-      it '検索キーワードによる絞り込みで次のタスクが表示されないこと' do
-        expect(response.body).not_to include '次のタスク'
-      end
-
-      it '検索キーワードによる絞り込みで最後のタスクが表示されないこと' do
-        expect(response.body).not_to include '最後のタスク'
-      end
-
-      it 'ユーザ2のタスクは表示されない事' do
-        expect(response.body).not_to include 'ユーザ2の最初のタスク'
+      it '検索条件を画面に返すこと' do
+        expect_inertia.to have_props(query: { name_cont: '最初のタスク' })
       end
     end
   end
@@ -297,11 +301,11 @@ describe Task do
     end
 
     it 'タスクの削除確認画面が表示される事' do
-      expect(response.body).to include '削除します。よろしいですか？'
+      expect_inertia.to render_component 'Tasks/ConfirmDestroy'
     end
 
     it 'タスクの詳細が表示される事' do
-      expect(response.body).to include task.name
+      expect(inertia.props[:task]).to include(id: task.id, name: task.name)
     end
   end
 
