@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   before_action :login_required
 
+  inertia_share do
+    { current_user: current_user&.slice(:id, :name, :admin) }
+  end
+
   private
 
   def current_user

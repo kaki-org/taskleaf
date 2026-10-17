@@ -3,5 +3,13 @@ export type FlashData = {
   alert?: string
 }
 
-// inertia_share で全ページに渡す props。ページを移行するステップで項目を足す
-export type SharedProps = Record<string, never>
+export type CurrentUser = {
+  id: number
+  name: string
+  admin: boolean
+}
+
+// ApplicationController の inertia_share で全ページに渡す props
+export type SharedProps = {
+  current_user: CurrentUser | null
+}
