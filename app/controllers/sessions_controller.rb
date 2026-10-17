@@ -14,9 +14,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(session_params[:password])
       reset_session
       session[:user_id] = user.id
-      flash[:notice] = I18n.t('login_success')
-      # 遷移先のタスク一覧はまだ ERB のため、Inertia の画面遷移ではなくフルリロードで移動する
-      inertia_location root_url
+      redirect_to root_url, notice: I18n.t('login_success')
     else
       redirect_to login_url, alert: I18n.t('login_failed')
     end
