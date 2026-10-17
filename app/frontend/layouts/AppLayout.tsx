@@ -19,8 +19,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               </li>
               {currentUser.admin && (
                 <li className="nav-item">
-                  {/* 遷移先が ERB の間は Inertia の Link ではなく通常のリンクにする */}
-                  <a href="/admin/users" className="nav-link">ユーザー一覧</a>
+                  <Link href="/admin/users" className="nav-link">ユーザー一覧</Link>
                 </li>
               )}
               <li className="nav-item">
