@@ -126,6 +126,7 @@ GEM
       reline (>= 0.3.8)
     diff-lcs (1.6.2)
     drb (2.2.3)
+    dry-cli (1.4.1)
     email_spec (2.3.1)
       htmlentities (~> 4.3)
       launchy (>= 2.1, < 4.0)
@@ -178,6 +179,8 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
+    inertia_rails (3.23.0)
+      railties (>= 6)
     io-console (0.9.5)
     irb (1.19.0)
       pp (>= 0.6.0)
@@ -236,6 +239,7 @@ GEM
       drb (~> 2.0)
       prism (>= 1.5, < 3)
     msgpack (1.8.7)
+    mutex_m (0.3.0)
     nenv (0.3.0)
     net-imap (0.6.8)
       date
@@ -327,6 +331,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.8)
+    rack-proxy (2.0.2)
+      rack (>= 2.0, < 4)
     rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -495,6 +501,15 @@ GEM
     unicode-emoji (4.3.0)
     uri (1.1.2)
     useragent (0.16.11)
+    vite_rails (3.11.1)
+      railties (>= 5.1, < 9)
+      vite_ruby (~> 3.0, >= 3.2.2)
+    vite_ruby (3.11.1)
+      dry-cli (>= 0.7, < 2)
+      logger (~> 1.6)
+      mutex_m
+      rack-proxy (>= 0.6.1)
+      zeitwerk (~> 2.2)
     web-console (4.3.0)
       actionview (>= 8.0.0)
       bindex (>= 0.4.0)
@@ -536,6 +551,7 @@ DEPENDENCIES
   foreman
   guard-rspec
   importmap-rails (>= 2.2.3)
+  inertia_rails (~> 3.23)
   jbuilder (~> 2.15)
   jsbundling-rails
   kaminari
@@ -568,6 +584,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails (>= 2.0.19)
   tzinfo-data
+  vite_rails (~> 3.11)
   web-console (>= 3.3.0)
 
 RUBY VERSION

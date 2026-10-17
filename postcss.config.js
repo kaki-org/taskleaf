@@ -1,12 +1,4 @@
+// Vite が読み込む。build:css (postcss-cli) は --use=autoprefixer を指定するためこの設定は使わない
 module.exports = {
-  plugins: [
-    require('postcss-import'),
-    require('postcss-flexbugs-fixes'),
-    require('postcss-preset-env')({
-      autoprefixer: {
-        flexbox: 'no-2009'
-      },
-      stage: 3
-    })
-  ]
+  plugins: [require('autoprefixer')]
 }
