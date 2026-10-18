@@ -2,8 +2,11 @@
 
 class SessionsController < ApplicationController
   skip_before_action :login_required
+  layout 'inertia'
 
-  def new; end
+  def new
+    render inertia: 'Sessions/New', props: { greeting: I18n.t('hello') }
+  end
 
   def create
     user = User.find_by(email: session_params[:email])
@@ -11,10 +14,11 @@ class SessionsController < ApplicationController
     if user&.authenticate(session_params[:password])
       reset_session
       session[:user_id] = user.id
-      redirect_to root_url, notice: I18n.t('login_success')
+      flash[:notice] = I18n.t('login_success')
+      # 遷移先のタスク一覧はまだ ERB のため、Inertia の画面遷移ではなくフルリロードで移動する
+      inertia_location root_url
     else
-      flash.now[:alert] = I18n.t('login_failed')
-      render :new, status: :unprocessable_content
+      redirect_to login_url, alert: I18n.t('login_failed')
     end
   end
 
