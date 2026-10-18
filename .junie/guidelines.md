@@ -64,24 +64,6 @@ READMEにも記載されているように、Dockerを使用せずにアプリ�
    bundle exec rails s
    ```
 
-#### Dipの使用
-
-このプロジェクトは、より合理的なDockerワークフローのために[Dip](https://github.com/bibendi/dip)もサポートしています：
-
-```bash
-# Provision the environment
-dip provision
-
-# Run the Rails server
-dip rails s
-
-# Run the Rails console
-dip rails c
-
-# Run RSpec tests
-dip rspec
-```
-
 ### テスト情報
 
 #### テストフレームワーク
@@ -106,16 +88,6 @@ make rspec ARG="spec/models/task_spec.rb"
 
 # 特定のフォーマットでテストを実行
 make rspec ARG="spec/models/task_spec.rb -f d"
-```
-
-##### Dipを使用する場合：
-
-```bash
-# すべてのテストを実行
-dip rspec
-
-# 特定のテストを実行
-dip rspec spec/models/task_spec.rb
 ```
 
 #### Guardを使用した継続的テスト

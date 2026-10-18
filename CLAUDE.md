@@ -125,7 +125,7 @@ bundle exec brakeman
 ### 開発環境
 プロジェクトはローカルとDockerベースの開発の両方をサポートしています：
 - PostgreSQL、Redis、Mailcatcherサービスを含むDocker Compose
-- 簡素化されたDockerコマンド管理用のDIP
+- Dockerコマンドのショートカット用のMakefile
 - 自動テスト実行用のGuard
 - http://lvh.me:50080 でのメールテスト用Mailcatcher
 
