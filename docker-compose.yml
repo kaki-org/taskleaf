@@ -33,9 +33,12 @@ services:
     ports:
       - "13000:3000"
     depends_on:
-      - pgsql
-      - redis
-      - chrome
+      pgsql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      chrome:
+        condition: service_started
     tmpfs:
       - /tmp
     stdin_open: true
@@ -70,6 +73,12 @@ services:
       - pgsql-data:/var/lib/postgresql
     ports:
       - "5432:5432"
+    # 起動直後や初期化中は接続を受け付けないため、web は healthy になるまで待つ
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
 volumes:
   pgsql-data:
   bundler:
