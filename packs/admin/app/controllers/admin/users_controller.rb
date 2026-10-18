@@ -3,7 +3,6 @@
 module Admin
   class UsersController < ApplicationController
     before_action :require_admin
-    layout 'inertia'
 
     def index
       @users = if params[:limit].blank?

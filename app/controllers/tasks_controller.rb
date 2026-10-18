@@ -2,7 +2,6 @@
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
-  layout 'inertia'
 
   ANNIVERSARY_DATE = Date.new(2020, 3, 13)
 

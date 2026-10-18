@@ -1,4 +1,2 @@
 web: unset PORT && bin/rails server
-js: bun run build --watch
-css: bun run watch:css
 vite: bin/vite dev
