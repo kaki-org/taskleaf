@@ -79,6 +79,27 @@
       "groupName": "playwright",
       "minimumGroupSize": 2,
       "rangeStrategy": "bump"
+    },
+    {
+      "description": "Gemfile / .tool-versions / Dockerfile の Ruby バージョンを同一 PR で更新する",
+      "matchDepNames": [
+        "ruby"
+      ],
+      "groupName": "ruby"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "devenv/web/Dockerfile の Ruby イメージタグ（IMAGE_FILE 変数経由）を追従させる",
+      "managerFilePatterns": [
+        "/^devenv/web/Dockerfile$/"
+      ],
+      "matchStrings": [
+        "FROM \\$\\{?IMAGE_FILE\\}?:(?<currentValue>\\d+\\.\\d+\\.\\d+-alpine)\\s"
+      ],
+      "depNameTemplate": "ruby",
+      "datasourceTemplate": "docker"
     }
   ]
 }
