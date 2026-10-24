@@ -94,9 +94,10 @@ RSpec.describe Admin::UsersController, type: :controller do
         end.not_to change(User, :count)
       end
 
-      it 'renders the new template' do
+      it 'redirects to the new user page with errors' do
         post :create, params: { user: invalid_params }
-        expect(response).to render_template(:new)
+        expect(response).to redirect_to(new_admin_user_url)
+        expect(session[:inertia_errors]).to include(:name)
       end
     end
   end
@@ -113,9 +114,9 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(assigns(:user)).to be_a_new(User)
     end
 
-    it 'renders the new template' do
+    it 'renders the new user component' do
       get :new
-      expect(response).to render_template(:new)
+      expect_inertia.to render_component 'Admin/Users/New'
     end
   end
 
@@ -132,9 +133,10 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(assigns(:user)).to eq(user)
     end
 
-    it 'renders the edit template' do
+    it 'renders the edit user component' do
       get :edit, params: { id: user.id }
-      expect(response).to render_template(:edit)
+      expect_inertia.to render_component 'Admin/Users/Edit'
+      expect_inertia.to have_props(user: { id: user.id, name: user.name, email: user.email, admin: false })
     end
   end
 end

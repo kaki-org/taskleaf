@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin Users Hotwire機能', :js do
+RSpec.describe 'Admin Users画面', :js do
   include ActionView::RecordIdentifier
 
   let(:admin_user) { create(:admin, name: '管理者ユーザ', email: 'admin@example.com') }
@@ -23,11 +23,18 @@ RSpec.describe 'Admin Users Hotwire機能', :js do
     page.has_content?('ログアウト')
   end
 
-  describe 'ユーザー一覧のTurbo Frame' do
+  describe 'ユーザー一覧' do
     before { visit admin_users_path }
 
-    it 'turbo-frameタグが存在する' do
-      expect(page).to have_css('turbo-frame#users')
+    it 'ヘッダから遷移してもページ全体がリロードされない' do
+      # フルリロードされると消える目印を置き、Inertia の画面遷移であることを確かめる
+      page.execute_script('window.inertiaVisitMarker = true')
+      click_link 'タスク一覧'
+      expect(page).to have_content('タスク一覧')
+      click_link 'ユーザー一覧'
+
+      expect(page).to have_current_path(admin_users_path)
+      expect(page.evaluate_script('window.inertiaVisitMarker')).to be true
     end
 
     it 'ユーザー一覧が表示される' do
@@ -83,7 +90,7 @@ RSpec.describe 'Admin Users Hotwire機能', :js do
       expect(page).to have_content("ユーザー「#{target_user.name}」を削除しました")
 
       # 削除されたユーザーが一覧にない
-      expect(page).not_to have_content(target_user.email)
+      expect(page).to have_no_content(target_user.email)
     end
   end
 
@@ -102,6 +109,16 @@ RSpec.describe 'Admin Users Hotwire機能', :js do
 
       # フラッシュメッセージが表示される
       expect(page).to have_content('ユーザー「新しいユーザ」を登録しました')
+    end
+
+    it '入力に誤りがあるとエラーを表示し入力内容を残す' do
+      visit new_admin_user_path
+
+      fill_in 'メールアドレス', with: 'newuser@example.com'
+      click_button '登録する'
+
+      expect(page).to have_content('名前を入力してください')
+      expect(page).to have_field('メールアドレス', with: 'newuser@example.com')
     end
   end
 

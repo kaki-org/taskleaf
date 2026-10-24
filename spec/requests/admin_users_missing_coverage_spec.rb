@@ -16,6 +16,7 @@ RSpec.describe 'Admin Users Controller Missing Coverage', type: :request do
         create_list(:user, 3)
         get '/admin/users'
         expect(response).to have_http_status(:success)
+        expect(inertia.props[:users].size).to eq User.count
       end
     end
 
@@ -24,6 +25,7 @@ RSpec.describe 'Admin Users Controller Missing Coverage', type: :request do
         create_list(:user, 3)
         get '/admin/users', params: { limit: 2 }
         expect(response).to have_http_status(:success)
+        expect(inertia.props[:users].size).to eq 2
       end
     end
   end
@@ -33,6 +35,8 @@ RSpec.describe 'Admin Users Controller Missing Coverage', type: :request do
       user = create(:user)
       get "/admin/users/#{user.id}"
       expect(response).to have_http_status(:success)
+      expect_inertia.to render_component 'Admin/Users/Show'
+      expect(inertia.props[:user]).to include(id: user.id, name: user.name)
     end
   end
 
@@ -51,11 +55,15 @@ RSpec.describe 'Admin Users Controller Missing Coverage', type: :request do
     end
 
     context 'with invalid parameters' do
-      it 'renders the edit form with errors' do
+      it 'redirects to the edit form with errors' do
         patch "/admin/users/#{user.id}", params: {
           user: { name: '', email: 'invalid-email' }
         }
-        expect(response).to have_http_status(:unprocessable_content) # renders :edit template with validation errors
+        expect(response).to redirect_to edit_admin_user_path(user)
+
+        follow_redirect!
+        expect_inertia.to render_component 'Admin/Users/Edit'
+        expect(inertia.props[:errors]).to include(name: ['名前を入力してください'])
       end
     end
   end

@@ -16,7 +16,7 @@ ERB + Hotwire の画面を **inertia-rails + React (TypeScript) + vite_rails** �
 ### 構成
 - gem: `inertia_rails`, `vite_rails`。npm: `@inertiajs/react`, `react`, `react-dom`, `typescript`, `@vitejs/plugin-react`
 - ページは `app/frontend/pages/` に置く（`Tasks/Index.tsx`, `Admin/Users/Index.tsx` など）。admin pack のコントローラから `render inertia: 'Admin/Users/Index'` で参照する。packwerk は Ruby の定数しか検査しないため、JS 側は境界の対象外
-- レイアウト: Inertia 用のルートテンプレート `app/views/layouts/inertia.html.erb` を新設し、移行したコントローラで `layout 'inertia'` を指定する。共通ヘッダは React の persistent layout（一般用と admin 用の 2 つ）にする
+- レイアウト: Inertia 用のルートテンプレート `app/views/layouts/inertia.html.erb` を新設し、移行したコントローラで `layout 'inertia'` を指定する。共通ヘッダは React の persistent layout（`AppLayout`）にする。admin 画面も現行は同じヘッダのため、admin 用のレイアウトは作らず共用する（当初は 2 つに分ける予定だったが、見た目を変えない方針では中身が同じになるため）
 - CSS: 既存の Bootstrap 5 (SCSS) を Vite 経由で読み込み、見た目は変えない
 - Vite は Node で動かす（`config/vite.json` の `viteBinPath`）。vite_ruby は `bun.lockb` があると `bun x --bun vite` で起動し、Bun ランタイムでは sass のコンパイルが失敗するため。パッケージのインストールは Bun のまま
 
