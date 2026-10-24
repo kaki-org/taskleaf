@@ -1,0 +1,4 @@
+# actionlint の組み込みラベル一覧に ubuntu-26.04 が追加されるまでの暫定設定
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
