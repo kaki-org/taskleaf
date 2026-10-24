@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Tasks Hotwire機能', :js do
+RSpec.describe 'タスク画面', :js do
   include ActionView::RecordIdentifier
 
   let(:user) { create(:user, name: 'テストユーザー', email: 'test@example.com') }
@@ -13,7 +13,7 @@ RSpec.describe 'Tasks Hotwire機能', :js do
 
     # ユーザーのタスクを追加作成（ページネーションテスト用）
     25.times do |i|
-      create(:task, user: user, name: "Hotwireタスク#{format('%02d', i + 1)}", description: "説明#{i + 1}")
+      create(:task, user: user, name: "タスク#{format('%02d', i + 1)}", description: "説明#{i + 1}")
     end
 
     # アソシエーションをリロードして新しいタスクを取得できるようにする
@@ -29,50 +29,44 @@ RSpec.describe 'Tasks Hotwire機能', :js do
     page.has_content?('ログアウト')
   end
 
-  describe 'Turbo/Stimulusの初期化' do
-    it 'window.Turboが利用可能である' do
-      visit tasks_path
-      result = page.evaluate_script('typeof window.Turbo')
-      expect(result).to eq('object')
-    end
-
-    it 'window.Stimulusが利用可能である' do
-      visit tasks_path
-      result = page.evaluate_script('typeof window.Stimulus')
-      expect(result).to eq('object')
-    end
-  end
-
-  describe 'タスク一覧のTurbo Frame' do
+  describe 'タスク一覧' do
     before { visit tasks_path }
 
     context 'ページネーションの場合' do
       it 'ページ2へ遷移してもページ全体がリロードされない' do
-        # 最初のページの内容を確認
-        expect(page).to have_content('Hotwireタスク01')
+        expect(page).to have_content('タスク01')
+        # フルリロードされると消える目印を置き、Inertia の画面遷移であることを確かめる
+        page.execute_script('window.inertiaVisitMarker = true')
 
-        # ページ2へ移動
         within('.pagination') do
           click_link '2'
         end
 
-        # URLが更新される
         expect(page).to have_current_path(/page=2/)
-
-        # ページ2の内容が表示される（Turbo Frame内で更新）
-        expect(page).to have_content('Hotwireタスク21')
+        expect(page).to have_content('タスク21')
+        expect(page.evaluate_script('window.inertiaVisitMarker')).to be true
       end
     end
 
     context '検索の場合' do
-      it '検索がTurbo Frame内で動作する' do
-        fill_in '名称', with: 'Hotwireタスク01'
+      it '検索条件で絞り込める' do
+        fill_in '名称', with: 'タスク01'
         click_button '検索'
 
-        # 検索結果が表示される
-        expect(page).to have_content('Hotwireタスク01')
-        # 他のタスクは表示されない
-        expect(page).not_to have_content('Hotwireタスク25')
+        expect(page).to have_current_path(/name_cont/)
+        expect(page).to have_content('タスク01')
+        expect(page).to have_no_content('タスク25')
+        # 検索後も入力した条件が残る
+        expect(page).to have_field('名称', with: 'タスク01')
+      end
+    end
+
+    context '並び替えの場合' do
+      it '名称の降順に並ぶ' do
+        click_link '名称'
+
+        expect(page).to have_link('名称 ▼')
+        expect(page.first('#tasks-list tr td')).to have_text('タスク25')
       end
     end
   end
@@ -124,7 +118,7 @@ RSpec.describe 'Tasks Hotwire機能', :js do
       expect(page).to have_content("タスク「#{task_name}」を削除しました")
 
       # 削除されたタスクが一覧にない
-      expect(page).not_to have_content(task_name)
+      expect(page).to have_no_css("##{dom_id(task)}")
     end
   end
 
@@ -145,12 +139,12 @@ RSpec.describe 'Tasks Hotwire機能', :js do
 
       # 5秒後にフラッシュが消える
       sleep 6
-      expect(page).not_to have_content("タスク「#{task_name}」を削除しました")
+      expect(page).to have_no_content("タスク「#{task_name}」を削除しました")
     end
   end
 
   describe 'タスク新規作成' do
-    it '新規作成後にタスク一覧に遷移しフラッシュが表示される' do
+    it '新規作成後にタスク詳細に遷移しフラッシュが表示される' do
       visit tasks_path
       click_link '新規登録'
 
@@ -162,6 +156,27 @@ RSpec.describe 'Tasks Hotwire機能', :js do
 
       # フラッシュメッセージが表示される
       expect(page).to have_content('タスク「新しいタスク」を登録しました')
+    end
+
+    it '入力に誤りがあるとエラーを表示し入力内容を残す' do
+      visit new_task_path
+
+      fill_in '詳しい説明', with: '名称のないタスク'
+      click_button '登録する'
+
+      expect(page).to have_content('名称を入力してください')
+      expect(page).to have_field('詳しい説明', with: '名称のないタスク')
+    end
+
+    it '画像を添付して登録できる' do
+      visit new_task_path
+
+      fill_in '名称', with: '画像つきタスク'
+      attach_file '画像', Rails.root.join('spec/factories/redkaki.png')
+      click_button '登録する'
+
+      expect(page).to have_content('タスク「画像つきタスク」を登録しました')
+      expect(page).to have_css("img[alt='画像つきタスク']")
     end
   end
 
@@ -175,6 +190,17 @@ RSpec.describe 'Tasks Hotwire機能', :js do
 
       # フラッシュメッセージが表示される
       expect(page).to have_content('タスク「更新されたタスク」を更新しました')
+    end
+  end
+
+  describe 'CSV インポート' do
+    it 'CSV を取り込むとフラッシュが表示される' do
+      visit tasks_path
+
+      attach_file 'file', Rails.root.join('spec/fixtures/files/tasks.csv')
+      click_button 'インポート'
+
+      expect(page).to have_content(I18n.t('task_created'))
     end
   end
 end
