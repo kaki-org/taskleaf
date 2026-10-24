@@ -1,7 +1,7 @@
 # ビルド用コンテナ
 ARG IMAGE_FILE
 FROM --platform=$BUILDPLATFORM oven/bun:1.4.2-alpine AS bun
-FROM $IMAGE_FILE:4.0.0-alpine AS builder
+FROM $IMAGE_FILE:4.0.9-alpine AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -32,7 +32,7 @@ RUN gem update bundler \
 RUN rm -rf /usr/local/bundle/cache/*
 
 
-FROM ${IMAGE_FILE}:4.0.0-alpine
+FROM ${IMAGE_FILE}:4.0.9-alpine
 RUN apk --no-cache add \
     build-base \
     bash \

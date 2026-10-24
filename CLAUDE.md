@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-TaskleafはRuby 4.0.0 / Rails 8.1（`config.load_defaults 8.0`）/ PostgreSQLで構築されたタスク管理Webアプリケーションです。「現場で使える Ruby on Rails 5速習実践ガイド」をベースとした学習プロジェクトで、継続的にアップデートされています。ユーザー認証、タスクのCRUD操作、CSV インポート/エクスポート、メール通知をサポートしています。
+TaskleafはRuby 4.0.9 / Rails 8.1（`config.load_defaults 8.0`）/ PostgreSQLで構築されたタスク管理Webアプリケーションです。「現場で使える Ruby on Rails 5速習実践ガイド」をベースとした学習プロジェクトで、継続的にアップデートされています。ユーザー認証、タスクのCRUD操作、CSV インポート/エクスポート、メール通知をサポートしています。
 
 ## 開発コマンド
 
