@@ -2,6 +2,7 @@ default: up
 
 init:
 	docker compose build
+	docker compose run --rm web bin/rails db:test:prepare
 	docker compose run -e DISABLE_SPRING=1 --rm web bin/setup
 
 up:
@@ -17,7 +18,7 @@ reset:
 #	docker compose run --rm web rails db:migrate:reset db:seed_fu db:seed
 
 rspec:
-	docker compose run -e TZ="/usr/share/zoneinfo/Asia/Tokyo" -e LANG=ja_JP.UTF-8 -e LC_ALL=C.UTF-8 -e LANGUAGE=ja_JP.UTF-8 --rm web bundle exec rspec ${ARG}
+	docker compose run -e RAILS_ENV=test -e TZ="/usr/share/zoneinfo/Asia/Tokyo" -e LANG=ja_JP.UTF-8 -e LC_ALL=C.UTF-8 -e LANGUAGE=ja_JP.UTF-8 --rm web bundle exec rspec ${ARG}
 
 rubocop:
 	docker compose run --rm web bundle exec rubocop ${ARG}
@@ -32,5 +33,5 @@ bun:
 	docker compose run --rm web bun install
 
 guard:
-	docker compose run --rm web bundle exec guard
+	docker compose run -e RAILS_ENV=test --rm web bundle exec guard
 

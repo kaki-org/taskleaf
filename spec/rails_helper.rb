@@ -70,6 +70,16 @@ RSpec.configure do |config|
     channel = ENV['PLAYWRIGHT_CHROMIUM_CHANNEL'] || 'chrome'
     Capybara::Playwright::Driver.new(app, channel:, viewport: { width: 1400, height: 1400 })
   end
+  # Docker 環境では別コンテナのブラウザサーバーに接続する
+  # driven_by :playwright はドライバーを登録し直すため、接続先は driven_by の options で渡す
+  playwright_options = {}
+  if ENV['PLAYWRIGHT_BROWSER_SERVER_URL']
+    playwright_options[:browser_server_endpoint_url] = ENV['PLAYWRIGHT_BROWSER_SERVER_URL']
+    # ブラウザ側のコンテナからテスト用サーバーへ到達できるようにする
+    Capybara.server_host = '0.0.0.0'
+    Capybara.server_port = 3001
+    Capybara.app_host = "http://#{Socket.gethostname}:#{Capybara.server_port}"
+  end
   Capybara.default_max_wait_time = 15
   Capybara.default_driver = :playwright
   Capybara.javascript_driver = :playwright
@@ -80,7 +90,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :js, type: :system) do
-    driven_by :playwright
+    driven_by :playwright, options: playwright_options
   end
 
   config.include LoginMacros
