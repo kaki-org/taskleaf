@@ -1,7 +1,7 @@
 # ビルド用コンテナ
 ARG IMAGE_FILE
 FROM --platform=$BUILDPLATFORM oven/bun:1.4.2-alpine AS bun
-FROM $IMAGE_FILE:3.4.4-alpine3.22 AS builder
+FROM $IMAGE_FILE:4.0.9-alpine AS builder
 RUN apk --no-cache add --virtual build-dependencies \
     build-base \
     git \
@@ -26,14 +26,13 @@ WORKDIR $APP_PATH
 COPY Gemfile $APP_PATH
 COPY Gemfile.lock $APP_PATH
 RUN gem update bundler \
-    && bundle config set force_ruby_platform true \
     && bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3 \
     && apk del build-dependencies
     # --virtual でグルーピングしたpackageを削除
 RUN rm -rf /usr/local/bundle/cache/*
 
 
-FROM ${IMAGE_FILE}:3.4.4-alpine3.22
+FROM ${IMAGE_FILE}:4.0.9-alpine
 RUN apk --no-cache add \
     build-base \
     bash \
