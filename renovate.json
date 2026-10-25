@@ -71,14 +71,58 @@
       ]
     },
     {
-      "description": "Ruby クライアントと Node ドライバのバージョン不一致を防ぐため同一 PR で更新する",
+      "description": "Ruby クライアント・Node ドライバ・Docker のブラウザサーバーのバージョン不一致を防ぐため同一 PR で更新する",
       "matchPackageNames": [
         "playwright-ruby-client",
-        "@playwright/test"
+        "@playwright/test",
+        "playwright"
       ],
       "groupName": "playwright",
-      "minimumGroupSize": 2,
+      "minimumGroupSize": 3,
       "rangeStrategy": "bump"
+    },
+    {
+      "description": "ブラウザサーバーの Playwright は customManager（playwright グループ）で更新するため、dockerfile manager による単独更新は無効にする",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchDepNames": [
+        "mcr.microsoft.com/playwright"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Gemfile / .tool-versions / Dockerfile の Ruby バージョンを同一 PR で更新する",
+      "matchDepNames": [
+        "ruby"
+      ],
+      "groupName": "ruby"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "devenv/web/Dockerfile の Ruby イメージタグ（IMAGE_FILE 変数経由）を追従させる",
+      "managerFilePatterns": [
+        "/^devenv/web/Dockerfile$/"
+      ],
+      "matchStrings": [
+        "FROM \\$\\{?IMAGE_FILE\\}?:(?<currentValue>\\d+\\.\\d+\\.\\d+-alpine)\\s"
+      ],
+      "depNameTemplate": "ruby",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "devenv/playwright/Dockerfile の Playwright バージョン（ブラウザサーバー）を追従させる",
+      "managerFilePatterns": [
+        "/^devenv/playwright/Dockerfile$/"
+      ],
+      "matchStrings": [
+        "ARG PLAYWRIGHT_VERSION=(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
+      "depNameTemplate": "playwright",
+      "datasourceTemplate": "npm"
     }
   ]
 }
