@@ -17,7 +17,8 @@
           <% if current_user.admin? %>
             <li class="nav-item"><%= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link' %></li>
           <% end %>
-          <li class="nav-item"><%= button_to 'ログアウト', logout_path, method: :delete, class: 'nav-link' %></li>
+          <%# 遷移先のログイン画面は Inertia のため、Turbo がアセット差分で再読み込みして flash を失わないよう通常の送信にする %>
+          <li class="nav-item"><%= button_to 'ログアウト', logout_path, method: :delete, class: 'nav-link', form: { data: { turbo: false } } %></li>
         <% else %>
           <li class="nav-item"><%= link_to 'ログイン', login_path, class: 'nav-link' %></li>
         <% end %>

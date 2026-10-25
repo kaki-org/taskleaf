@@ -11,7 +11,11 @@ RSpec.describe 'Sessions' do
     end
 
     it 'ログイン画面が表示されること' do
-      expect(response.body).to include 'ログイン'
+      expect_inertia.to render_component 'Sessions/New'
+    end
+
+    it 'あいさつ文を渡すこと' do
+      expect_inertia.to have_props(greeting: 'こんにちわ')
     end
   end
 
@@ -23,6 +27,17 @@ RSpec.describe 'Sessions' do
 
       it 'root_pathへリダイレクトされること' do
         expect(response).to redirect_to root_path
+      end
+
+      context 'Inertia のリクエストの場合' do
+        before do
+          post '/login', params: { session: { email: user.email, password: user.password } }, headers: { 'X-Inertia': 'true' }
+        end
+
+        it 'ERB のタスク一覧へフルリロードで遷移させること' do
+          expect(response).to have_http_status :conflict
+          expect(response.headers['X-Inertia-Location']).to eq root_url
+        end
       end
 
       it 'ログインできること' do
@@ -52,8 +67,12 @@ RSpec.describe 'Sessions' do
     context 'パラメータが異常な場合' do
       before { post '/login', params: { session: { email: user.email, password: 'invalid_password' } } }
 
-      it 'unprocessable_contentがかえってくること' do
-        expect(response).to be_unprocessable
+      it 'ログイン画面へリダイレクトされること' do
+        expect(response).to redirect_to login_path
+      end
+
+      it 'ログイン失敗のメッセージを返すこと' do
+        expect(flash[:alert]).to eq I18n.t('login_failed')
       end
 
       it 'ログインできないこと' do
