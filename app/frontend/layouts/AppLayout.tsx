@@ -14,12 +14,12 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         <ul className="navbar-nav ml-auto">
           {currentUser ? (
             <>
-              {/* 遷移先が ERB の間は Inertia の Link ではなく通常のリンクにする */}
               <li className="nav-item">
-                <a href="/tasks" className="nav-link">タスク一覧</a>
+                <Link href="/tasks" className="nav-link">タスク一覧</Link>
               </li>
               {currentUser.admin && (
                 <li className="nav-item">
+                  {/* 遷移先が ERB の間は Inertia の Link ではなく通常のリンクにする */}
                   <a href="/admin/users" className="nav-link">ユーザー一覧</a>
                 </li>
               )}

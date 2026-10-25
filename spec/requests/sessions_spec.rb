@@ -29,17 +29,6 @@ RSpec.describe 'Sessions' do
         expect(response).to redirect_to root_path
       end
 
-      context 'Inertia のリクエストの場合' do
-        before do
-          post '/login', params: { session: { email: user.email, password: user.password } }, headers: { 'X-Inertia': 'true' }
-        end
-
-        it 'ERB のタスク一覧へフルリロードで遷移させること' do
-          expect(response).to have_http_status :conflict
-          expect(response.headers['X-Inertia-Location']).to eq root_url
-        end
-      end
-
       it 'ログインできること' do
         expect(session[:user_id]).to eq user.id
       end
