@@ -51,8 +51,14 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.2
+      # Vite は Bun ランタイムだと sass が失敗するため Node で動かす（config/vite.json の viteBinPath）
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
       - name: bun install
         run: bun install --check-files
+      - name: typecheck
+        run: bun run typecheck
       - name: Get Playwright version
         id: playwright-version
         run: echo "version=$(jq -r .version node_modules/playwright-core/package.json)" >> "$GITHUB_OUTPUT"

@@ -90,3 +90,7 @@ gem 'sass-rails'
 gem 'sidekiq', '>= 8.0.1'
 
 gem 'pg', '~> 1.5'
+
+# React (TypeScript) で画面を描画する。ERB + Hotwire から段階的に移行中（#1838）
+gem 'inertia_rails', '~> 3.23'
+gem 'vite_rails', '~> 3.11'
