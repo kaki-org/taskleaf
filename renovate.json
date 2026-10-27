@@ -63,6 +63,7 @@
         "/^jest/",
         "/^ts-jest$/",
         "/^playwright/",
+        "/^@playwright\\//",
         "/^http-server$/",
         "/^actions/checkout$/",
         "/^release-drafter/release-drafter$/",
