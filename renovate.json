@@ -16,6 +16,11 @@
   "patch": {
     "enabled": false
   },
+  "bundler": {
+    "lockFileMaintenance": {
+      "enabled": true
+    }
+  },
   "packageRules": [
     {
       "matchManagers": [
