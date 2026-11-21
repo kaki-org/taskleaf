@@ -73,7 +73,7 @@ group :test do
   gem 'launchy'
   # @playwright/test (package.json) と揃えて更新するため直接依存にする（Renovate の playwright グループ対象）
   # bundler の lockFileMaintenance で単独更新されないよう版を固定する
-  gem 'playwright-ruby-client', '1.63.0'
+  gem 'playwright-ruby-client', '1.65.0'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 8.0'
   gem 'simplecov', require: false
