@@ -73,7 +73,7 @@ group :test do
   gem 'launchy'
   # @playwright/test と devenv/playwright/Dockerfile は COMPATIBLE_PLAYWRIGHT_VERSION に揃える（spec/lib/playwright_version_spec.rb で検証）
   # bundler の lockFileMaintenance で単独更新されないよう版を固定する
-  gem 'playwright-ruby-client', '1.65.0'
+  gem 'playwright-ruby-client', '1.65.1'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 8.0'
   gem 'simplecov', require: false
