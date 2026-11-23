@@ -104,6 +104,7 @@ yarn-debug.log*
 /pgsql-data/
 .envrc
 
-/app/assets/builds/*
-!/app/assets/builds/.keep
 .config/gh/*
+
+# Vite Ruby
+/public/vite*

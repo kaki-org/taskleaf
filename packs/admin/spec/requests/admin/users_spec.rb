@@ -69,11 +69,7 @@ describe 'admin/users' do
       end
 
       it 'ユーザー作成フォームが表示されること' do
-        expect(response.body).to include('ユーザー登録')
-        expect(response.body).to include('名前')
-        expect(response.body).to include('メールアドレス')
-        expect(response.body).to include('パスワード')
-        expect(response.body).to include('パスワード(確認)')
+        expect_inertia.to render_component 'Admin/Users/New'
       end
     end
 
@@ -89,13 +85,8 @@ describe 'admin/users' do
       end
 
       it 'ユーザー編集フォームが表示されること' do
-        expect(response.body).to include('ユーザー編集')
-        expect(response.body).to include('名前')
-        expect(response.body).to include('メールアドレス')
-        expect(response.body).to include('管理者権限')
-        expect(response.body).to include('パスワード')
-        expect(response.body).to include('パスワード(確認)')
-        expect(response.body).to include('登録する')
+        expect_inertia.to render_component 'Admin/Users/Edit'
+        expect_inertia.to have_props(user: { id: user.id, name: user.name, email: user.email, admin: user.admin })
       end
     end
 
@@ -188,13 +179,13 @@ describe 'admin/users' do
       context '必須項目が空の場合' do
         before { post('/admin/users', params: invalid_params) }
 
-        it '新規作成フォームが再表示されること' do
-          expect(response).to have_http_status :ok
-          expect(response.body).to include('ユーザー登録')
+        it '新規作成フォームへリダイレクトされること' do
+          expect(response).to redirect_to new_admin_user_path
         end
 
         it 'エラーメッセージが表示されること' do
-          expect(response.body).to include('名前を入力してください')
+          follow_redirect!
+          expect(inertia.props[:errors]).to include(name: ['名前を入力してください'])
         end
       end
 
@@ -252,20 +243,18 @@ describe 'admin/users' do
     context '不正なパラメータの場合' do
       before { patch("/admin/users/#{user.id}", params: invalid_update_params) }
 
-      it 'okがかえってくること' do
-        expect(response).to have_http_status :ok
+      it '編集フォームへリダイレクトされること' do
+        expect(response).to redirect_to edit_admin_user_path(user)
       end
 
       it 'ユーザーが更新されないこと' do
         expect(User.last.email).to eq 'test2@example.com'
       end
 
-      it '編集フォームが再表示されること' do
-        expect(response.body).to include('ユーザー編集')
-      end
-
       it 'エラーメッセージが表示されること' do
-        expect(response.body).to include('メールアドレスを入力してください')
+        follow_redirect!
+        expect_inertia.to render_component 'Admin/Users/Edit'
+        expect(inertia.props[:errors]).to include(email: ['メールアドレスを入力してください'])
       end
     end
   end

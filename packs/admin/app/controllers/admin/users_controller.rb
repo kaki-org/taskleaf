@@ -10,18 +10,22 @@ module Admin
                else
                  User.limit(params[:limit])
                end
+      render inertia: 'Admin/Users/Index', props: { users: @users.map { |user| user_props(user) } }
     end
 
     def show
       @user = User.find(params.expect(:id))
+      render inertia: 'Admin/Users/Show', props: { user: user_props(@user) }
     end
 
     def new
       @user = User.new
+      render inertia: 'Admin/Users/New'
     end
 
     def edit
       @user = User.find(params.expect(:id))
+      render inertia: 'Admin/Users/Edit', props: { user: @user.slice(:id, :name, :email, :admin) }
     end
 
     def create
@@ -30,7 +34,7 @@ module Admin
       if @user.save
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を登録しました"
       else
-        render :new, status: :unprocessable_content
+        redirect_to new_admin_user_url, inertia: { errors: @user.errors.to_hash(true) }
       end
     end
 
@@ -40,7 +44,7 @@ module Admin
       if @user.update(user_params)
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
       else
-        render :edit, status: :unprocessable_content
+        redirect_to edit_admin_user_url(@user), inertia: { errors: @user.errors.to_hash(true) }
       end
     end
 
@@ -48,6 +52,7 @@ module Admin
       return if user_own_request?
 
       @user = User.find(params.expect(:user_id))
+      render inertia: 'Admin/Users/ConfirmDestroy', props: { user: user_props(@user) }
     end
 
     def destroy
@@ -55,10 +60,7 @@ module Admin
 
       @user = User.find(params.expect(:id))
       @user.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました" }
-        format.turbo_stream { flash.now[:notice] = "ユーザー「#{@user.name}」を削除しました" }
-      end
+      redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました"
     end
 
     private
@@ -74,6 +76,10 @@ module Admin
 
     def user_params
       params.expect(user: %i[name email password password_confirmation])
+    end
+
+    def user_props(user)
+      user.slice(:id, :name, :email, :admin).merge(created_at: user.created_at.to_s, updated_at: user.updated_at.to_s)
     end
 
     def require_admin

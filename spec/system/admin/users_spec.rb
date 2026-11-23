@@ -13,7 +13,7 @@ describe 'Admin Users管理機能', :js do
     fill_in 'パスワード', with: admin_user.password
     click_button 'ログインする'
 
-    # ログイン完了を待機（Turbo対応）
+    # ログイン後の Inertia の画面遷移が終わるのを待つ
     page.has_content?('ログアウト')
   end
 

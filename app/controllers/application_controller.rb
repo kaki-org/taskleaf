@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  layout 'inertia'
   helper_method :current_user
   before_action :login_required
+
+  inertia_share do
+    { current_user: current_user&.slice(:id, :name, :admin) }
+  end
 
   private
 

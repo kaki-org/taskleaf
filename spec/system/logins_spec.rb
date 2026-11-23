@@ -59,7 +59,7 @@ describe 'ログイン機能', :js do
       fill_in 'パスワード', with: user.password
       click_link_or_button 'ログインする'
 
-      # ログイン完了を待機（Turbo対応）
+      # ログイン後の Inertia の画面遷移が終わるのを待つ
       page.has_content?('ログアウト')
     end
 
