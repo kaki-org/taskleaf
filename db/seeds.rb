@@ -27,7 +27,7 @@ end
 end
 20.times do |n|
   Task.find_by(name: "テストタスク#{n + 1}").image.attach(
-    io: Rails.root.join('app/assets/images/onamae02.png').open, filename: 'onamae02.png'
+    io: Rails.root.join('db/seeds/onamae02.png').open, filename: 'onamae02.png'
   )
 end
 5.times do |n|
