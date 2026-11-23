@@ -292,9 +292,10 @@ describe Task do
         get '/tasks', params: { q: 'foo' }
       end
 
-      it '検索条件なしで一覧を表示すること' do
+      it '検索条件なしで自分のタスクを全件表示すること' do
         expect(response).to have_http_status(:ok)
-        expect(inertia.props[:tasks].pluck(:name)).to eq ['最初のタスク']
+        expect(inertia.props[:tasks].size).to eq user.tasks.count
+        expect(inertia.props[:tasks].pluck(:name)).to include '最初のタスク'
         expect_inertia.to have_props(query: {})
       end
     end
