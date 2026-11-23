@@ -84,9 +84,15 @@ class TasksController < ApplicationController
       tasks: @tasks.map { |task| task.slice(:id, :name).merge(created_at: task.created_at.to_s) },
       pagination: { current_page: @tasks.current_page, total_pages: @tasks.total_pages },
       entries_info: Nokogiri::HTML5.fragment(helpers.page_entries_info(@tasks)).text,
-      query: params.fetch(:q, {}).permit(:name_cont, :created_at_gteq, :s),
+      query: search_query,
       special_time: special_time?
     }
+  end
+
+  # ransack はハッシュ以外の q を空の条件として扱うため、検索フォームの初期値も同様に空にする
+  def search_query
+    query = params[:q]
+    query.respond_to?(:permit) ? query.permit(:name_cont, :created_at_gteq, :s) : {}
   end
 
   def task_detail_props(task)

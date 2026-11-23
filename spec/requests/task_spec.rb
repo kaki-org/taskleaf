@@ -285,6 +285,19 @@ describe Task do
         expect_inertia.to have_props(query: { name_cont: '最初のタスク' })
       end
     end
+
+    context 'q がハッシュでない場合' do
+      before do
+        create(:task, name: '最初のタスク', user:)
+        get '/tasks', params: { q: 'foo' }
+      end
+
+      it '検索条件なしで一覧を表示すること' do
+        expect(response).to have_http_status(:ok)
+        expect(inertia.props[:tasks].pluck(:name)).to eq ['最初のタスク']
+        expect_inertia.to have_props(query: {})
+      end
+    end
   end
 
   describe '削除確認画面' do
