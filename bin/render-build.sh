@@ -10,8 +10,9 @@ export PATH=$BUN_INSTALL/bin:$PATH
 # assets:precompile で vite:build が Node で動くため、Vite 8 の要件（^20.19.0 || >=22.12.0）を満たすか確かめる
 node -e '
   const [major, minor] = process.versions.node.split(".").map(Number);
-  const ok = (major === 20 && minor >= 19) || (major === 22 && minor >= 12) || major >= 23;
-  if (!ok) { console.error(`Node ${process.versions.node} は Vite の要件 (^20.19.0 || >=22.12.0) を満たしません`); process.exit(1); }
+  // package.json の engines（^20.19.0 || >=22.12.0 <27.0.0）と揃える
+  const ok = (major === 20 && minor >= 19) || (major === 22 && minor >= 12) || (major >= 23 && major < 27);
+  if (!ok) { console.error(`Node ${process.versions.node} は engines の範囲 (^20.19.0 || >=22.12.0 <27.0.0) 外です`); process.exit(1); }
   console.log(`Node ${process.versions.node}`);
 '
 

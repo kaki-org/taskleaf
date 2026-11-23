@@ -17,9 +17,10 @@ Rails.application.configure do
 
     # Vite dev server: HMR の WebSocket と、Vite が JS から注入する <style> を許可する
     # （Vite は meta[property=csp-nonce] を探すが csp_meta_tag は name 属性のため nonce を渡せない）
+    # HMR の接続先はアクセスしたホスト名（localhost / lvh.me / 127.0.0.1 など）になるため、ws: スキームごと許可する
     if Rails.env.development?
-      policy.connect_src :self, "ws://#{ViteRuby.config.host_with_port}"
-      policy.style_src(*policy.style_src, :unsafe_inline)
+      policy.connect_src :self, :ws
+      policy.style_src   :self, :unsafe_inline
     end
     # Specify URI for violation reports
     # policy.report_uri "/csp-violation-report-endpoint"
