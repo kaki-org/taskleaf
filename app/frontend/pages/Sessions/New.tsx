@@ -26,6 +26,8 @@ export default function New({ greeting }: Props) {
           <input
             type="text"
             id="session_email"
+            name="session[email]"
+            autoComplete="username"
             className="form-control"
             value={form.data.email}
             onChange={(e) => form.setData('email', e.target.value)}
@@ -36,6 +38,8 @@ export default function New({ greeting }: Props) {
           <input
             type="password"
             id="session_password"
+            name="session[password]"
+            autoComplete="current-password"
             className="form-control"
             value={form.data.password}
             onChange={(e) => form.setData('password', e.target.value)}
