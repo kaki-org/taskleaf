@@ -11,7 +11,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <div className="app-title navbar navbar-expand-md navbar-light bg-light">
         <div className="navbar-brand">Taskleaf</div>
 
-        <ul className="navbar-nav ml-auto">
+        <ul className="navbar-nav ms-auto">
           {currentUser ? (
             <>
               {/* 遷移先が ERB の間は Inertia の Link ではなく通常のリンクにする */}
