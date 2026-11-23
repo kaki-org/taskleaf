@@ -9,8 +9,9 @@ export default function ErrorMessages({ errors }: Props) {
 
   return (
     <ul id="error_explanation" className="list-unstyled">
-      {messages.map((message) => (
-        <li key={message} className="alert alert-danger">
+      {/* 同じ文言のエラーが複数あっても key が重複しないよう位置を使う */}
+      {messages.map((message, index) => (
+        <li key={index} className="alert alert-danger">
           {message}
         </li>
       ))}
