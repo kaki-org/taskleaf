@@ -21,7 +21,7 @@ ERB + Hotwire の画面を **inertia-rails + React (TypeScript) + vite_rails** �
 - Vite は Node で動かす（`config/vite.json` の `viteBinPath`）。vite_ruby は `bun.lockb` があると `bun x --bun vite` で起動し、Bun ランタイムでは sass のコンパイルが失敗するため。パッケージのインストールは Bun のまま
 - 開発時の起動: HMR を使うときは `bundle exec foreman start -f Procfile.dev` で Rails と `bin/vite dev` を一緒に起動する（`bin/dev` は `rails server` のみ）。dev server がなければ vite_ruby の autoBuild がリクエスト時にビルドする
 - Docker（`make up`）では dev server を使わず autoBuild で運用する。コンテナの Vite は localhost にしか bind せず、3036 番も公開していないため HMR は使えない
-- development の CSP: HMR の WebSocket（`connect-src ws://localhost:3036`）と、Vite が JS から注入する `<style>`（`style-src 'unsafe-inline'`、style-src の nonce は外す）を許可する。Vite は `meta[property=csp-nonce]` から nonce を読むが、`csp_meta_tag` は `name` 属性で出力するため nonce を渡せない
+- development の CSP: HMR の WebSocket（`connect-src ws:`。接続先はアクセスしたホスト名になる）と、Vite が JS から注入する `<style>`（`style-src 'unsafe-inline'`、style-src の nonce は外す）を許可する。Vite は `meta[property=csp-nonce]` から nonce を読むが、`csp_meta_tag` は `name` 属性で出力するため nonce を渡せない
 - 本番ビルド（Render）は Vite 8 の要件（Node `^20.19.0 || >=22.12.0`）を `bin/render-build.sh` で確かめ、満たさなければビルドを失敗させる
 
 ### Rails 側の受け渡し
