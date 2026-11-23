@@ -14,13 +14,21 @@ Rails.application.configure do
     policy.object_src  :none
     policy.script_src  :self
     policy.style_src   :self
+
+    # Vite dev server: HMR の WebSocket と、Vite が JS から注入する <style> を許可する
+    # （Vite は meta[property=csp-nonce] を探すが csp_meta_tag は name 属性のため nonce を渡せない）
+    if Rails.env.development?
+      policy.connect_src :self, "ws://#{ViteRuby.config.host_with_port}"
+      policy.style_src(*policy.style_src, :unsafe_inline)
+    end
     # Specify URI for violation reports
     # policy.report_uri "/csp-violation-report-endpoint"
   end
 
   # Generate per-request random nonces for permitted importmap, inline scripts, and inline styles.
   config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
-  config.content_security_policy_nonce_directives = %w[script-src style-src]
+  # style-src に nonce が付くと unsafe-inline が無視されるため、development では script-src のみに付ける
+  config.content_security_policy_nonce_directives = Rails.env.development? ? %w[script-src] : %w[script-src style-src]
 
   # Report violations without enforcing the policy.
   # config.content_security_policy_report_only = true
