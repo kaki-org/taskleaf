@@ -208,7 +208,7 @@ describe Admin::UsersController do
 
         # paramsのモックを設定
         allow(controller).to receive(:params).and_return(params_double)
-        allow(params_double).to receive(:expect).with(user: %i[name email password password_confirmation]).and_return(user_params_double)
+        allow(params_double).to receive(:expect).with(user: %i[name email admin password password_confirmation]).and_return(user_params_double)
 
         # privateメソッドを呼び出す
         result = controller.send(:user_params)
@@ -229,7 +229,7 @@ describe Admin::UsersController do
         allow(controller).to receive(:params).and_return(params_double)
 
         # expectメソッドが正しいパラメータで呼ばれることを確認
-        expect(params_double).to receive(:expect).with(user: %i[name email password password_confirmation])
+        expect(params_double).to receive(:expect).with(user: %i[name email admin password password_confirmation])
 
         # privateメソッドを呼び出す
         controller.send(:user_params)
