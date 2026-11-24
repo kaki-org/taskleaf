@@ -1,7 +1,7 @@
 // @inertiajs/react の代わりに使うテスト用モジュール。各テストで次のように差し替える
 //   vi.mock('@inertiajs/react', () => import('@/test/inertiaMock'))
 // usePage が返す値は setPage で書き換え、useForm の送信内容は submissions で確かめる
-import { type AnchorHTMLAttributes, type ReactNode, useRef, useState } from 'react'
+import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode, useRef, useState } from 'react'
 
 import type { FlashData, SharedProps } from '@/types'
 
@@ -56,7 +56,7 @@ export function useForm<T extends Record<string, unknown>>(initialValues: T) {
 export function Link({ href, method, as, children, ...rest }: LinkProps) {
   if (as === 'button') {
     return (
-      <button type="button" data-href={href} data-method={method} className={rest.className}>
+      <button type="button" data-href={href} data-method={method} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
         {children}
       </button>
     )
