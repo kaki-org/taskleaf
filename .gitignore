@@ -29,7 +29,6 @@
 # download from https://raw.githubusercontent.com/github/gitignore/master/Rails.gitignore
 *.rbc
 capybara-*.html
-.rspec
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /public/system
