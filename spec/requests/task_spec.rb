@@ -202,6 +202,44 @@ describe Task do
       expect_inertia.to render_component 'Tasks/Show'
       expect(inertia.props[:task]).to include(id: task.id, name: task.name)
     end
+
+    # 詳細画面は description_html を dangerouslySetInnerHTML で描画するため、サーバ側のエスケープが XSS 対策のすべてになる
+    context '説明文に HTML・改行・URL が含まれる場合' do
+      let(:task) { create(:task, user:, description: "<script>alert(1)</script>\n<b>太字</b>\nhttps://example.com/page") }
+      let(:description_html) { inertia.props[:task][:description_html] }
+
+      it 'HTML タグをエスケープすること' do
+        expect(description_html).not_to include('<script>', '<b>')
+        expect(description_html).to include('&lt;script&gt;alert(1)&lt;/script&gt;', '&lt;b&gt;太字&lt;/b&gt;')
+      end
+
+      it '改行を <br> にし、div で囲むこと' do
+        expect(description_html).to start_with('<div>').and end_with('</div>')
+        expect(description_html.scan('<br>').size).to eq 2
+      end
+
+      it 'URL をリンクにすること' do
+        expect(description_html).to include('<a href="https://example.com/page">https://example.com/page</a>')
+      end
+    end
+
+    context '説明文の URL に HTML が仕込まれている場合' do
+      let(:task) { create(:task, user:, description: 'https://example.com/"><script>alert(1)</script>') }
+
+      it 'リンクの属性から抜け出せず、残りは文字列として扱うこと' do
+        expect(inertia.props[:task][:description_html]).to eq(
+          '<div><a href="https://example.com/">https://example.com/</a>"&gt;&lt;script&gt;alert(1)&lt;/script&gt;</div>'
+        )
+      end
+    end
+
+    context '説明文が空の場合' do
+      let(:task) { create(:task, user:, description: nil) }
+
+      it '空の div を渡すこと' do
+        expect(inertia.props[:task][:description_html]).to eq '<div></div>'
+      end
+    end
   end
 
   describe '編集画面表示' do
