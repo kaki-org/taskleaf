@@ -59,6 +59,8 @@ jobs:
         run: bun install --check-files
       - name: typecheck
         run: bun run typecheck
+      - name: frontend test
+        run: bun run test
       - name: Get Playwright version
         id: playwright-version
         run: echo "version=$(jq -r .version node_modules/playwright-core/package.json)" >> "$GITHUB_OUTPUT"
