@@ -7,9 +7,11 @@ type Props = {
   initialValues: { name: string; email: string; admin: boolean }
   method: 'post' | 'patch'
   url: string
+  // ログイン中の管理者が自分を編集するときは、管理者権限を変えられない（サーバ側でも無視する）
+  adminLocked?: boolean
 }
 
-export default function UserForm({ initialValues, method, url }: Props) {
+export default function UserForm({ initialValues, method, url, adminLocked = false }: Props) {
   const form = useForm({ ...initialValues, password: '', password_confirmation: '' })
 
   const submit = (event: FormEvent) => {
@@ -49,10 +51,12 @@ export default function UserForm({ initialValues, method, url }: Props) {
               id="user_admin"
               className="form-check-input"
               checked={form.data.admin}
+              disabled={adminLocked}
               onChange={(e) => form.setData('admin', e.target.checked)}
             />
             管理者権限
           </label>
+          {adminLocked && <div className="form-text">自分の管理者権限は変更できません</div>}
         </div>
         <div className="form-group">
           <label htmlFor="user_password">パスワード</label>

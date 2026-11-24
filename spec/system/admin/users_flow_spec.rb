@@ -135,5 +135,23 @@ RSpec.describe 'Admin Users画面', :js do
       # フラッシュメッセージが表示される
       expect(page).to have_content('ユーザー「更新されたユーザ」を更新しました')
     end
+
+    it 'ほかのユーザーに管理者権限を付けられる' do
+      user = User.find_by(name: 'テストユーザ01')
+      visit edit_admin_user_path(user)
+
+      check '管理者権限'
+      click_button '登録する'
+
+      expect(page).to have_content('ユーザー「テストユーザ01」を更新しました')
+      expect(user.reload).to be_admin
+    end
+
+    it '自分の編集画面では管理者権限を変更できない' do
+      visit edit_admin_user_path(admin_user)
+
+      expect(page).to have_field('管理者権限', checked: true, disabled: true)
+      expect(page).to have_content('自分の管理者権限は変更できません')
+    end
   end
 end
