@@ -292,6 +292,18 @@ describe 'admin/users' do
         expect(admin_user.reload.name).to eq '管理者AA'
       end
     end
+
+    context '管理者権限に空文字を送った場合' do
+      before { patch("/admin/users/#{user.id}", params: { user: { admin: '' } }) }
+
+      it '500 にならず編集フォームへリダイレクトされること' do
+        expect(response).to redirect_to edit_admin_user_path(user)
+      end
+
+      it '管理者権限は変わらないこと' do
+        expect(user.reload).not_to be_admin
+      end
+    end
   end
 
   describe 'DELETE /admin/users/:id' do
