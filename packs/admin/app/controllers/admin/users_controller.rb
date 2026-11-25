@@ -42,6 +42,7 @@ module Admin
       @user = User.find(params.expect(:id))
 
       # ログイン中の管理者が自分の管理者権限を外すと、管理画面に戻れなくなるため変更させない
+      # 管理者 2 人が互いの権限を同時に外すと 0 人になりうるが、ロックを取るほどの頻度ではないので許容する
       attributes = @user == current_user ? user_params.except(:admin) : user_params
       if @user.update(attributes)
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
