@@ -84,8 +84,10 @@ RSpec.describe 'タスク画面', :js do
     end
 
     it '改行を保ち、URL をリンクにする' do
-      expect(page).to have_css('td br')
-      expect(page).to have_link('https://example.com/page', href: 'https://example.com/page')
+      within(:xpath, "//tr[th[normalize-space()='詳しい説明']]") do
+        expect(page).to have_css('td br')
+        expect(page).to have_link('https://example.com/page', href: 'https://example.com/page')
+      end
     end
   end
 

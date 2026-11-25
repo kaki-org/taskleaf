@@ -215,7 +215,8 @@ describe Task do
 
       it '改行を <br> にし、div で囲むこと' do
         expect(description_html).to start_with('<div>').and end_with('</div>')
-        expect(description_html.scan('<br>').size).to eq 2
+        # Rails のバージョンによって <br> と <br /> のどちらも出るので、両方を数える
+        expect(description_html.scan(%r{<br\s*/?>}).size).to eq 2
       end
 
       it 'URL をリンクにすること' do
@@ -226,10 +227,12 @@ describe Task do
     context '説明文の URL に HTML が仕込まれている場合' do
       let(:task) { create(:task, user:, description: 'https://example.com/"><script>alert(1)</script>') }
 
+      # 引用符の書き出し方は sanitizer の版で変わりうるので、出力全体ではなく守りたい性質だけを確かめる
       it 'リンクの属性から抜け出せず、残りは文字列として扱うこと' do
-        expect(inertia.props[:task][:description_html]).to eq(
-          '<div><a href="https://example.com/">https://example.com/</a>"&gt;&lt;script&gt;alert(1)&lt;/script&gt;</div>'
-        )
+        description_html = inertia.props[:task][:description_html]
+        expect(description_html).to include('<a href="https://example.com/">https://example.com/</a>')
+        expect(description_html).to include('&lt;script&gt;alert(1)&lt;/script&gt;')
+        expect(description_html).not_to include('<script')
       end
     end
 
