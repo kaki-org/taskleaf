@@ -62,6 +62,9 @@ bundle exec rspec --format documentation
 
 # カバレッジレポート生成（coverage/に出力）
 COVERAGE=true bundle exec rspec
+
+# フロントエンドの単体テスト（Vitest。app/frontend/**/*.test.ts(x)）
+bun run test
 ```
 
 ### リンティングとコード品質
@@ -121,6 +124,7 @@ bundle exec brakeman
 - **FactoryBot**: テストデータ生成
 - **SimpleCov**: コードカバレッジレポート
 - **Guard**: 自動テスト実行
+- **Vitest + Testing Library**: React コンポーネントの単体テスト。`@inertiajs/react` は `app/frontend/test/inertiaMock.tsx` に差し替える
 
 ### 開発環境
 プロジェクトはローカルとDockerベースの開発の両方をサポートしています：
