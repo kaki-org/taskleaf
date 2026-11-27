@@ -71,6 +71,26 @@ RSpec.describe 'タスク画面', :js do
     end
   end
 
+  describe 'タスク詳細の説明文' do
+    let(:task) do
+      create(:task, user:, name: 'HTML入りのタスク', description: "<b id=\"injected\">太字</b>\n2行目 https://example.com/page")
+    end
+
+    before { visit task_path(task) }
+
+    it 'HTML はタグとして解釈せず文字列のまま表示する' do
+      expect(page).to have_content('<b id="injected">太字</b>')
+      expect(page).to have_no_css('#injected')
+    end
+
+    it '改行を保ち、URL をリンクにする' do
+      within(:xpath, "//tr[th[normalize-space()='詳しい説明']]") do
+        expect(page).to have_css('td br')
+        expect(page).to have_link('https://example.com/page', href: 'https://example.com/page')
+      end
+    end
+  end
+
   describe 'タスク詳細への遷移' do
     before { visit tasks_path }
 
