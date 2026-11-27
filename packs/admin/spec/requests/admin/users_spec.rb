@@ -259,6 +259,53 @@ describe 'admin/users' do
     end
   end
 
+  describe '管理者権限の付け外し' do
+    it '新規作成で管理者権限を付けられること' do
+      post('/admin/users', params: { user: { name: '管理者C', email: 'admin3@example.com', admin: '1', password: 'password', password_confirmation: 'password' } })
+      expect(User.find_by!(email: 'admin3@example.com')).to be_admin
+    end
+
+    it '新規作成で管理者権限を指定しなければ一般ユーザーになること' do
+      post('/admin/users', params: { user: { name: '一般C', email: 'user3@example.com', password: 'password', password_confirmation: 'password' } })
+      expect(User.find_by!(email: 'user3@example.com')).not_to be_admin
+    end
+
+    it 'ほかのユーザーに管理者権限を付けられること' do
+      patch("/admin/users/#{user.id}", params: { user: { admin: '1' } })
+      expect(user.reload).to be_admin
+    end
+
+    it 'ほかのユーザーの管理者権限を外せること' do
+      other_admin = create(:user, admin: true, email: 'admin4@example.com')
+      patch("/admin/users/#{other_admin.id}", params: { user: { admin: '0' } })
+      expect(other_admin.reload).not_to be_admin
+    end
+
+    context '自分自身の管理者権限を外そうとした場合' do
+      before { patch("/admin/users/#{admin_user.id}", params: { user: { name: '管理者AA', admin: '0' } }) }
+
+      it '管理者権限は外れないこと' do
+        expect(admin_user.reload).to be_admin
+      end
+
+      it 'ほかの項目は更新されること' do
+        expect(admin_user.reload.name).to eq '管理者AA'
+      end
+    end
+
+    context '管理者権限に空文字を送った場合' do
+      before { patch("/admin/users/#{user.id}", params: { user: { admin: '' } }) }
+
+      it '500 にならず編集フォームへリダイレクトされること' do
+        expect(response).to redirect_to edit_admin_user_path(user)
+      end
+
+      it '管理者権限は変わらないこと' do
+        expect(user.reload).not_to be_admin
+      end
+    end
+  end
+
   describe 'DELETE /admin/users/:id' do
     context '他のユーザーを削除する場合' do
       before { delete "/admin/users/#{user.id}" }

@@ -41,7 +41,10 @@ module Admin
     def update
       @user = User.find(params.expect(:id))
 
-      if @user.update(user_params)
+      # ログイン中の管理者が自分の管理者権限を外すと、管理画面に戻れなくなるため変更させない
+      # 管理者 2 人が互いの権限を同時に外すと 0 人になりうるが、ロックを取るほどの頻度ではないので許容する
+      attributes = @user == current_user ? user_params.except(:admin) : user_params
+      if @user.update(attributes)
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
       else
         redirect_to edit_admin_user_url(@user), inertia: { errors: @user.errors.to_hash(true) }
@@ -75,7 +78,8 @@ module Admin
     end
 
     def user_params
-      params.expect(user: %i[name email password password_confirmation])
+      # 管理者権限の付け外しは require_admin で管理者に限っているため、admin も受け付ける
+      params.expect(user: %i[name email admin password password_confirmation])
     end
 
     def user_props(user)
