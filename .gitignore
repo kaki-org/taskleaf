@@ -29,7 +29,6 @@
 # download from https://raw.githubusercontent.com/github/gitignore/master/Rails.gitignore
 *.rbc
 capybara-*.html
-.rspec
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /public/system
@@ -104,6 +103,7 @@ yarn-debug.log*
 /pgsql-data/
 .envrc
 
-/app/assets/builds/*
-!/app/assets/builds/.keep
 .config/gh/*
+
+# Vite Ruby
+/public/vite*

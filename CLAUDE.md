@@ -13,17 +13,17 @@ TaskleafはRuby 4.0.9 / Rails 8.1（`config.load_defaults 8.0`）/ PostgreSQLで
 # 初期セットアップ
 bin/setup
 
-# 開発サーバーの起動
-bundle exec rails server
+# 開発サーバーの起動（Rails と Vite の dev server）
+bin/rails server
+bin/vite dev
 
 # データベース操作
 bundle exec rails db:migrate
 bundle exec rails db:reset
 bundle exec rails db:seed
 
-# アセットコンパイル
-bun run build:css
-bun run watch:css
+# フロントエンドの型チェック
+bun run typecheck
 ```
 
 ### Docker開発
@@ -62,6 +62,9 @@ bundle exec rspec --format documentation
 
 # カバレッジレポート生成（coverage/に出力）
 COVERAGE=true bundle exec rspec
+
+# フロントエンドの単体テスト（Vitest。app/frontend/**/*.test.ts(x)）
+bun run test
 ```
 
 ### リンティングとコード品質
@@ -105,10 +108,10 @@ bundle exec brakeman
 - **国際化**: 日本語ロケールサポート（`config.i18n.default_locale = :ja`）
 
 ### フロントエンド
-- **テンプレートエンジン**: ERB
-- **CSSフレームワーク**: カスタムSCSSを含むBootstrap 5
-- **JavaScript**: TurboとStimulusコントローラー
-- **ビルドツール**: アセットコンパイル用のBun、CSS処理用のPostCSS
+- **画面**: inertia-rails + React (TypeScript)。ページは `app/frontend/pages/`、共通ヘッダは `app/frontend/layouts/AppLayout.tsx`
+- **CSSフレームワーク**: Bootstrap 5（SCSS を Vite で読み込む）
+- **ビルドツール**: vite_rails（Vite は Node で起動する）。パッケージ管理は Bun
+- 設計の経緯は `docs/design/1838-inertia-rails.md`
 
 ### データベース
 - **PostgreSQL**: プライマリデータベース
@@ -121,6 +124,7 @@ bundle exec brakeman
 - **FactoryBot**: テストデータ生成
 - **SimpleCov**: コードカバレッジレポート
 - **Guard**: 自動テスト実行
+- **Vitest + Testing Library**: React コンポーネントの単体テスト。`@inertiajs/react` は `app/frontend/test/inertiaMock.tsx` に差し替える
 
 ### 開発環境
 プロジェクトはローカルとDockerベースの開発の両方をサポートしています：
@@ -149,10 +153,11 @@ bundle exec brakeman
 - 明示的なpermitリストを持つストロングパラメータ
 
 ### ビューパターン
-- アプリケーション全体でのERBテンプレート
+- コントローラは `render inertia: 'Tasks/Index', props: {...}` で React のページに props を渡す
+- ログインユーザーは `inertia_share`、flash は inertia-rails の `flash_keys` で全ページに渡す
+- バリデーションエラーは `redirect_to ..., inertia: { errors: model.errors.to_hash(true) }` で返し、フォームは `useForm` で扱う
 - 統一されたUI用のBootstrapコンポーネント
-- ページネーション用にカスタマイズされたKaminariビュー
-- Rails規約を使ったフォームヘルパー
+- ページネーションは kaminari の結果を props で渡し、`Pagination` コンポーネントで描画する
 
 ### RuboCopルール
 - `Style/AsciiComments: false` — 日本語コメントを許可

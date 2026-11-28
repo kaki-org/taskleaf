@@ -10,18 +10,22 @@ module Admin
                else
                  User.limit(params[:limit])
                end
+      render inertia: 'Admin/Users/Index', props: { users: @users.map { |user| user_props(user) } }
     end
 
     def show
       @user = User.find(params.expect(:id))
+      render inertia: 'Admin/Users/Show', props: { user: user_props(@user) }
     end
 
     def new
       @user = User.new
+      render inertia: 'Admin/Users/New'
     end
 
     def edit
       @user = User.find(params.expect(:id))
+      render inertia: 'Admin/Users/Edit', props: { user: @user.slice(:id, :name, :email, :admin) }
     end
 
     def create
@@ -30,17 +34,20 @@ module Admin
       if @user.save
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を登録しました"
       else
-        render :new, status: :unprocessable_content
+        redirect_to new_admin_user_url, inertia: { errors: @user.errors.to_hash(true) }
       end
     end
 
     def update
       @user = User.find(params.expect(:id))
 
-      if @user.update(user_params)
+      # ログイン中の管理者が自分の管理者権限を外すと、管理画面に戻れなくなるため変更させない
+      # 管理者 2 人が互いの権限を同時に外すと 0 人になりうるが、ロックを取るほどの頻度ではないので許容する
+      attributes = @user == current_user ? user_params.except(:admin) : user_params
+      if @user.update(attributes)
         redirect_to admin_user_url(@user), notice: "ユーザー「#{@user.name}」を更新しました"
       else
-        render :edit, status: :unprocessable_content
+        redirect_to edit_admin_user_url(@user), inertia: { errors: @user.errors.to_hash(true) }
       end
     end
 
@@ -48,6 +55,7 @@ module Admin
       return if user_own_request?
 
       @user = User.find(params.expect(:user_id))
+      render inertia: 'Admin/Users/ConfirmDestroy', props: { user: user_props(@user) }
     end
 
     def destroy
@@ -55,10 +63,7 @@ module Admin
 
       @user = User.find(params.expect(:id))
       @user.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました" }
-        format.turbo_stream { flash.now[:notice] = "ユーザー「#{@user.name}」を削除しました" }
-      end
+      redirect_to admin_users_url, notice: "ユーザー「#{@user.name}」を削除しました"
     end
 
     private
@@ -73,7 +78,12 @@ module Admin
     end
 
     def user_params
-      params.expect(user: %i[name email password password_confirmation])
+      # 管理者権限の付け外しは require_admin で管理者に限っているため、admin も受け付ける
+      params.expect(user: %i[name email admin password password_confirmation])
+    end
+
+    def user_props(user)
+      user.slice(:id, :name, :email, :admin).merge(created_at: user.created_at.to_s, updated_at: user.updated_at.to_s)
     end
 
     def require_admin

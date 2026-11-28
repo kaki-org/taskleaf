@@ -6,12 +6,10 @@ class TasksController < ApplicationController
   ANNIVERSARY_DATE = Date.new(2020, 3, 13)
 
   def index
-    @q = current_user.tasks.ransack(params[:q])
-    @tasks = @q.result(distinct: true).page(params[:page])
-    @special_time = special_time?
+    @tasks = current_user.tasks.ransack(params[:q]).result(distinct: true).page(params[:page])
     respond_to do |format|
-      format.html
-      format.csv { send_data @tasks.generate_csv, filename: "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv" }
+      format.html { render inertia: 'Tasks/Index', props: index_props }
+      format.csv { send_data @tasks.generate_csv, filename: csv_filename }
     end
   end
 
@@ -24,16 +22,19 @@ class TasksController < ApplicationController
     end
   end
 
-  def show; end
-
-  def new
-    @task = Task.new
+  def show
+    render inertia: 'Tasks/Show', props: { task: task_detail_props(@task) }
   end
 
-  def edit; end
+  def new
+    render inertia: 'Tasks/New'
+  end
+
+  def edit
+    render inertia: 'Tasks/Edit', props: { task: @task.slice(:id, :name, :description) }
+  end
 
   def create
-    # @task = Task.new(task_params.merge(user_id: current_user.id))
     @task = current_user.tasks.new(task_params)
 
     if @task.save
@@ -41,7 +42,7 @@ class TasksController < ApplicationController
       SampleJob.perform_later
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
-      render :new, status: :unprocessable_content
+      redirect_to new_task_url, inertia: { errors: @task.errors.to_hash(true) }
     end
   end
 
@@ -49,20 +50,18 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました。"
     else
-      render :edit, task: @task.errors, status: :unprocessable_content
+      redirect_to edit_task_url(@task), inertia: { errors: @task.errors.to_hash(true) }
     end
   end
 
   def confirm_destroy
-    @task = current_user.tasks.find(params.require(:task_id))
+    task = current_user.tasks.find(params.require(:task_id))
+    render inertia: 'Tasks/ConfirmDestroy', props: { task: task_detail_props(task) }
   end
 
   def destroy
     @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました" }
-      format.turbo_stream { flash.now[:notice] = "タスク「#{@task.name}」を削除しました" }
-    end
+    redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました"
   end
 
   private
@@ -73,6 +72,38 @@ class TasksController < ApplicationController
 
   def task_params
     params.expect(task: %i[name description image])
+  end
+
+  def csv_filename
+    "tasks-#{Time.zone.now.strftime('%Y%m%d%S')}.csv"
+  end
+
+  def index_props
+    {
+      tasks: @tasks.map { |task| task.slice(:id, :name).merge(created_at: task.created_at.to_s) },
+      pagination: { current_page: @tasks.current_page, total_pages: @tasks.total_pages },
+      entries_info: Nokogiri::HTML5.fragment(helpers.page_entries_info(@tasks)).text,
+      query: search_query,
+      special_time: special_time?
+    }
+  end
+
+  # ransack はハッシュ以外の q を空の条件として扱うため、検索フォームの初期値も同様に空にする
+  def search_query
+    query = params[:q]
+    query.respond_to?(:permit) ? query.permit(:name_cont, :created_at_gteq, :s) : {}
+  end
+
+  def task_detail_props(task)
+    {
+      id: task.id,
+      name: task.name,
+      # ERB と同じく HTML をエスケープしてから改行とリンクを付ける
+      description_html: helpers.auto_link(helpers.simple_format(ERB::Util.h(task.description), {}, sanitize: false, wrapper_tag: 'div')),
+      image_url: task.image.attached? ? url_for(task.image) : nil,
+      created_at: task.created_at.to_s,
+      updated_at: task.updated_at.to_s
+    }
   end
 
   def special_time?
